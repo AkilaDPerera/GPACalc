@@ -16,66 +16,65 @@ def SCRAPE(username, password):
     
     data = c.get("https://lms.mrt.ac.lk/enrolments.php")
 
-    try:
-        nameIndex = []
-        if data.url=="https://lms.mrt.ac.lk/enrolments.php":
-            #Get the web page properly
-            soups = BeautifulSoup(data.content, "lxml")
-            
-            #Getting name and Index
-            para = soups('p')
-            nameIndex.append((re.findall('([A-Z ]+)</p>$', str(para[0]))[0]).title())
-            nameIndex.append((re.findall('1[0-9]{5}[A-Za-z]{1}', str(para[0]))[0]))
-            
+#----------
+    nameIndex = []
+    if data.url=="https://lms.mrt.ac.lk/enrolments.php":
+        #Get the web page properly
+        soups = BeautifulSoup(data.content, "lxml")
         
-            
-            tables = soups('table')
-            #Finding the specific table
-            for table in tables:
-                if (table.get('cellspacing', None)=='1') and (table.get('cellpadding', None)=='1') and (table.get('class', None)==['bodytext']):
-                    #Got the table
-                    trows = table('tr')
+        #Getting name and Index
+        para = soups('p')
+        nameIndex.append((re.findall('([A-Z ]+)</p>$', str(para[0]))[0]).title())
+        nameIndex.append((re.findall('1[0-9]{5}[A-Za-z]{1}', str(para[0]))[0]))
+        
+    
+        
+        tables = soups('table')
+        #Finding the specific table
+        for table in tables:
+            if (table.get('cellspacing', None)=='1') and (table.get('cellpadding', None)=='1') and (table.get('class', None)==['bodytext']):
+                #Got the table
+                trows = table('tr')
+                
+                #We get all the rows of data as list in trows
+                
+                GPASUM = 0
+                scrapedSum = 0
+                current_semester = ''
+                module = []
+                
+                index = -1
+                for tr in trows[::-1]:
+                    index += 1
                     
-                    #We get all the rows of data as list in trows
-                    
-                    GPASUM = 0
-                    scrapedSum = 0
-                    current_semester = ''
-                    module = []
-                    
-                    index = -1
-                    for tr in trows[::-1]:
-                        index += 1
-                        
-                        tds = tr('td')
-                        if len(tds)==4:
-                            if current_semester=='': 
-                                current_semester = tds[0].text
-                                scrapedSum = float(trows[::-1][index-1]('td')[1].text)
-							
-                            if current_semester==tds[0].text:
-                                GPASUM +=  float(tds[3].text)
-                                module.append([tds[1].text, tds[2].text, float(tds[3].text)])
-                                
-                            else:
-                                break
+                    tds = tr('td')
+                    if len(tds)==4:
+                        if current_semester=='': 
+                            current_semester = tds[0].text
+                            scrapedSum = float(trows[::-1][index-1]('td')[1].text)
+                                                    
+                        if current_semester==tds[0].text:
+                            GPASUM +=  float(tds[3].text)
+                            module.append([tds[1].text, tds[2].text, float(tds[3].text)])
                             
-                    break
-            else:
-                #No such table found
-                return -1,0,0,0
-            
-            #Contradiction with calc GPA with scraped GPA
-            if scrapedSum==GPASUM:
-                return (nameIndex, current_semester, GPASUM, module)
-            else:
-                return -1,0,0,0
+                        else:
+                            break
+                        
+                break
         else:
-            #Did get the web page properly
-            return -2,0,0,0#Incorrect password
+            #No such table found
+            return -1,0,0,0
+        
+        #Contradiction with calc GPA with scraped GPA
+        if scrapedSum==GPASUM:
+            return (nameIndex, current_semester, GPASUM, module)
+        else:
+            return -1,0,0,0
+    else:
+        #Did get the web page properly
+        return -2,0,0,0#Incorrect password
             
-    except:
-        return -1,0,0,0
+#-----------
 
 GRADE = {'None':'None', 'A+':4.2, 'A ':4.0, 'A-':3.7, 'B+':3.3, 'B ':3.0, 'B-':2.7, 'C+':2.3, 'C ':2.0, 'C-':1.5, 'D ':1.0, 'F ':0.0}
 
