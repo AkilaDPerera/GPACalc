@@ -1,0 +1,101 @@
+.buttons {
+	text-align: center;
+}
+
+.buttons a {
+	
+	margin-top:50px;
+	margin-bottom:50px;
+	margin-right: 150px;
+	margin-left: 150px;
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	position: relative;
+	line-height: 64px;
+	background-color: #eaeaea;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eaeaea));
+	background-image: -webkit-linear-gradient(top, #f6f6f6, #eaeaea);
+	background-image: -moz-linear-gradient(top, #f6f6f6, #eaeaea); 
+	background-image: -ms-linear-gradient(top, #f6f6f6, #eaeaea); 
+	background-image: -o-linear-gradient(top, #f6f6f6, #eaeaea);
+	background-image: linear-gradient(top, #f6f6f6, #eaeaea);
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+}
+
+.buttons a:active {
+	top: 1px;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#eaeaea), to(#f6f6f6));
+	background-image: -webkit-linear-gradient(top, #eaeaea, #f6f6f6);
+	background-image: -moz-linear-gradient(top, #eaeaea, #f6f6f6); 
+	background-image: -ms-linear-gradient(top, #eaeaea, #f6f6f6); 
+	background-image: -o-linear-gradient(top, #eaeaea, #f6f6f6);
+	background-image: linear-gradient(top, #eaeaea, #f6f6f6);
+}
+
+.buttons a::before{
+		content: '';
+		position: absolute;
+		z-index: -1;
+		top: -16px;
+		right: -16px;
+		bottom: -16px;
+		left: -16px;
+		background-color: #eaeaea;
+		-moz-border-radius: 140px;
+		-webkit-border-radius: 140px;
+		border-radius: 140px;
+	opacity: 0.5;		
+}
+
+.buttons a:active::before {
+	top: -9px;
+}
+
+.buttons a:hover::before { opacity: 1; }
+
+.buttons a.twitter:hover::before {
+	background-color: #c6f0f8;
+}
+
+
+.buttons a.dribble:hover::before {
+	background-color: #fadae6;
+}
+
+
+
+.twitter img { 
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+.twitter p { 
+	position: absolute;
+	top: 100px;
+	right: 25px;
+}
+
+.dribble img { 
+	position: absolute;
+	top: 0px;
+	right: 10px;
+}
+.buttons p { 
+	position: absolute;
+	top: 100px;
+	right: 25px;
+}
+
+
+
+
+
+
+
+
