@@ -1,0 +1,49 @@
+{% extends 'header.html' %}
+
+{% block content %}
+
+<div class="container">
+	<h2>Performance of {{semester}}</h2>
+	<h3>{{name}} | {{index}}</h3>
+	
+
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Module Code</th>
+				<th>Module Name</th>
+				<th>Credits</th>
+				<th>Grade earned</th>
+			</tr>
+		</thead>
+	
+		<tbody>
+			{% for module in modules %}
+				<tr>
+					<td>{{module.code}}</td>
+					<td>{{module.name}}</td>
+					<td>{{module.GPAcredit}}</td>
+					<td>{{module.gradeEarned}}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+<div class="container">
+	<h2><strong>Current GPA :</strong></h2>
+	<h1>{{currentGPA}}</h1>
+</div>
+<hr>
+<div>
+	<center class="col-md-6">
+		<button type="button" class="btn btn-default btn-lg" onClick="history.go(-1);return true;">  Back  </button>
+	</center>
+	<center">
+		<a href="/" class="btn btn-default btn-lg" type="button">  Home  </a>
+	</center>
+	<br>
+	<br>
+</div>
+
+{% endblock %}
