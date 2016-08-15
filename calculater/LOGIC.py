@@ -20,7 +20,7 @@ def SCRAPE(username, password):
     nameIndex = []
     if data.url=="https://lms.mrt.ac.lk/enrolments.php":
         #Get the web page properly
-        soups = BeautifulSoup(data.content, "lxml")
+        soups = BeautifulSoup(data.content)
         
         #Getting name and Index
         para = soups('p')
