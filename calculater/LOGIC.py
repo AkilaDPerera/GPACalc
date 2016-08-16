@@ -3,8 +3,6 @@ import re
 from bs4 import BeautifulSoup
 from time import sleep
 
-#-------------------------------------------------------------------------------------------------------------------------------------
-
 class MODULE():
     semester, code, name, credit, gradeEarned = '', '', '', None, None
     
@@ -23,8 +21,7 @@ class SEMESTER():
         self.semester = semester
         self.semValue = semester.replace(' ', '!')
 
-#-------------------------------------------------------------------------------------------------------------------------------------
-
+#--------------------------------------------------------------------------
 def SCRAPE(username, password):
     """
     ERROR RETURNS,
@@ -48,17 +45,11 @@ def SCRAPE(username, password):
             data = c.get("https://lms.mrt.ac.lk/enrolments.php")
             
         except:
-            #TEST --------------------------------------------------------------------------------
-            print ('Getting error at login request')
             sleep(3)
         
         else:
-            #TEST --------------------------------------------------------------------------------
-            print('No error at login')
             break
     else:
-        #Test -----------------------------------------------------------------------------------
-        print('login exception occurs at both two tries')
         return -2, 0, 0 #Exception occurs at login in both two tries
     
     #No exception at login
@@ -97,8 +88,7 @@ def SCRAPE(username, password):
                     try:
                         gpa = float(tds[3].text)
                     except:
-                        #TEST -----------------------------------------------------------------------
-                        print('Cannot convert to float detected')
+                        pass
                     else:
                         semester = tds[0].text[4:]
                         moduleCode = tds[1].text
@@ -159,7 +149,6 @@ def CALCGPA(moduleList):
     total = 0
     creditPoints = 0
     
-    print('\t\t\t',len(moduleList))
     for module in moduleList:
         value = GRADE[module.gradeEarned]
         

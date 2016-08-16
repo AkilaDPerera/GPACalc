@@ -18,7 +18,7 @@ def manual(request):
 	return render(request, 'calc/manual.html')	
 
 def signin(request):
-    global realName, indexNumber, semesters, semChoice
+    global realName, indexNumber, semesters
     
     if request.method=='POST':
         username = request.POST['username']
@@ -42,9 +42,9 @@ def signin(request):
             return render(request, 'calc/successFirst.html', {'petname':LOGIC.GETPETNAME(realName), 'semNo':LOGIC.GETSEMESTERDETECTION(semesters), 'semlist':LOGIC.GETSEMESTERLIST(semesters)})
             
 def choice1(request):
-    global realName, indexNumber, semesters, semChoice
+    global semChoice
     if request.method=='POST':
-        semChoice = LOGIC.SEMVALTOSEMNAME(request.POST["semester"])
+        semChoice = LOGIC.SEMVALTOSEMNAME(str(request.POST["semester"]))
         
 
         moduleList = semesters[semChoice]
@@ -54,7 +54,7 @@ def choice1(request):
         return render(request, 'calc/successSecond.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList})
     
 def choice2(request):
-    global realName, indexNumber, semesters, semChoice
+
     if request.method=='POST':
         
         #Magule error eka enne nethiwenna...
