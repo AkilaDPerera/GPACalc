@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
 from . import LOGIC
+from time import sleep
 
 #User inputs as variables
 semChoice = ''
@@ -53,6 +54,7 @@ def choice1(request):
         
                 return render(request, 'calc/successSecond.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList})
             except:
+                sleep(1)
                 pass
 
     
@@ -71,6 +73,7 @@ def choice2(request):
                 
                 return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA})
             except:
+                sleep(1)
                 pass
             
         
