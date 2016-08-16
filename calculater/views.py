@@ -101,6 +101,7 @@ def choice2(request):
         pickle_in.close()
 
         moduleList = semesters[semChoice]
+        moduleList.sort(key=lambda x: x.credit, reverse=True)
     
         
         LOGIC.ADDINGGRADE(moduleList, request.POST)
