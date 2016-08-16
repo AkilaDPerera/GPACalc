@@ -43,26 +43,36 @@ def signin(request):
 def choice1(request):
     global semChoice
     if request.method=='POST':
-        semChoice = 'BSc Eng. Semester - '+ str(request.POST["semester"])
+        for trytologin in range(3):
+            try:
+                semChoice = 'BSc Eng. Semester - '+ str(request.POST["semester"])
         
-        moduleList = semesters[semChoice]
+                moduleList = semesters[semChoice]
 
-        moduleList.sort(key=lambda x: x.credit, reverse=True)
+                moduleList.sort(key=lambda x: x.credit, reverse=True)
         
-        return render(request, 'calc/successSecond.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList})
+                return render(request, 'calc/successSecond.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList})
+            except:
+                pass
+
     
 def choice2(request):
     print (semChoice)
     if request.method=='POST':
         
-        #Magule error eka enne nethiwenna...
-        moduleList = semesters[semChoice]
-
+        for trytologin in range(3):
+            try:
+                #Magule error eka enne nethiwenna...
+                moduleList = semesters[semChoice]
         
-        LOGIC.ADDINGGRADE(moduleList, request.POST)
-        GPA = LOGIC.CALCGPA(moduleList)
-        
-        return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA})
+                
+                LOGIC.ADDINGGRADE(moduleList, request.POST)
+                GPA = LOGIC.CALCGPA(moduleList)
+                
+                return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA})
+            except:
+                pass
+            
         
 
 
