@@ -129,8 +129,6 @@ def GETSEMESTERLIST(semesters):
     lst.sort()
     return [SEMESTER(element) for element in lst]
     
-def SEMVALTOSEMNAME(semValue):
-        return 'BSc Eng. Semester - '+ semValue
     
 def ADDINGGRADE(moduleList, requestPOST ):
     #Input1 = List of MODULE Objects for each module

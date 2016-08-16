@@ -1,13 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
 from . import LOGIC
-from time import sleep
-
-#User inputs as variables
-semChoice = ''
-
-#General variables
-realName, indexNumber, semesters = None, None, None
+import pickle
 
 def basic(request):
 	return render(request, 'calc/basic.html')
@@ -19,13 +13,26 @@ def manual(request):
 	return render(request, 'calc/manual.html')	
 
 def signin(request):
-    global realName, indexNumber, semesters
     
     if request.method=='POST':
         username = request.POST['username']
         password = request.POST['password']
         
         realName, indexNumber, semesters = LOGIC.SCRAPE(username, password)
+        
+        #OBJ serializing
+        pickle_out = open('realName.pickle', 'wb')
+        pickle.dump(realName, pickle_out)
+        pickle_out.close()
+        
+        pickle_out = open('indexNumber.pickle', 'wb')
+        pickle.dump(indexNumber, pickle_out)
+        pickle_out.close()
+        
+        pickle_out = open('semesters.pickle', 'wb')
+        pickle.dump(semesters, pickle_out)
+        pickle_out.close()
+        
         
         #Handling error situations
         if realName==-2:
@@ -42,39 +49,65 @@ def signin(request):
             return render(request, 'calc/successFirst.html', {'petname':LOGIC.GETPETNAME(realName), 'semNo':LOGIC.GETSEMESTERDETECTION(semesters), 'semlist':LOGIC.GETSEMESTERLIST(semesters)})
             
 def choice1(request):
-    global semChoice
+    
     if request.method=='POST':
-        for trytologin in range(5):
-            try:
-                semChoice = 'BSc Eng. Semester - '+ str(request.POST["semester"])
+        semChoice = 'BSc Eng. Semester - '+ str(request.POST["semester"])
         
-                moduleList = semesters[semChoice]
+        #OBJ Serialization
+        pickle_out = open('semChoice.pickle', 'wb')
+        pickle.dump(semChoice, pickle_out)
+        pickle_out.close()
+        
+        #OBJ de-serailization
+        pickle_in = open('realName.pickle', 'rb')
+        realName = pickle.load(pickle_in)
+        pickle_in.close()
+        
+        pickle_in = open('indexNumber.pickle', 'rb')
+        indexNumber = pickle.load(pickle_in)
+        pickle_in.close()
+        
+        pickle_in = open('semesters.pickle', 'rb')
+        semesters = pickle.load(pickle_in)
+        pickle_in.close()
+        
+    
+        moduleList = semesters[semChoice]
+        moduleList.sort(key=lambda x: x.credit, reverse=True)
+    
+        return render(request, 'calc/successSecond.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList})
 
-                moduleList.sort(key=lambda x: x.credit, reverse=True)
-        
-                return render(request, 'calc/successSecond.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList})
-            except:
-                sleep(1)
-                pass
 
     
 def choice2(request):
-    print (semChoice)
+    
     if request.method=='POST':
         
-        for trytologin in range(5):
-            try:
-                #Magule error eka enne nethiwenna...
-                moduleList = semesters[semChoice]
+        #OBJ de-serailization
+        pickle_in = open('realName.pickle', 'rb')
+        realName = pickle.load(pickle_in)
+        pickle_in.close()
         
-                
-                LOGIC.ADDINGGRADE(moduleList, request.POST)
-                GPA = LOGIC.CALCGPA(moduleList)
-                
-                return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA})
-            except:
-                sleep(1)
-                pass
+        pickle_in = open('indexNumber.pickle', 'rb')
+        indexNumber = pickle.load(pickle_in)
+        pickle_in.close()
+        
+        pickle_in = open('semesters.pickle', 'rb')
+        semesters = pickle.load(pickle_in)
+        pickle_in.close()
+        
+        pickle_in = open('semChoice.pickle', 'rb')
+        semChoice = pickle.load(pickle_in)
+        pickle_in.close()
+
+        moduleList = semesters[semChoice]
+    
+        
+        LOGIC.ADDINGGRADE(moduleList, request.POST)
+        GPA = LOGIC.CALCGPA(moduleList)
+        
+        return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA})
+
             
         
 
