@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.shortcuts import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+from django.shortcuts import HttpResponse
 from . import LOGIC
 
 #User inputs as variables
@@ -46,32 +46,25 @@ def choice1(request):
     if request.method=='POST':
         semChoice = LOGIC.SEMVALTOSEMNAME(request.POST["semester"])
         
-        try:
-            moduleList = semesters[semChoice]
-        except:
-            print ('Error at choice 1')
-            return (choice2(request))
-        else:
-            moduleList.sort(key=lambda x: x.credit, reverse=True)
-            
-            return render(request, 'calc/successSecond.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList})
+
+        moduleList = semesters[semChoice]
+
+        moduleList.sort(key=lambda x: x.credit, reverse=True)
+        
+        return render(request, 'calc/successSecond.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList})
     
 def choice2(request):
     global realName, indexNumber, semesters, semChoice
     if request.method=='POST':
         
         #Magule error eka enne nethiwenna...
-        try:
-            moduleList = semesters[semChoice]
-        except:
-            print ('Error at choice 2')
-            return (choice2(request))
-        else:
-            
-            LOGIC.ADDINGGRADE(moduleList, request.POST)
-            GPA = LOGIC.CALCGPA(moduleList)
-            
-            return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA})
+        moduleList = semesters[semChoice]
+
+        
+        LOGIC.ADDINGGRADE(moduleList, request.POST)
+        GPA = LOGIC.CALCGPA(moduleList)
+        
+        return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA})
         
 
 
