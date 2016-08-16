@@ -1,121 +1,176 @@
-def SCRAPE(username, password):
-    import requests
-    from bs4 import BeautifulSoup
-    import re
-    
-    c= requests.Session()
-    
-    url = 'https://lms.mrt.ac.lk/login.php'
-    
-    loginData = {'LearnOrgUsername': username,
-                 'LearnOrgPassword': password, 'LearnOrgLogin': 'Login'}
-    
-    c.get(url)
-    
-    c.post(url, data=loginData)
-    
-    data = c.get("https://lms.mrt.ac.lk/enrolments.php")
+import requests
+import re
+from bs4 import BeautifulSoup
+from time import sleep
 
-#----------
-    nameIndex = []
-    if data.url=="https://lms.mrt.ac.lk/enrolments.php":
-        #Get the web page properly
-        soups = BeautifulSoup(data.content)
-        
-        #Getting name and Index
-        para = soups('p')
-        nameIndex.append((re.findall('([A-Z ]+)</p>$', str(para[0]))[0]).title())
-        nameIndex.append((re.findall('1[0-9]{5}[A-Za-z]{1}', str(para[0]))[0]))
-        
-    
-        
-        tables = soups('table')
-        #Finding the specific table
-        for table in tables:
-            if (table.get('cellspacing', None)=='1') and (table.get('cellpadding', None)=='1') and (table.get('class', None)==['bodytext']):
-                #Got the table
-                trows = table('tr')
-                
-                #We get all the rows of data as list in trows
-                
-                GPASUM = 0
-                scrapedSum = 0
-                current_semester = ''
-                module = []
-                
-                index = -1
-                for tr in trows[::-1]:
-                    index += 1
-                    
-                    tds = tr('td')
-                    if len(tds)==4:
-                        if current_semester=='': 
-                            current_semester = tds[0].text
-                            scrapedSum = float(trows[::-1][index-1]('td')[1].text)
-                                                    
-                        if current_semester==tds[0].text:
-                            GPASUM +=  float(tds[3].text)
-                            module.append([tds[1].text, tds[2].text, float(tds[3].text)])
-                            
-                        else:
-                            break
-                        
-                break
-        else:
-            #No such table found
-            return -1,0,0,0
-        
-        #Contradiction with calc GPA with scraped GPA
-        if scrapedSum==GPASUM:
-            return (nameIndex, current_semester, GPASUM, module)
-        else:
-            return -1,0,0,0
-    else:
-        #Did get the web page properly
-        return -2,0,0,0#Incorrect password
-            
-#-----------
-
+#-------------------------------------------------------------------------------------------------------------------------------------
 
 class MODULE():
-    code = ''
-    name = ''
-    GPAcredit, gradeEarned = None, None
+    semester, code, name, credit, gradeEarned = '', '', '', None, None
     
-    def __init__(self, module):
-        self.code = module[0]
-        self.name = module[1]
-        self.GPAcredit = module[2]
-    def setGradeEarned(self, value):
-        self.gradeEarned = value
+    def __init__(self, semester, code, name, credit):
+        self.semester = semester
+        self.code = code
+        self.name = name
+        self.credit = credit
+        
+    def setGradeEarned(self, grade): #grade = 'A+', 'A ', 'A-'
+        self.gradeEarned = grade
 
-def ModuleToObject(modules):
-    lst = []
-    for module in modules:
-        lst.append(MODULE(module))
-    return lst
+class SEMESTER():
+    semester, semValue = '', ''
+    def __init__(self, semester):
+        self.semester = semester
+        self.semValue = semester.replace(' ', '!')
 
-def ConnectPost(modules, POST):
-    for module in modules:
-        data = POST[module.code]
-        if data!='Unkwown':
+#-------------------------------------------------------------------------------------------------------------------------------------
+
+def SCRAPE(username, password):
+    """
+    ERROR RETURNS,
+    -1 : incorrect passward 
+    -2 : Exception occurs at login in both two tries
+    -3 : lms web site structure was changed
+    """
+    for trytologin in range(2):
+        try:
+            c= requests.Session()
+    
+            url = 'https://lms.mrt.ac.lk/login.php'
+    
+            loginData = {'LearnOrgUsername': username,
+                 'LearnOrgPassword': password, 'LearnOrgLogin': 'Login'}
+    
+            c.get(url)
+    
+            c.post(url, data=loginData)
+    
+            data = c.get("https://lms.mrt.ac.lk/enrolments.php")
+            
+        except:
+            #TEST --------------------------------------------------------------------------------
+            print ('Getting error at login request')
+            sleep(3)
+        
+        else:
+            #TEST --------------------------------------------------------------------------------
+            print('No error at login')
+            break
+    else:
+        #Test -----------------------------------------------------------------------------------
+        print('login exception occurs at both two tries')
+        return -2, 0, 0 #Exception occurs at login in both two tries
+    
+    #No exception at login
+    
+    if data.url!="https://lms.mrt.ac.lk/enrolments.php": #If passward incorrect
+        return -1, 0, 0
+    
+    #Login to moodle sucessful we have the web content required 'data'
+
+    soups = BeautifulSoup(data.content)
+        
+    #Getting name and Index
+    para = soups('p')
+    realName = (re.findall('([A-Z ]+)</p>$', str(para[0]))[0]).title()
+    indexNumber = (re.findall('1[0-9]{5}[A-Za-z]{1}', str(para[0]))[0])
+
+
+        
+    tables = soups('table')
+    #Finding the specific table
+    for table in tables:
+        if (table.get('cellspacing', None)=='1') and (table.get('cellpadding', None)=='1') and (table.get('class', None)==['bodytext']):
+            #Got the table
+            trows = table('tr')
+                
+            #We get all the rows of data as list in trows
+            semesters = {}
+            
+            currentIndex = -1
+            for tr in trows[::-1]:
+                currentIndex += 1
+    
+                tds = tr('td')
+
+                if len(tds)==4:#Possible data set
+                    try:
+                        gpa = float(tds[3].text)
+                    except:
+                        #TEST -----------------------------------------------------------------------
+                        print('Cannot convert to float detected')
+                    else:
+                        semester = tds[0].text[4:]
+                        moduleCode = tds[1].text
+                        moduleName = tds[2].text
+                        
+                        module = MODULE(semester, moduleCode, moduleName, gpa)
+                        
+                        if not(semester in semesters):
+                            semesters[semester] = [module]
+                        else:
+                            semesters[semester].append(module)
+            break
+    else:
+        return -3, 0, 0 #lms web site structure was changed
+    
+    #Every thing is good to proceed
+    return realName, indexNumber, semesters #Semester = {'Bsc. Eng. Semester 1': [module obj, module obj, module obj, ..., module obj]}
+
+#-------------------------------------------------------------------------------------------------------------------------------------
+
+def GETPETNAME(full_name):
+    names = sorted(full_name.split(), key=lambda x: len(x), reverse=False)
+    for name in names:
+        if len(name)>3:
+            return name
+
+def GETSEMESTERDETECTION(semesters):
+    length = len(semesters)
+    if length == 1:
+        return 'Only one semester was detected. Please choose it from below and continue'
+    else:
+        return '%d semesters were detected. Pick your choice and continue.'%(length)
+
+
+
+def GETSEMESTERLIST(semesters):
+    lst = list(semesters.keys())
+    lst.sort()
+    return [SEMESTER(element) for element in lst]
+    
+def SEMVALTOSEMNAME(semValue):
+        return semValue.replace('!', ' ')
+    
+def ADDINGGRADE(moduleList, requestPOST ):
+    #Input1 = List of MODULE Objects for each module
+    #Input2 = think as a python dict ; {'moduleCode':'A+', 'moduleCode':'A '} likewise
+    for module in moduleList:
+        data = requestPOST[module.code]
+        if data!='Unknown':
             module.setGradeEarned(data)
-        elif data=='Unkwown':
+        elif data=='Unknown':
             module.setGradeEarned('None')
 
-def CalcGPA(modules):
+def CALCGPA(moduleList):
+    #Input = List of MODULE Objects for each module
     GRADE = {'None':'None', 'A+':4.2, 'A ':4.0, 'A-':3.7, 'B+':3.3, 'B ':3.0, 'B-':2.7, 'C+':2.3, 'C ':2.0, 'C-':1.5, 'D ':1.0, 'F ':0.0}
+    
     total = 0
-    credit = 0
-    for module in modules:
-        data = GRADE[module.gradeEarned]
+    creditPoints = 0
+    
+    print('\t\t\t',len(moduleList))
+    for module in moduleList:
+        value = GRADE[module.gradeEarned]
         
-        if data!='None':
-            cr = module.GPAcredit
-            total += (data*cr)
-            credit += cr
+        if value!='None':
+            cr = module.credit
+            
+            total += (value*cr)
+            creditPoints += cr
+
     if total!=0:
-        return float(total)/credit
+        return round(float(total)/creditPoints, 4)
     else:
         return 0
     

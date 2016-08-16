@@ -6,7 +6,7 @@
 	<h2>Registered Modules in {{semester}}</h2>
 	<h3>{{name}} | {{index}}</h3>
 	
-	<form action="result/" method="post">
+	<form action="/calc/signin/submit/choice2/" method="post">
 		{% csrf_token %}
 		<table class="table table-bordered">
 			<thead>
@@ -23,10 +23,10 @@
 					<tr>
 						<td>{{module.code}}</td>
 						<td>{{module.name}}</td>
-						<td>{{module.GPAcredit}}</td>
+						<td>{{module.credit}}</td>
 						<td>
-							<select name={{module.code}} >
-								<option selected="selected">Unkwown</option>
+							<select name={{module.code}} class="selectpicker">
+								<option selected="selected">Unknown</option>
 								<option value="A+">A+</option>
 								<option value="A ">A </option>
 								<option value="A-">A-</option>
@@ -44,10 +44,13 @@
 				{% endfor %}
 			</tbody>
 		</table>
-		<div class="col-xs-offset-10 col-sm-offset-10 col-md-offset-10">
-			<input class="btn btn-default btn-lg" type="submit" value="Done">
-		</div>
+		
+		
+		<button type="button" class="btn btn-default btn-lg alignleft" onClick="history.go(-1);return true;">  Back  </button>
+		<input class="btn btn-default btn-lg alignright" type="submit" value="DONE">
+		
 	</form>
+	
 </div>
 
 

@@ -92,6 +92,12 @@
 	right: 25px;
 }
 
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
+}
 
 
 

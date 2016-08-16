@@ -1,0 +1,25 @@
+{% extends 'header.html' %}
+
+{% block content %}
+
+<div class="container">
+	<center>
+		<h1>Hello {{petname}}, <small>Thanks for using my service.</small></h1>
+		<h2><small>{{semNo}}</small><h2>
+	</center>
+</div>
+	<center>
+		<form action="choice1/" method="post">
+			{% csrf_token %}
+			<select name="semester" class="selectpicker">
+				{% for semester in semlist %}
+					<option value={{semester.semValue}}>{{semester.semester}}</option>
+				{% endfor %}
+			</select>	
+			<input class="btn btn-default btn-lg" type="submit" value="NEXT">
+		</form>
+	</center>
+</div>
+
+
+{% endblock %}

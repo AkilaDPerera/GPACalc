@@ -6,7 +6,6 @@
 	<h2>Performance of {{semester}}</h2>
 	<h3>{{name}} | {{index}}</h3>
 	
-
 	<table class="table table-bordered">
 		<thead>
 			<tr>
@@ -22,28 +21,28 @@
 				<tr>
 					<td>{{module.code}}</td>
 					<td>{{module.name}}</td>
-					<td>{{module.GPAcredit}}</td>
+					<td>{{module.credit}}</td>
 					<td>{{module.gradeEarned}}</td>
 				</tr>
 			{% endfor %}
 		</tbody>
 	</table>
+	
+	<div class="container">
+		<center>
+			<h2><strong>Current GPA :</strong></h2>
+			<h1>{{GPA}}</h1>
+		</center>
+	</div>
+	<br>
+	<div>
+		<button type="button" class="btn btn-default btn-lg alignleft" onClick="history.go(-1);return true;">  BACK  </button>
+		<a href="/" class="btn btn-default btn-lg alignright" type="button">  HOME  </a>
+	</div>
 </div>
 
-<div class="container">
-	<h2><strong>Current GPA :</strong></h2>
-	<h1>{{currentGPA}}</h1>
-</div>
-<hr>
-<div>
-	<center class="col-md-6">
-		<button type="button" class="btn btn-default btn-lg" onClick="history.go(-1);return true;">  Back  </button>
-	</center>
-	<center">
-		<a href="/" class="btn btn-default btn-lg" type="button">  Home  </a>
-	</center>
-	<br>
-	<br>
-</div>
+
+
+
 
 {% endblock %}

@@ -1,44 +1,67 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
 from . import LOGIC
-from .LOGIC import ModuleToObject, ConnectPost, CalcGPA
 
+#User inputs as variables
+semChoice = ''
 
-user, sem, tot, modules, mod = None, None, None, None, None
-
-
+#General variables
+realName, indexNumber, semesters = None, None, None
 
 def basic(request):
 	return render(request, 'calc/basic.html')
 	
-def signin(request):
-	return render(request, 'calc/signin_go.html')
+def signinPage(request):
+	return render(request, 'calc/signin_normal.html')
 
 def manual(request):
 	return render(request, 'calc/manual.html')	
 
-def btn1(request):
-	global user, sem, tot, modules, mod
-	if request.method=='POST':
-		username = request.POST['username']
-		password = request.POST['password']
-		
-		user, sem, tot, mod = LOGIC.SCRAPE(username, password)
-		
-		if user==-2:
-			return render(request, 'calc/signin_err.html')
-		elif user==-1:
-			return HttpResponse('Sorry, Internal error.')
-		else:
-			modules = LOGIC.ModuleToObject(mod)
-			modules.sort(key=lambda x: x.GPAcredit, reverse=True)
-			
-			return render(request, 'calc/success.html', {'name':user[0], 'index':user[1], 'semester':sem[4:], 'total':tot, 'modules':modules})
+def signin(request):
+    global realName, indexNumber, semesters, semChoice
+    
+    if request.method=='POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        realName, indexNumber, semesters = LOGIC.SCRAPE(username, password)
+        
+        #Handling error situations
+        if realName==-2:
+            return render(request, 'calc/signin_exception.html')
+            
+        elif realName==-1:
+            return render(request, 'calc/signin_password.html')
+        
+        elif realName==-3:
+            return HttpResponse("This service is no longer exist due to change of moodle structure. Sorry for the inconvenience.")
+        
+        else:
+            #No errors things works as expected
+            print(LOGIC.GETPETNAME(realName))
+            return render(request, 'calc/successFirst.html', {'petname':LOGIC.GETPETNAME(realName), 'semNo':LOGIC.GETSEMESTERDETECTION(semesters), 'semlist':LOGIC.GETSEMESTERLIST(semesters)})
+            
+def choice1(request):
+    global realName, indexNumber, semesters, semChoice
+    if request.method=='POST':
+        semChoice = LOGIC.SEMVALTOSEMNAME(request.POST["semester"])
+        print (semChoice)
+        moduleList = semesters[semChoice]
+        moduleList.sort(key=lambda x: x.credit, reverse=True)
+        
+        return render(request, 'calc/successSecond.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList})
+    
+def choice2(request):
+    global realName, indexNumber, semesters, semChoice
+    if request.method=='POST':
+        print(semChoice)
+        moduleList = semesters[semChoice]
 
-def result(request):
-	if request.method == 'POST':
-		ConnectPost(modules, request.POST)
-		currentGPA = round(CalcGPA(modules),4) 
-		return render(request, 'calc/successNext.html', {'name':user[0], 'index':user[1], 'semester':sem[4:], 'total':tot, 'modules':modules, 'currentGPA':currentGPA})
+        LOGIC.ADDINGGRADE(moduleList, request.POST)
+        GPA = LOGIC.CALCGPA(moduleList)
+        
+        return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA})
+        
+
 
 	
