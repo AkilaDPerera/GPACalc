@@ -43,7 +43,7 @@ def signin(request):
 def choice1(request):
     global semChoice
     if request.method=='POST':
-        for trytologin in range(3):
+        for trytologin in range(5):
             try:
                 semChoice = 'BSc Eng. Semester - '+ str(request.POST["semester"])
         
@@ -60,7 +60,7 @@ def choice2(request):
     print (semChoice)
     if request.method=='POST':
         
-        for trytologin in range(3):
+        for trytologin in range(5):
             try:
                 #Magule error eka enne nethiwenna...
                 moduleList = semesters[semChoice]
