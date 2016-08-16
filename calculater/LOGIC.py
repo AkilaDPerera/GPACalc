@@ -123,7 +123,6 @@ def GETSEMESTERDETECTION(semesters):
         return '%d semesters were detected. Pick your choice and continue.'%(length)
 
 
-
 def GETSEMESTERLIST(semesters):
     lst = list(semesters.keys())
     lst.sort()
