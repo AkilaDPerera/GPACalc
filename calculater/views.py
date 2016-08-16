@@ -44,7 +44,6 @@ def choice1(request):
     global semChoice
     if request.method=='POST':
         semChoice = 'BSc Eng. Semester - '+ str(request.POST["semester"])
-        print (semChoice)
         
         moduleList = semesters[semChoice]
 
@@ -53,7 +52,7 @@ def choice1(request):
         return render(request, 'calc/successSecond.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList})
     
 def choice2(request):
-
+    print (semChoice)
     if request.method=='POST':
         
         #Magule error eka enne nethiwenna...
