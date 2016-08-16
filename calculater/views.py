@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
-from .LOGIC import SCRAPE, GETPETNAME, GETSEMESTERDETECTION, GETSEMESTERLIST, SEMVALTOSEMNAME, ADDINGGRADE, CALCGPA
+from . import LOGIC
 
 #User inputs as variables
 semChoice = ''
@@ -24,7 +24,7 @@ def signin(request):
         username = request.POST['username']
         password = request.POST['password']
         
-        realName, indexNumber, semesters = SCRAPE(username, password)
+        realName, indexNumber, semesters = LOGIC.SCRAPE(username, password)
         
         #Handling error situations
         if realName==-2:
@@ -38,13 +38,14 @@ def signin(request):
         
         else:
             #No errors things works as expected
-            return render(request, 'calc/successFirst.html', {'petname':GETPETNAME(realName), 'semNo':GETSEMESTERDETECTION(semesters), 'semlist':GETSEMESTERLIST(semesters)})
+            return render(request, 'calc/successFirst.html', {'petname':LOGIC.GETPETNAME(realName), 'semNo':LOGIC.GETSEMESTERDETECTION(semesters), 'semlist':LOGIC.GETSEMESTERLIST(semesters)})
             
 def choice1(request):
     global semChoice
     if request.method=='POST':
-        semChoice = SEMVALTOSEMNAME(str(request.POST["semester"]))
-
+        semChoice = 'BSc Eng. Semester - '+ str(request.POST["semester"])
+        print (semChoice)
+        
         moduleList = semesters[semChoice]
 
         moduleList.sort(key=lambda x: x.credit, reverse=True)
@@ -59,8 +60,8 @@ def choice2(request):
         moduleList = semesters[semChoice]
 
         
-        ADDINGGRADE(moduleList, request.POST)
-        GPA = CALCGPA(moduleList)
+        LOGIC.ADDINGGRADE(moduleList, request.POST)
+        GPA = LOGIC.CALCGPA(moduleList)
         
         return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA})
         
