@@ -38,14 +38,13 @@ def signin(request):
         
         else:
             #No errors things works as expected
-            print(LOGIC.GETPETNAME(realName))
             return render(request, 'calc/successFirst.html', {'petname':LOGIC.GETPETNAME(realName), 'semNo':LOGIC.GETSEMESTERDETECTION(semesters), 'semlist':LOGIC.GETSEMESTERLIST(semesters)})
             
 def choice1(request):
     global semChoice
     if request.method=='POST':
         semChoice = LOGIC.SEMVALTOSEMNAME(str(request.POST["semester"]))
-        
+        print(semChoice)
 
         moduleList = semesters[semChoice]
 

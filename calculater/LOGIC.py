@@ -19,7 +19,7 @@ class SEMESTER():
     semester, semValue = '', ''
     def __init__(self, semester):
         self.semester = semester
-        self.semValue = semester.replace(' ', '!')
+        self.semValue = semester[-1]
 
 #--------------------------------------------------------------------------
 def SCRAPE(username, password):
@@ -130,7 +130,7 @@ def GETSEMESTERLIST(semesters):
     return [SEMESTER(element) for element in lst]
     
 def SEMVALTOSEMNAME(semValue):
-        return semValue.replace('!', ' ')
+        return 'BSc Eng. Semester - '+ semValue
     
 def ADDINGGRADE(moduleList, requestPOST ):
     #Input1 = List of MODULE Objects for each module
@@ -163,6 +163,8 @@ def CALCGPA(moduleList):
     else:
         return 0
     
+a, b, c = SCRAPE('140457T','maadpAa@452263293')
+d = GETSEMESTERLIST(c)
     
 
     
