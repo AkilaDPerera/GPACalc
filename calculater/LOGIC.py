@@ -163,9 +163,6 @@ def CALCGPA(moduleList):
     else:
         return 0
     
-a, b, c = SCRAPE('140457T','maadpAa@452263293')
-d = GETSEMESTERLIST(c)
-    
 
     
     
