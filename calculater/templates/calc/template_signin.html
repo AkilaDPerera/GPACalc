@@ -2,9 +2,11 @@
 
 {% block content %}
 
-<div class="container">
-	<h4>Note: Here we are not maintaining any database. Hence your privacy is well protected.</h4>
-</div>
+
+	<center>
+		<h1>This service is provided for undergraduates of University of Moratuwa only</h3>
+	</center>	
+
 <br>
 
 
@@ -12,18 +14,17 @@
 {% endblock %}
 
 
-
 <form class="form-horizontal" method="post" action="/calc/signin/submit/">
 	{% csrf_token %}
 	<div class="form-group">
-		<label for="username" class="col-xs-4 col-sm-4 col-md-4 control-label">Username<abbr title="eg. 140457t"> ?</abbr></label>
+		<label for="username" class="col-xs-4 col-sm-4 col-md-4 control-label">Username<abbr title="Moodle username eg. 140457T"> ?</abbr></label>
 		<div class="col-xs-7 col-sm-4 col-md-2">
 			<input id="username" name="username" type="username" class="form-control" placeholder="Username" maxlength="7">	
 		</div>
 	</div>
 	
 	<div class="form-group">
-		<label for="password" class="col-xs-4 control-label" >Password</label>
+		<label for="password" class="col-xs-4 control-label" >Password<abbr title="Moodle password"> ?</abbr></label>
 		<div class="col-xs-7 col-sm-4 col-md-2">
 			<input id="password" name="password" type="password" class="form-control" placeholder="Password" >
 		</div>
@@ -35,5 +36,11 @@
 		</div>
 	</div>
 </form>
+
+<div class="container">
+	<center>
+	<h4>Note: Here we are not maintaining any database. Hence your privacy is well protected.</h4>
+	</center>
+</div>
 
 {% endblock %}
