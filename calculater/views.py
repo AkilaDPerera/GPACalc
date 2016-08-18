@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
 from . import LOGIC
 import pickle
@@ -47,6 +47,9 @@ def signin(request):
         else:
             #No errors things works as expected
             return render(request, 'calc/successFirst.html', {'petname':LOGIC.GETPETNAME(realName), 'semNo':LOGIC.GETSEMESTERDETECTION(semesters), 'semlist':LOGIC.GETSEMESTERLIST(semesters)})
+    
+    else:
+        return redirect('/calc/signin/')
             
 def choice1(request):
     
@@ -76,7 +79,9 @@ def choice1(request):
         moduleList.sort(key=lambda x: x.credit, reverse=True)
     
         return render(request, 'calc/successSecond.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList})
-
+        
+    else:
+        return redirect('/calc/signin/')
 
     
 def choice2(request):
@@ -108,6 +113,9 @@ def choice2(request):
         GPA = LOGIC.CALCGPA(moduleList)
         
         return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA})
+
+    else:
+        return redirect('/calc/signin/')
 
             
         
