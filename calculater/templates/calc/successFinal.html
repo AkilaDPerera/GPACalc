@@ -3,6 +3,15 @@
 {% block content %}
 
 <div class="container">
+	<div class="fb-share-button alignright" 
+		data-href="https://akiladperera.herokuapp.com/calc/signin/" 
+		data-layout="button_count">
+		<div data-href="https://akiladperera.herokuapp.com/calc/signin/" data-layout="button_count" data-size="large" data-mobile-iframe="true" class="fb-share-button fb_iframe_widget" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=113869198637480&amp;container_width=613&amp;href=https%3A%2F%2Fakiladperera.herokuapp.com%2Fcalc%2Fsignin%2F&amp;layout=button_count&amp;locale=en_US&amp;mobile_iframe=true&amp;sdk=joey&amp;size=large"><span style="vertical-align: bottom; width: 83px; height: 28px;"><iframe name="f25cd4f31fbf728" width="1000px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:share_button Facebook Social Plugin" src="https://www.facebook.com/v2.7/plugins/share_button.php?app_id=113869198637480&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fconnect%2Fxd_arbiter%2Fr%2FLJ9CfGDsgQ7.js%3Fversion%3D42%23cb%3Df95cc1218b3e%26domain%3Ddevelopers.facebook.com%26origin%3Dhttps%253A%252F%252Fdevelopers.facebook.com%252Ff1ff77445972dfc%26relation%3Dparent.parent&amp;container_width=613&amp;href=https%3A%2F%2Fakiladperera.herokuapp.com%2Fcalc%2Fsignin%2F&amp;layout=button_count&amp;locale=en_US&amp;mobile_iframe=true&amp;sdk=joey&amp;size=large" style="border: none; visibility: visible; width: 83px; height: 28px;" __idm_frm__="348" class=""></iframe></span></div>
+	</div>
+</div>
+
+
+<div class="container">
 	<h2>Performance of {{semester}}</h2>
 	<h3>{{name}} | {{index}}</h3>
 	
@@ -35,14 +44,11 @@
 		</center>
 	</div>
 	<br>
-	<div>
-		<button type="button" class="btn btn-default btn-lg alignleft" onClick="history.go(-1);return true;">  BACK  </button>
-		<a href="/" class="btn btn-default btn-lg alignright" type="button">  HOME  </a>
-	</div>
 </div>
 
-
-
-
+<div class="container">
+	<button type="button" class="btn btn-default btn-lg alignleft" onClick="history.go(-1);return true;">  BACK  </button>
+	<a href="/" class="btn btn-default btn-lg alignright" type="button">  HOME  </a>
+</div>
 
 {% endblock %}
