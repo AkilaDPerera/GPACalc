@@ -1,6 +1,7 @@
 {% extends 'header.html' %}
 
 {% block content %}
+
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -11,7 +12,7 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <div class="container">
-	<div class="fb-like alignright" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+	<div class="fb-like alignright" data-href="https://akiladperera.herokuapp.com/calc/signin/" data-width="200" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
 	<!--<div class="fb-share-button alignright" data-href="https://akiladperera.herokuapp.com/calc/signin/" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fakiladperera.herokuapp.com%2Fcalc%2Fsignin%2F&amp;src=sdkpreparse">Share</a></div>-->
 	
 	<h2>Performance of {{semester}}</h2>
