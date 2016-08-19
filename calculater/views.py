@@ -1,16 +1,24 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
+from django.http import JsonResponse
+from calculater.models import Feedback
 from . import LOGIC
 import pickle
 
+#a = Feedback(name="Suram", index="56", text="ela ela")
+#a.save()
+#a = Feedback.objects.all()
+
+
+
 def basic(request):
-	return render(request, 'calc/basic.html')
+    return render(request, 'calc/basic.html')
 	
 def signinPage(request):
-	return render(request, 'calc/signin_normal.html')
+    return render(request, 'calc/signin_normal.html')
 
 def manual(request):
-	return render(request, 'calc/manual.html')	
+    return render(request, 'calc/manual.html')	
 
 def signin(request):
     
@@ -88,6 +96,13 @@ def choice2(request):
     
     if request.method=='POST':
         
+        req = request.POST
+        
+        #Serialization
+        pickle_out = open('request.pickle', 'wb')
+        pickle.dump(req, pickle_out)
+        pickle_out.close()
+        
         #OBJ de-serailization
         pickle_in = open('realName.pickle', 'rb')
         realName = pickle.load(pickle_in)
@@ -116,6 +131,46 @@ def choice2(request):
 
     else:
         return redirect('/calc/signin/')
+    
+    
+def choice2_post(request):
+    if request.method=='POST':
+        
+        if request.is_ajax():
+            
+            #OBJ de-serailization
+            pickle_in = open('request.pickle', 'rb')
+            req = pickle.load(pickle_in)
+            pickle_in.close()
+            
+            pickle_in = open('realName.pickle', 'rb')
+            realName = pickle.load(pickle_in)
+            pickle_in.close()
+            
+            pickle_in = open('indexNumber.pickle', 'rb')
+            indexNumber = pickle.load(pickle_in)
+            pickle_in.close()
+            
+            pickle_in = open('semesters.pickle', 'rb')
+            semesters = pickle.load(pickle_in)
+            pickle_in.close()
+            
+            pickle_in = open('semChoice.pickle', 'rb')
+            semChoice = pickle.load(pickle_in)
+            pickle_in.close()
+    
+            moduleList = semesters[semChoice]
+            moduleList.sort(key=lambda x: x.credit, reverse=True)
+        
+            
+            LOGIC.ADDINGGRADE(moduleList, req)
+            GPA = LOGIC.CALCGPA(moduleList)
+            
+            return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA})
+    
+    else:
+        return redirect('/calc/signin/')
+                
 
             
         

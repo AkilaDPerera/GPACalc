@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^signin/submit/$', views.signin),
     url(r'^signin/submit/choice1/$', views.choice1),
     url(r'^signin/submit/choice2/$', views.choice2),
+    url(r'^signin/submit/choice2/choice2_post/$', views.choice2_post),
 
     url(r'^manual/$', views.manual)
 ]
