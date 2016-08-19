@@ -56,9 +56,13 @@
 
 <hr>
 
+
+
 <!-- Form work -->
 <br>
 <br>
+<center><h3>Please post here your honest feedback.</h3></center>
+
 
 {% csrf_token %}
 <form>
@@ -70,28 +74,41 @@
 				<span class="input-group-addon"></span>
 			</div>
 		</div>
-		
-		
 		<div class="form-group">
 			<label>Comment</label>
 			<div class="input-group">
-				<textarea type="text" id="InputMessage" name="InputMessage" rows="3" style="resize: none;" required class="form-control"></textarea>
+				<textarea type="text" id="InputMessage" name="InputMessage" rows="3" style="resize: none;" required class="form-control" placeholder="You comment regarding app, bug reports"></textarea>
 				<span class="input-group-addon"></span>
 			</div>
 		</div>
 			
-		<input id="submit" type="submit" value="Submit" disabled="disabled" class="btn btn-default btn-lg alignright">
+		<input id="submit" type="submit" value="Submit" disabled="disabled" class="btn btn-primary btn-lg alignright">
 	</div>
 </form>
 
 
+<hr>
+<div class="container">
+	{% for feedback in post %}
+	<p><strong>Date : </strong>{{ feedback.date | date:"Y-m-d" }}</p>
+	<p><strong>Name : </strong>{{ feedback.name }}</p>
+	<p><strong>Comment : </strong>{{ feedback.text }}</p>
+	<br>
+	{% endfor %}
+</div>
 
 
-<br>
-<br>
-<br>
+
+
+
+
+
+
+
+
 
 <script>
+
 
 $(document).on("keypress keyup keydown", function (e) {
     if($('#InputMessage').val() != "" && $('#InputName').val() != "") {
@@ -150,9 +167,16 @@ $(document).on("keypress keyup keydown", function (e) {
 
 	 // handle a successful response
 	 success : function() {
-		//document.getElementById('InputName').value="Thanks for your valuable review.";
-		//document.getElementById('InputMessage').value="Thanks for your valuable review.";
-	 },
+		document.getElementById('InputMessage').placeholder="Thanks for your valuable review.";
+		document.getElementById('InputName').placeholder="";
+		document.getElementById('InputName').value="";
+		document.getElementById('InputMessage').value="";
+		$('#submit').attr('disabled', true); 
+		$('#InputMessage').attr('disabled', true); 
+		$('#InputName').attr('disabled', true); 
+		
+		
+	 }
 	 });
 	});
 </script>

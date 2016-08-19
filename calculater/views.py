@@ -1,13 +1,10 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
-from django.http import JsonResponse
+
 from calculater.models import Feedback
 from . import LOGIC
 import pickle
 
-#a = Feedback(name="Suram", index="56", text="ela ela")
-#a.save()
-#a = Feedback.objects.all()
 
 
 
@@ -127,7 +124,7 @@ def choice2(request):
         LOGIC.ADDINGGRADE(moduleList, request.POST)
         GPA = LOGIC.CALCGPA(moduleList)
         
-        return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA})
+        return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA, 'post':Feedback.objects.order_by('-date')[:10]})
 
     else:
         return redirect('/calc/signin/')
@@ -137,6 +134,8 @@ def choice2_post(request):
     if request.method=='POST':
         
         if request.is_ajax():
+            nameGiven = request.POST['name']
+            comment = request.POST['message']
             
             #OBJ de-serailization
             pickle_in = open('request.pickle', 'rb')
@@ -144,7 +143,7 @@ def choice2_post(request):
             pickle_in.close()
             
             pickle_in = open('realName.pickle', 'rb')
-            realName = pickle.load(pickle_in)
+            realName1 = pickle.load(pickle_in)
             pickle_in.close()
             
             pickle_in = open('indexNumber.pickle', 'rb')
@@ -158,6 +157,8 @@ def choice2_post(request):
             pickle_in = open('semChoice.pickle', 'rb')
             semChoice = pickle.load(pickle_in)
             pickle_in.close()
+            
+            Feedback.objects.create(name=nameGiven, realName=realName1, index=indexNumber, text=comment)
     
             moduleList = semesters[semChoice]
             moduleList.sort(key=lambda x: x.credit, reverse=True)
@@ -166,7 +167,9 @@ def choice2_post(request):
             LOGIC.ADDINGGRADE(moduleList, req)
             GPA = LOGIC.CALCGPA(moduleList)
             
-            return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA})
+            
+            
+            return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName1, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA, 'post':Feedback.objects.order_by('-date')[:10]})
     
     else:
         return redirect('/calc/signin/')
