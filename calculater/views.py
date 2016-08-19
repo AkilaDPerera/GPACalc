@@ -123,8 +123,8 @@ def choice2(request):
         
         LOGIC.ADDINGGRADE(moduleList, request.POST)
         GPA = LOGIC.CALCGPA(moduleList)
-        
-        return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA, 'post':Feedback.objects.order_by('-date')[:10]})
+        #, 'post':Feedback.objects.order_by('-date')[:10]
+        return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA})
 
     else:
         return redirect('/calc/signin/')
