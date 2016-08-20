@@ -58,7 +58,14 @@ def signin(request):
             
 def choice1(request):
     
-    if request.method=='POST':        
+    if request.method=='POST':
+        semChoice = 'BSc Eng. Semester - '+ str(request.POST["semester"])
+        
+        #OBJ Serialization
+        pickle_out = open('semChoice.pickle', 'wb')
+        pickle.dump(semChoice, pickle_out)
+        pickle_out.close()
+
         #OBJ de-serailization
         pickle_in = open('realName.pickle', 'rb')
         realName = pickle.load(pickle_in)
@@ -72,14 +79,6 @@ def choice1(request):
         semesters = pickle.load(pickle_in)
         pickle_in.close()
 
-        semChoice = 'BSc Eng. Semester - '+ str(request.POST["semester"])
-        
-        #OBJ Serialization
-        pickle_out = open('semChoice.pickle', 'wb')
-        pickle.dump(semChoice, pickle_out)
-        pickle_out.close()
-        
-    
         moduleList = semesters[semChoice]
         moduleList.sort(key=lambda x: x.credit, reverse=True)
     
@@ -92,6 +91,14 @@ def choice1(request):
 def choice2(request):
     
     if request.method=='POST':
+
+        req = request.POST
+        
+        #Serialization
+        pickle_out = open('request.pickle', 'wb')
+        pickle.dump(req, pickle_out)
+        pickle_out.close()
+        
         
         #OBJ de-serailization
         pickle_in = open('realName.pickle', 'rb')
@@ -110,23 +117,12 @@ def choice2(request):
         semChoice = pickle.load(pickle_in)
         pickle_in.close()
 
-        req = request.POST
-        
-        #Serialization
-        pickle_out = open('request.pickle', 'wb')
-        pickle.dump(req, pickle_out)
-        pickle_out.close()
 
-        try:
-            
-            moduleList = semesters[semChoice]
-            moduleList.sort(key=lambda x: x.credit, reverse=True)
+        moduleList = semesters[semChoice]
+        moduleList.sort(key=lambda x: x.credit, reverse=True)
 
-            LOGIC.ADDINGGRADE(moduleList, req)
-            GPA = LOGIC.CALCGPA(moduleList)
-            
-        except:
-            return render(request, 'calc/signin_semchoice.html')
+        LOGIC.ADDINGGRADE(moduleList, req) #Choice2
+        GPA = LOGIC.CALCGPA(moduleList)
             
         return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA, 'post':Feedback.objects.order_by('-date')[:10]})
 
@@ -140,6 +136,8 @@ def choice2_post(request):
         if request.is_ajax():
             nameGiven = request.POST['name']
             comment = request.POST['message']
+
+            Feedback.objects.create(name=nameGiven, realName=realName1, index=indexNumber, text=comment)
             
             #OBJ de-serailization
             pickle_in = open('request.pickle', 'rb')
@@ -162,16 +160,14 @@ def choice2_post(request):
             semChoice = pickle.load(pickle_in)
             pickle_in.close()
             
-            Feedback.objects.create(name=nameGiven, realName=realName1, index=indexNumber, text=comment)
+            
     
             moduleList = semesters[semChoice]
             moduleList.sort(key=lambda x: x.credit, reverse=True)
         
             
-            LOGIC.ADDINGGRADE(moduleList, req)
+            LOGIC.ADDINGGRADE(moduleList, req) #choice2_post
             GPA = LOGIC.CALCGPA(moduleList)
-            
-            
             
             return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName1, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA, 'post':Feedback.objects.order_by('-date')[:10]})
     
