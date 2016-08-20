@@ -58,14 +58,7 @@ def signin(request):
             
 def choice1(request):
     
-    if request.method=='POST':
-        semChoice = 'BSc Eng. Semester - '+ str(request.POST["semester"])
-        
-        #OBJ Serialization
-        pickle_out = open('semChoice.pickle', 'wb')
-        pickle.dump(semChoice, pickle_out)
-        pickle_out.close()
-        
+    if request.method=='POST':        
         #OBJ de-serailization
         pickle_in = open('realName.pickle', 'rb')
         realName = pickle.load(pickle_in)
@@ -78,6 +71,13 @@ def choice1(request):
         pickle_in = open('semesters.pickle', 'rb')
         semesters = pickle.load(pickle_in)
         pickle_in.close()
+
+        semChoice = 'BSc Eng. Semester - '+ str(request.POST["semester"])
+        
+        #OBJ Serialization
+        pickle_out = open('semChoice.pickle', 'wb')
+        pickle.dump(semChoice, pickle_out)
+        pickle_out.close()
         
     
         moduleList = semesters[semChoice]
@@ -92,13 +92,6 @@ def choice1(request):
 def choice2(request):
     
     if request.method=='POST':
-        
-        req = request.POST
-        
-        #Serialization
-        pickle_out = open('request.pickle', 'wb')
-        pickle.dump(req, pickle_out)
-        pickle_out.close()
         
         #OBJ de-serailization
         pickle_in = open('realName.pickle', 'rb')
@@ -117,13 +110,24 @@ def choice2(request):
         semChoice = pickle.load(pickle_in)
         pickle_in.close()
 
-        moduleList = semesters[semChoice]
-        moduleList.sort(key=lambda x: x.credit, reverse=True)
-    
+        req = request.POST
         
-        LOGIC.ADDINGGRADE(moduleList, request.POST)
-        GPA = LOGIC.CALCGPA(moduleList)
-        
+        #Serialization
+        pickle_out = open('request.pickle', 'wb')
+        pickle.dump(req, pickle_out)
+        pickle_out.close()
+
+        try:
+            
+            moduleList = semesters[semChoice]
+            moduleList.sort(key=lambda x: x.credit, reverse=True)
+
+            LOGIC.ADDINGGRADE(moduleList, req)
+            GPA = LOGIC.CALCGPA(moduleList)
+            
+        except:
+            return render(request, 'calc/signin_semchoice.html')
+            
         return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA, 'post':Feedback.objects.order_by('-date')[:10]})
 
     else:
