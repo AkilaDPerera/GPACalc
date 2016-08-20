@@ -87,14 +87,13 @@
 </form>
 
 
-
+<hr>
 <div class="container">
-	<hr>
 	{% for feedback in post %}
 	<p><strong>Date : </strong>{{ feedback.date | date:"Y-m-d" }}</p>
 	<p><strong>Name : </strong>{{ feedback.name }}</p>
 	<p><strong>Comment : </strong>{{ feedback.text }}</p>
-	<hr>
+	<br>
 	{% endfor %}
 </div>
 

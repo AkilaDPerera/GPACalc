@@ -65,7 +65,7 @@ def choice1(request):
         pickle_out = open('semChoice.pickle', 'wb')
         pickle.dump(semChoice, pickle_out)
         pickle_out.close()
-
+        
         #OBJ de-serailization
         pickle_in = open('realName.pickle', 'rb')
         realName = pickle.load(pickle_in)
@@ -78,7 +78,8 @@ def choice1(request):
         pickle_in = open('semesters.pickle', 'rb')
         semesters = pickle.load(pickle_in)
         pickle_in.close()
-
+        
+    
         moduleList = semesters[semChoice]
         moduleList.sort(key=lambda x: x.credit, reverse=True)
     
@@ -91,14 +92,13 @@ def choice1(request):
 def choice2(request):
     
     if request.method=='POST':
-
+        
         req = request.POST
         
         #Serialization
         pickle_out = open('request.pickle', 'wb')
         pickle.dump(req, pickle_out)
         pickle_out.close()
-        
         
         #OBJ de-serailization
         pickle_in = open('realName.pickle', 'rb')
@@ -117,13 +117,13 @@ def choice2(request):
         semChoice = pickle.load(pickle_in)
         pickle_in.close()
 
-
         moduleList = semesters[semChoice]
         moduleList.sort(key=lambda x: x.credit, reverse=True)
-
-        LOGIC.ADDINGGRADE(moduleList, req) #Choice2
+    
+        
+        LOGIC.ADDINGGRADE(moduleList, request.POST)
         GPA = LOGIC.CALCGPA(moduleList)
-            
+        
         return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA, 'post':Feedback.objects.order_by('-date')[:10]})
 
     else:
@@ -136,8 +136,6 @@ def choice2_post(request):
         if request.is_ajax():
             nameGiven = request.POST['name']
             comment = request.POST['message']
-
-            Feedback.objects.create(name=nameGiven, realName=realName1, index=indexNumber, text=comment)
             
             #OBJ de-serailization
             pickle_in = open('request.pickle', 'rb')
@@ -160,14 +158,16 @@ def choice2_post(request):
             semChoice = pickle.load(pickle_in)
             pickle_in.close()
             
-            
+            Feedback.objects.create(name=nameGiven, realName=realName1, index=indexNumber, text=comment)
     
             moduleList = semesters[semChoice]
             moduleList.sort(key=lambda x: x.credit, reverse=True)
         
             
-            LOGIC.ADDINGGRADE(moduleList, req) #choice2_post
+            LOGIC.ADDINGGRADE(moduleList, req)
             GPA = LOGIC.CALCGPA(moduleList)
+            
+            
             
             return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName1, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA, 'post':Feedback.objects.order_by('-date')[:10]})
     
