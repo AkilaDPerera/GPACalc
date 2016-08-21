@@ -106,8 +106,11 @@ def choice2(request):
         moduleList = data['semesters'][data['semChoice']]
         moduleList.sort(key=lambda x: x.credit, reverse=True)
     
-        
-        LOGIC.ADDINGGRADE(moduleList, data['req'])
+        try:
+            LOGIC.ADDINGGRADE(moduleList, data['req'])
+        except:
+            return render(request, '/calc/signin_timeout.html')
+            
         GPA = LOGIC.CALCGPA(moduleList)
         
         return render(request, 'calc/successFinal.html', {'semester':data['semChoice'], 'name':data['realName'], 'index':data['indexNumber'], 'modules':moduleList, 'GPA':GPA, 'post':Feedback.objects.order_by('-date')[:10]})
@@ -136,7 +139,11 @@ def choice2_post(request):
             moduleList.sort(key=lambda x: x.credit, reverse=True)
         
             
-            LOGIC.ADDINGGRADE(moduleList, data['req'])
+            try:
+                LOGIC.ADDINGGRADE(moduleList, data['req'])
+            except:
+                return render(request, '/calc/signin_timeout.html')
+        
             GPA = LOGIC.CALCGPA(moduleList)
             
             
