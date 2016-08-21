@@ -121,7 +121,7 @@ def choice2(request):
         moduleList.sort(key=lambda x: x.credit, reverse=True)
     
         
-        LOGIC.ADDINGGRADE(moduleList, request.POST)
+        LOGIC.ADDINGGRADE(moduleList, req)
         GPA = LOGIC.CALCGPA(moduleList)
         
         return render(request, 'calc/successFinal.html', {'semester':semChoice, 'name':realName, 'index':indexNumber, 'modules':moduleList, 'GPA':GPA, 'post':Feedback.objects.order_by('-date')[:10]})
