@@ -109,7 +109,7 @@ def choice2(request):
         try:
             LOGIC.ADDINGGRADE(moduleList, data['req'])
         except:
-            return render(request, '/calc/signin_timeout.html')
+            return render(request, 'calc/signin_timeout.html')
             
         GPA = LOGIC.CALCGPA(moduleList)
         
@@ -142,7 +142,7 @@ def choice2_post(request):
             try:
                 LOGIC.ADDINGGRADE(moduleList, data['req'])
             except:
-                return render(request, '/calc/signin_timeout.html')
+                return render(request, 'calc/signin_timeout.html')
         
             GPA = LOGIC.CALCGPA(moduleList)
             
