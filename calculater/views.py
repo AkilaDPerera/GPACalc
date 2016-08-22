@@ -33,7 +33,9 @@ def signin(request):
 
 
         if len(User.objects.all())>60:
-            User.objects.all()[0].delete()
+            User.objects.order_by('date')[0].delete()
+
+        
 
         user, created = User.objects.get_or_create(sess_id=request.COOKIES.get('csrftoken'))
 
