@@ -2,6 +2,9 @@ import requests
 import re
 from bs4 import BeautifulSoup
 from time import sleep
+import os
+import time
+
 
 class MODULE():
     semester, code, name, credit, gradeEarned = '', '', '', None, None
@@ -159,6 +162,17 @@ def CALCGPA(moduleList):
         return round(float(total)/creditPoints, 4)
     else:
         return 0
+
+def PickleName():
+    for name in ['pickle/data'+str(x)+'.pickle' for x in range(60)]:
+        try:
+            if (time.time() - os.stat(name).st_mtime)>300: #1 minute only
+                return name
+        except:
+            return name
+        else:
+            pass
+    return -4
     
 
     

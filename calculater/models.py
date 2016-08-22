@@ -9,3 +9,11 @@ class Feedback(models.Model):
     
     def __str__(self):
         return self.text
+
+class User(models.Model):
+    index = models.CharField(max_length=7)
+    path = models.CharField(max_length=25)
+    sess_id = models.CharField(max_length=50, unique=True)
+    
+    def __str__(self):
+        return self.index
