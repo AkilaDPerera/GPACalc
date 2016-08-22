@@ -19,6 +19,8 @@ def manual(request):
     return render(request, 'calc/manual.html')	
 
 def signin(request):
+    if request.session.session_key==None:
+        request.session._get_or_create_session_key()
 
     
     if request.method=='POST':
@@ -33,7 +35,7 @@ def signin(request):
             #SERVER BUSY
             return render(request, 'calc/signin_busy.html')
 
-        user, created = User.objects.get_or_create(sess_id=request.session._get_or_create_session_key())
+        user, created = User.objects.get_or_create(sess_id=request.session.session_key)
         if created:
             user.path = paths
             user.index = indexNumber
