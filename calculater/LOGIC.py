@@ -106,6 +106,9 @@ def SCRAPE(username, password):
             break
     else:
         return -3, 0, 0 #lms web site structure was changed
+
+    if (realName==None or semesters==None):
+        return -3, 0, 0
     
     #Every thing is good to proceed
     return realName, indexNumber, semesters #Semester = {'Bsc. Eng. Semester 1': [module obj, module obj, module obj, ..., module obj]}
