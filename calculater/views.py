@@ -19,6 +19,8 @@ def manual(request):
     return render(request, 'calc/manual.html')	
 
 def signin(request):
+    if not request.session.get('has_session'):
+        request.session['has_session'] = True
     
     if request.method=='POST':
         username = request.POST['username']
