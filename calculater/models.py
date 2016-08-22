@@ -12,6 +12,7 @@ class Feedback(models.Model):
 
 class User(models.Model):
     index = models.CharField(max_length=7)
+    realName = models.CharField(max_length=100)
     path = models.CharField(max_length=25)
     sess_id = models.CharField(max_length=100, unique=True)
     

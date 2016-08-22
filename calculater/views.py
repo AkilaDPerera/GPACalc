@@ -40,10 +40,12 @@ def signin(request):
         if created:
             user.path = paths
             user.index = indexNumber
+            user.realName = realName
             user.save()
         else:
             user.path = paths
             user.index = indexNumber
+            user.realName = realName
             user.save()
 
         #Serializing
