@@ -31,8 +31,12 @@ def signin(request):
             #SERVER BUSY
             return render(request, 'calc/signin_busy.html')
 
+
+        if len(User.objects.all())>60:
+            User.objects.all()[0].delete()
+
         user, created = User.objects.get_or_create(sess_id=request.COOKIES.get('csrftoken'))
-        print (request.COOKIES.get('csrftoken'))
+
         if created:
             user.path = paths
             user.index = indexNumber
@@ -73,7 +77,6 @@ def choice1(request):
     if request.method=='POST':
         
         user = User.objects.get(sess_id=request.COOKIES.get('csrftoken'))
-        print (user.sess_id)
 
         #OBJ de-serailization
         pickle_in = open(user.path, 'rb')
@@ -109,7 +112,6 @@ def choice2(request):
     if request.method=='POST':
         
         user = User.objects.get(sess_id=request.COOKIES.get('csrftoken'))
-        print (user.sess_id)
 
         #OBJ de-serailization
         pickle_in = open(user.path, 'rb')
@@ -150,7 +152,6 @@ def choice2_post(request):
         if request.is_ajax():
             
             user = User.objects.get(sess_id=request.COOKIES.get('csrftoken'))
-            print (user.sess_id)
             
             nameGiven = request.POST['name']
             comment = request.POST['message']
