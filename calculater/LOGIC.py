@@ -107,7 +107,7 @@ def SCRAPE(username, password):
     else:
         return -3, 0, 0 #lms web site structure was changed
 
-    if (realName==None or semesters==None):
+    if (realName=='' or semesters==''):
         return -3, 0, 0
     
     #Every thing is good to proceed
