@@ -21,6 +21,7 @@ def manual(request):
 def signin(request):
     if not request.session.get('has_session'):
         request.session['has_session'] = True
+    print('sessionid',request.session.session_key)
     
     if request.method=='POST':
         username = request.POST['username']
