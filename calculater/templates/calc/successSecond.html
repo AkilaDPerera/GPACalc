@@ -27,6 +27,7 @@
 						<td>
 							<select name={{module.code}}>
 								<option selected="selected">Unknown</option>
+								<option>NonGPA</option>
 								<option value="A+">A+</option>
 								<option value="A ">A </option>
 								<option value="A-">A-</option>
@@ -44,7 +45,7 @@
 				{% endfor %}
 			</tbody>
 		</table>
-		<h2><center><small>*Please leave the option as unknown for all Non-GPA modules</small></center></h2>
+		<h2><center><small>*Please leave the option as unknown for all the modules that you don't know the grades yet.</small></center></h2>
 		
 		<button type="button" class="btn btn-default btn-lg alignleft" onClick="history.go(-1);return true;">  Back  </button>
 		<input class="btn btn-default btn-lg alignright" type="submit" value="DONE">
