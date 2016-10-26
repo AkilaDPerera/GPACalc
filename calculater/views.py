@@ -7,8 +7,6 @@ from . import LOGIC
 import pickle
 
 
-#<input type="hidden" name="volposition" value="0">
-
 def basic(request):
     return render(request, 'calc/basic.html')
 	
