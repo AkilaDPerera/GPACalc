@@ -1,0 +1,60 @@
+{% extends 'header.html' %}
+
+{% block content %}
+
+<script>
+	
+</script>
+
+<div>
+	<h2>Registered Modules in {{semester}}</h2>
+	<h3>{{name}} | {{index}}</h3>
+
+	
+	<form action="../../profile2/" method="post">
+		{% csrf_token %}
+		
+		<input type="hidden" name="sem" value="{{semester}}" />
+		
+		<table>
+			<thead>
+				<tr>
+					<th>Module Code</th>
+					<th>Module Name</th>
+					<th>Credits</th>
+					<th>Grade earned</th>
+				</tr>
+			</thead>
+		
+			<tbody>
+				{% for module in modules_grades|sort %}
+					<tr>
+						<td>{{module.2}}</td>
+						<td>{{module.1}}</td>
+						<td>{{module.3}}</td>
+						<td>
+							<select name={{module.2}}>
+								{% for grade in grades %}
+									{% if grade == module.4 %}
+										<option selected="selected" value="{{grade}}">{{grade}}</option>
+									{% else %}
+										<option value="{{grade}}">{{grade}}</option>
+									{% endif %}
+								{% endfor %}
+							</select>	  
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		
+		<p>*Please leave the option as unknown for all Non-GPA modules</p>
+		
+		<input type="submit" value="DONE">
+		
+	</form>
+	
+</div>
+
+
+{% endblock %}
