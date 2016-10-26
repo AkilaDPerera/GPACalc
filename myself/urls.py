@@ -18,4 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^', include('personal.urls')),
+    url(r'^gpa/', include('gpa.urls')),
     url(r'^calc/', include('calculater.urls'))]
