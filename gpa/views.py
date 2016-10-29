@@ -83,7 +83,7 @@ def profile(request):
 
         overallGPA = student.overallGPA
 
-        return render(request, 'gpa/auto/profile.html', {'overallGPA':overallGPA, 'index':student.index, 'realName':student.realName, 'petName':petname, 'sem_list':semList, 'sem_gpa':semGPA, 'sem_grades_modules':performance})
+        return render(request, 'gpa/auto/profile.html', {'overallGPA':overallGPA, 'index':student.index.upper(), 'realName':student.realName, 'petName':petname.upper(), 'sem_list':semList, 'sem_gpa':semGPA, 'sem_grades_modules':performance})
 
 
 def changeGrades(request):
@@ -97,10 +97,14 @@ def changeGrades(request):
     performance = performance[semester]
     #----------------------------------------
 
+    petname = LOGIC.GETPETNAME(student.realName)
+
+    semGPA = LOGIC.GETSEMGPA(student.semGPA)
+
     grades = ["Unknown", "Non-GPA", "A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F"]
 
     
-    return render(request, 'gpa/auto/gradeChange.html', {'grades':grades, 'semester':semester, 'index':student.index, 'realName':student.realName, 'modules_grades':performance})
+    return render(request, 'gpa/auto/gradeChange.html', {'sem_gpa':semGPA, 'petname':petname, 'grades':grades, 'semester':semester, 'index':student.index.upper(), 'realName':student.realName, 'modules_grades':performance})
 
 def profile2(request):
     cookie = request.POST['csrfmiddlewaretoken']
@@ -160,4 +164,4 @@ def profile2(request):
     petname = LOGIC.GETPETNAME(student.realName)
 
     
-    return render(request, 'gpa/auto/profile.html', {'overallGPA':overallGPA, 'petName':petname, 'index':student.index, 'realName':student.realName, 'sem_list':semList, 'sem_gpa':semGPA, 'sem_grades_modules':performance})
+    return render(request, 'gpa/auto/profile.html', {'overallGPA':overallGPA, 'petName':petname.upper(), 'index':student.index.upper(), 'realName':student.realName, 'sem_list':semList, 'sem_gpa':semGPA, 'sem_grades_modules':performance})

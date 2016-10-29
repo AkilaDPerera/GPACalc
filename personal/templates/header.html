@@ -19,51 +19,47 @@
 	
 	<link rel="icon" href="{% static 'img/icon.png' %}">
 	
+	
+	<link rel="stylesheet" href="{% static 'css/footer.css' %}" type = "text/css"/>
+	<link rel="stylesheet" href="{% static 'css/header.css' %}" type = "text/css"/>
+	<link rel="stylesheet" href="{% static 'css/inner-body.css' %}" type = "text/css"/>
+	
+	
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type = "text/css"/>
-	<link rel="stylesheet" href="{% static 'css/footer-distributed.css' %}" type = "text/css"/>
-	<link rel="stylesheet" href="{% static 'css/header-basic.css' %}" type = "text/css"/>
-	<link rel="stylesheet" href="{% static 'css/btnCalc.css' %}" type = "text/css"/>
 	<link rel="stylesheet" href="{% static 'css/bootstrap-select.css' %}" type = "text/css"/>
 	
-	<script src="{% static 'js/jquery.min.js' %}"></script>
-	<script src="{% static 'js/bootstrap.min.js' %}"></script>
-	<script src="{% static 'js/bootstrap-select.min.js' %}"></script>
-	<script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
 	
-
+	{% block headImports %}
+	{% endblock %}
 	
 </head>
 
 <body>
 
 	<header class="header-basic">
-	<div class="header-limiter">
-		<h1><span>  Akila D. Perera</span></h1>
-		<nav>
-			<a href="/">Home</a>
-			<!--
-			|
-			<a href="/personal/">Personal Info</a>
-			-->
-			|
-			<a href="/professional/">Professional Info</a>
-			|
-			<a href="/projects/">Projects</a>
-			|
-			<a href="/calc/">GPA Calculator</a>
-			|
-			<a href="/contact/">Contact</a>
-		</nav>
-	</div>
+		<div class="header-limiter">
+			<h1><span>  Akila D. Perera</span></h1>
+			<nav>
+				<a href="/">Home</a>
+				<!--
+				|
+				<a href="/personal/">Personal Info</a>
+				-->
+				|
+				<a href="/professional/">Professional Info</a>
+				|
+				<a href="/projects/">Projects</a>
+				|
+				<a href="/calc/">GPA Calculator</a>
+				|
+				<a href="/contact/">Contact</a>
+			</nav>
+		</div>
 	</header>
-	<hr>
-	
 	
 	{% block content %}
 	{% endblock %}
 	
-	
-	<hr>
 	<footer class="footer-distributed">
 		<div class="footer-left">
 			<p class="footer-links">
@@ -84,7 +80,6 @@
 
 			<p>Non-Commercial website: 12/08/2016</p>
 		</div>
-
 	</footer>
 	
 </body>

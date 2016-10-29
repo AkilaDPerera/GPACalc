@@ -1,45 +1,104 @@
 {% extends 'header.html' %}
 
+{% block headImports %}
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'gpa/css/profile.css' %}" type = "text/css"/>
+	
+	<script>
+		function collapse(id){
+			var table = document.getElementById(id);
+			if (table.style.display=='block'){
+				table.style.display='None';
+			}else{
+				table.style.display='block';
+			}
+		}
+		
+		function OGPA(){
+			var gpas = document.getElementsByName('GPA');
+			var total = 0;
+			for (var x=0; x<gpas.lenght; x++){
+				total += parseFloat(gpas[x].innerText);
+			}
+			console.log(total/gpas.length)
+		}
+		
+    </script>
+	
+	
+{% endblock %}
+
 {% block content %}
 
-
-<H1>Overall GPA: {{overallGPA}}</H1>
-<div>
-	<form action="/gpa/auto/profile/chageGrades/" method="post">
-		{% csrf_token %}
-		
-		{% for semester in sem_list %}
-		
-			<h2>{{semester}}</h2>
-			<h3>SGPA : {{sem_gpa|get_item:semester}}</h3>
-			
-			<table>
-				<thead>
-					<tr>
-						<th>Module Code</th>
-						<th>Module Name</th>
-						<th>Credits</th>
-						<th>Grade earned</th>
-					</tr>
-				</thead>
-				
-				<tbody>
-					{% for module in sem_grades_modules|get_item:semester|sort %}
-					<tr>
-						<td>{{module.2}}</td>
-						<td>{{module.1}}</td>
-						<td>{{module.3}}</td>
-						<td>{{module.4}}</td>
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		
-			<button value="{{semester}}" name="edit">Edit {{semester}} grades</button>
-			
-		{% endfor %}
-	</form>
+<div class="heading">
+	<div class="left">
+		<div style="text-align: center; margin-top: 5vh">
+			<h1>PROFILE OF {{petName}} | {{index}}</h1>
+			<!--<span>{{realName}}</span>-->
+		</div>
+	</div>
+	
+	<div class="right">
+		<table>
+			<tr>
+				<td>Overall GPA</td>
+				<td>sigma</td>
+				<td>{{overallGPA}}</td>
+			</tr>
+			<tr>
+				<td>Overall GPA</td>
+				<td>avg of SGPA</td>
+				<td>{{overallGPA}}</td>
+			</tr>
+		</table>
+	</div>
 </div>
+
+<div class="rest-heading">
+	<div>
+		<form action="/gpa/auto/profile/chageGrades/" method="post">
+			{% csrf_token %}
+			
+			{% for semester in sem_list %}
+				
+				<div class="semPerformance">
+					<input type="button" onclick="collapse('{{semester}}');"></input>
+					<h3>{{semester}} |</h3>
+					<h4>SGPA : </h4>
+					<h4 name="GPA">{{sem_gpa|get_item:semester}}</h4>
+				</div>
+				
+				<div class="table" id="{{semester}}" style="display:block;">
+					<table class="status">
+						<thead>
+							<tr>
+								<th>Module Code</th>
+								<th>Module Name</th>
+								<th>Credits</th>
+								<th>Grade earned</th>
+							</tr>
+						</thead>
+						
+						<tbody>
+							{% for module in sem_grades_modules|get_item:semester|sort %}
+							<tr>
+								<td>{{module.2}}</td>
+								<td>{{module.1}}</td>
+								<td>{{module.3}}</td>
+								<td>{{module.4}}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<button style="margin-left:58%; width:22%; margin-top:5px;" value="{{semester}}" name="edit">Edit {{semester}} Grades</button>
+				</div>
+
+				<hr>
+			{% endfor %}
+		</form>
+	</div>
+</div>
+
 
 
 {% endblock %}
