@@ -211,3 +211,11 @@ def profile2(request):
         return render(request, 'gpa/auto/profile.html', {'SOGPA':SOGPA, 'overallGPA':overallGPA, 'petName':petname.upper(), 'index':student.index.upper(), 'realName':student.realName, 'sem_list':semList, 'sem_gpa':semGPA, 'sem_grades_modules':performance})
     except:
         return render(request, 'gpa/auto/auto.html')
+
+def feedback(request):
+    response = HttpResponse("We are done here")
+    return response
+
+
+
+

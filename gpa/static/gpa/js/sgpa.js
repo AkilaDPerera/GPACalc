@@ -15,4 +15,5 @@ function SGPA(){
         }
     }
     document.getElementById('output').innerText = 'NEW SGPA : '+(total/credits).toFixed(4);
+    
 }

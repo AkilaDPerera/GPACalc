@@ -3,7 +3,8 @@
 {% block headImports %}
 	{% load staticfiles %}
 	<link rel="stylesheet" href="{% static 'gpa/css/profile.css' %}" type = "text/css"/>
-	
+	<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
 	<script>
 		function collapse(id){
 			var table = document.getElementById(id);
@@ -14,6 +15,7 @@
 			}
 		}
     </script>
+	
 	
 	
 {% endblock %}
@@ -85,8 +87,53 @@
 			{% endfor %}
 		</form>
 	</div>
+	
+	<!--<div class="container">
+		{% csrf_token %}
+		<form>
+			<label for="name">Your Name</label>
+			<input type='text' id='name' name='nickname' pattern="^\S+.*" required/>
+			
+			<label for='comment'>Comment</label>
+			<input type="textfield" id='comment' name='comment' pattern="^\S+.*" required/>
+			
+			<input id="submit" type='submit' value="submit"/>
+		</form>	
+		
+		<div class="container">
+			{% for feedback in post %}
+			<p><strong>Date : </strong>{{ feedback.date | date:"Y-m-d" }}</p>
+			<p><strong>Name : </strong>{{ feedback.name }}</p>
+			<p><strong>Comment : </strong>{{ feedback.text }}</p>
+			<br>
+			{% endfor %}
+		</div>
+
+	</div>-->
+
 </div>
+
+<script>	
+	$("#submit").click(function(e) {
+		e.preventDefault();
+
+		$.ajax({
+			type : "POST",
+			url : "/gpa/auto/profile/feedback/",
+			data : {csrfmiddlewaretoken : document.getElementsByName('csrfmiddlewaretoken')[0].value, name : document.getElementById('name').value, message : document.getElementById('comment').value}, // data sent with the post request
+
+			success : function(response) {
+				document.getElementById('submit').disabled = true;
+				var name = document.getElementById('name');
+				var comment = document.getElementById('comment');
+				name.disabled = true;
+				comment.disabled = true;
+			}
+		});
+	});
+</script>
 
 
 
 {% endblock %}
+

@@ -30,7 +30,6 @@ DEBUG = True
 
 INSTALLED_APPS = [
     'gpa',
-    'calculater',
     'personal',
     'django.contrib.admin',
     'django.contrib.auth',
