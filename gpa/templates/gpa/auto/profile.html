@@ -13,16 +13,6 @@
 				table.style.display='block';
 			}
 		}
-		
-		function OGPA(){
-			var gpas = document.getElementsByName('GPA');
-			var total = 0;
-			for (var x=0; x<gpas.lenght; x++){
-				total += parseFloat(gpas[x].innerText);
-			}
-			console.log(total/gpas.length)
-		}
-		
     </script>
 	
 	
@@ -41,14 +31,12 @@
 	<div class="right">
 		<table>
 			<tr>
-				<td>Overall GPA</td>
-				<td>sigma</td>
-				<td>{{overallGPA}}</td>
+				<td>Overall GPA: {{overallGPA}}</td>
+				<td>&Sigma;(GPA_point x credits) / &Sigma;credits</td>
 			</tr>
 			<tr>
-				<td>Overall GPA</td>
-				<td>avg of SGPA</td>
-				<td>{{overallGPA}}</td>
+				<td>Overall GPA: {{SOGPA}}</td>
+				<td>&Sigma;SGPA / no_of_semesters</td>
 			</tr>
 		</table>
 	</div>
