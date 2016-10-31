@@ -18,6 +18,16 @@ M.yui.loader = {modules: {}};
 	{% endblock %}
 
 	{% block content %}
+	<div id="fb-root" style=""></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-like" style="position:fixed; margin-top:7.5vh; float: right;" data-href="http://akiladperera.herokuapp.com/gpa/auto/" data-width="200" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
+
 	<div class="inner-body">
 	{% block auto %}
 	{% endblock %}
