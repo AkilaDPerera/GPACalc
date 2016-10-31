@@ -5,7 +5,7 @@ class Student(models.Model):
     
     index = models.CharField(max_length=7, unique=True)
     realName = models.CharField(max_length=100)
-    cookie = models.CharField(max_length=100, unique=True)
+    cookie = models.CharField(max_length=100)
     
     lastTry = models.SmallIntegerField()
 

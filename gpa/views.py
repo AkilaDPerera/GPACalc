@@ -20,11 +20,18 @@ def profile(request):
         password = request.POST['password']
         cookie = request.POST['csrfmiddlewaretoken']
 
-        #index = "140457t"
-        #password = "maadpAa@452263293"
+        #Clear cookie
+        try:
+            student = Student.objects.get(cookie=cookie)
+        except:
+            pass
+        else:
+            student.cookie=""
+            student.save()
+
 
         name, indexNumber, semesters = LOGIC.SCRAPE(index, password)
-
+        
         if name==-1:
             #Incorrect password
             return render(request, 'gpa/auto/auto.html', {'class':'alert alert-danger fade in out', 'tag':'Attention!', 'message':'Wrong authentication information. Please check your username and password'})
@@ -38,7 +45,7 @@ def profile(request):
             #update module table
             for sem in semesters:
                 for module in semesters[sem]:
-                    mod, isCreated = Module.objects.get_or_create(moduleName=module.name, moduleCode=module.code, credit=module.credit, semester=module.semester)
+                    mod, isCreated = Module.objects.get_or_create(moduleName=module.name, moduleCode=module.code, credit=module.credit, semester='')
             #-------------------
             try:
                 student = Student.objects.get(index=index)
