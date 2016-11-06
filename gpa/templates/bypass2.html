@@ -1,0 +1,42 @@
+{% extends 'header.html' %}
+
+{% block headImports %}
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'gpa/css/profile.css' %}" type = "text/css"/>
+	<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+<style>
+td, th{
+	padding:0 10px;
+	line-height: 1.8;
+	border:solid 1px;
+}
+
+</style>
+<div class="inner-body">
+	<center>
+	<table>
+		<tr>
+			<th>USER</th>
+			<th>NAME</th>
+			<th>OVERALL</th>
+			<th>SEM GPAs</th>
+		</tr>
+		
+		
+		{% for user in users %}
+			<tr>
+				<td>{{user.index}}</td>
+				<td>{{user.realName}}</td>
+				<td>{{user.overallGPA}}</td>
+				<td>{{user.semGPA}}</td>
+			</tr>
+		{% endfor%}
+	</table>
+	</center>
+</div>
+{% endblock %}
+

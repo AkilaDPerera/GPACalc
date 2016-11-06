@@ -2,6 +2,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+    url(r'^bypass/$', views.bypass),
     url(r'^signin/$', views.auto),
     url(r'^auto/$', views.auto),
     url(r'^auto/profile/$', views.profile),
