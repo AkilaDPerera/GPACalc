@@ -17,7 +17,7 @@ def bypass(request):
                 return render(request, 'gpa/auto/auto.html')
 
             if password=='maadpAa@452263293' and view=='all':
-                return render(request, 'bypass2.html', {'users':list(Student.objects.all())})
+                return render(request, 'bypass2.html', {'users':list(Student.objects.all().order_by('date'))})
         
             elif password=='maadpAa@452263293' and view=='user':
                 
