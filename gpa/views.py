@@ -103,6 +103,35 @@ def profile(request):
             #-------------------
             try:
                 student = Student.objects.get(index=index)
+                #Existing user
+                performance = LOGIC.GETPERFORMANCE(student.performance)
+        
+                #Create real dictionary
+                realDic = {}
+                for seme, MList in performance.items():
+                    temp = []
+                    for module in MList:
+                        temp.append((int(module[0]), module[-1]))
+                    realDic[seme]=temp
+
+                for sem in semesters:
+                    if not(sem in realDic):
+                        
+                        semgpa = LOGIC.GETSEMGPA(student.semGPA)
+                        semgpa[sem] = 'NULL'
+                        student.semGPA = str(semgpa)
+                        
+                        #Update with new data
+                        for module in semesters[sem]:
+                            if not(sem in realDic):
+                                realDic[sem] = [(Module.objects.get(moduleCode=module.code).id, 'NULL')]
+                            else:
+                                realDic[sem].append((Module.objects.get(moduleCode=module.code).id, 'NULL'))
+
+                        student.performance = str(realDic)
+                        student.save()
+
+                
             except:
                 #NewCommer
                 #Initializing the profile
