@@ -99,7 +99,9 @@ def profile(request):
             for sem in semesters:
                 for module in semesters[sem]:
                     print(sem)
-                    print(module)
+                    print(module.name)
+                    print(module.code)
+                    print(credit=module.credit)
                     mod, isCreated = Module.objects.get_or_create(moduleName=module.name, moduleCode=module.code, credit=module.credit, semester='')
                     print(mod)
                     print(isCreated)
