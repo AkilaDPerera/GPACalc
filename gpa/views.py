@@ -85,7 +85,6 @@ def profile(request):
 
 
         name, indexNumber, semesters = LOGIC.SCRAPE(index, password)
-	print(name, indexNumber, semesters)
         if name==-1:
             #Incorrect password
             return render(request, 'gpa/auto/auto.html', {'class':'alert alert-danger fade in out', 'tag':'Attention!', 'message':'Wrong authentication information. Please check your username and password'})
