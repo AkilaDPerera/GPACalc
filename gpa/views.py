@@ -85,7 +85,7 @@ def profile(request):
 
 
         name, indexNumber, semesters = LOGIC.SCRAPE(index, password)
-        print(name, indexNumber, semesters)
+	print(name, indexNumber, semesters)
         if name==-1:
             #Incorrect password
             return render(request, 'gpa/auto/auto.html', {'class':'alert alert-danger fade in out', 'tag':'Attention!', 'message':'Wrong authentication information. Please check your username and password'})
@@ -97,7 +97,6 @@ def profile(request):
             return render(request, 'gpa/auto/auto.html', {'class':'alert alert-info fade in out', 'tag':'Information!', 'message':'Moodle structure has been changed. You cannot use this service any longer. Thanks.'})
         else:
             #update module table
-	    print("successfully entered to else part")
             for sem in semesters:
                 for module in semesters[sem]:
                     mod, isCreated = Module.objects.get_or_create(moduleName=module.name, moduleCode=module.code, credit=module.credit, semester='')
