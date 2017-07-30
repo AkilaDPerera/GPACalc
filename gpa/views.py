@@ -95,7 +95,6 @@ def profile(request):
             # lms web site structure was changed
             return render(request, 'gpa/auto/auto.html', {'class':'alert alert-info fade in out', 'tag':'Information!', 'message':'Moodle structure has been changed. You cannot use this service any longer. Thanks.'})
         else:
-            print("successfully enter to the else part")
             #update module table
             for sem in semesters:
                 for module in semesters[sem]:
@@ -147,14 +146,14 @@ def profile(request):
                             performance[sem].append((Module.objects.get(moduleCode=module.code).id, 'NULL'))
                 student = Student.objects.create(index=indexNumber, realName=name, cookie=cookie, lastTry=0, performance=str(performance), semGPA=str(semgpa), count=0, overallGPA='0.0000')
                 #------------------------
-
+            print("successfully enter to the else part 1")
             #RegularUser
             #Update the cookie
             student.cookie = cookie
             student.count = student.count + 1
             student.save()
             #-----------------
-
+            print("successfully enter to the else part 2")
             #Index Number
             
             #Real Name
@@ -183,16 +182,17 @@ def profile(request):
             else:
                 SOGPA = round(SOGPA/c, 4)
             #--------------------------------------
-
+            print("successfully enter to the else part 3")
             #Performance ----------------------------
             performance = LOGIC.GETPERFORMANCE(student.performance)
             #----------------------------------------
-
+            print("successfully enter to the else part 4")
             #List of semesters
             semList = list(performance.keys())
             semList.sort()
-
-            overallGPA = student.overallGPA	
+            print("successfully enter to the else part 5")
+            overallGPA = student.overallGPA
+            print("successfully enter to the else part 6")
             return render(request, 'gpa/auto/profile.html', {'SOGPA':SOGPA, 'overallGPA':overallGPA, 'index':student.index.upper(), 'realName':student.realName, 'petName':petname.upper(), 'sem_list':semList, 'sem_gpa':semGPA, 'sem_grades_modules':performance})
     except NameError:
 	
