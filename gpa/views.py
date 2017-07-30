@@ -194,7 +194,7 @@ def profile(request):
 
             overallGPA = student.overallGPA	
             return render(request, 'gpa/auto/profile.html', {'SOGPA':SOGPA, 'overallGPA':overallGPA, 'index':student.index.upper(), 'realName':student.realName, 'petName':petname.upper(), 'sem_list':semList, 'sem_gpa':semGPA, 'sem_grades_modules':performance})
-    except:
+    except NameError:
 	
         return render(request, 'gpa/auto/auto.html')
 
