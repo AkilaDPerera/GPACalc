@@ -106,7 +106,6 @@ def SCRAPE(username, password):
         return -3, 0, 0
     
     #Every thing is good to proceed
-    print(realName, indexNumber, semesters)
     return realName, indexNumber, semesters #Semester = {'Bsc. Eng. Semester 1': [module obj, module obj, module obj, ..., module obj]}
 #----------------------------------------------------------------------------------------------
        
