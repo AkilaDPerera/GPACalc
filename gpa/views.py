@@ -98,7 +98,12 @@ def profile(request):
             #update module table
             for sem in semesters:
                 for module in semesters[sem]:
+                    print(sem)
+                    print(module)
                     mod, isCreated = Module.objects.get_or_create(moduleName=module.name, moduleCode=module.code, credit=module.credit, semester='')
+                    print(mod)
+                    print(isCreated)
+                    print("")
             #-------------------
             print("successfully enter to the else part 0")
             try:
