@@ -42,9 +42,7 @@ def SCRAPE(username, password):
             c.post(url, data=loginData)
     
             data = c.get("https://lms.mrt.ac.lk/enrolments.php")
-            print("Iam first try")
         except:
-            print("try:",trytologin)
             sleep(3)
         
         else:
@@ -108,6 +106,7 @@ def SCRAPE(username, password):
         return -3, 0, 0
     
     #Every thing is good to proceed
+    print(realName, indexNumber, semesters)
     return realName, indexNumber, semesters #Semester = {'Bsc. Eng. Semester 1': [module obj, module obj, module obj, ..., module obj]}
 #----------------------------------------------------------------------------------------------
        
