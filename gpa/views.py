@@ -95,6 +95,7 @@ def profile(request):
             # lms web site structure was changed
             return render(request, 'gpa/auto/auto.html', {'class':'alert alert-info fade in out', 'tag':'Information!', 'message':'Moodle structure has been changed. You cannot use this service any longer. Thanks.'})
         else:
+            print("successfully enter to the else part")
             #update module table
             for sem in semesters:
                 for module in semesters[sem]:
