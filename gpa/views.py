@@ -100,6 +100,7 @@ def profile(request):
                 for module in semesters[sem]:
                     mod, isCreated = Module.objects.get_or_create(moduleName=module.name, moduleCode=module.code, credit=module.credit, semester='')
             #-------------------
+            print("successfully enter to the else part 0")
             try:
                 student = Student.objects.get(index=index)
                 #Existing user
