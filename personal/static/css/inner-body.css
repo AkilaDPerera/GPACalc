@@ -1,9 +1,0 @@
-.inner-body{
-	box-sizing: border-box;
-	position:fixed;
-	height:70vh;
-	width:100vw;
-	top:15vh;
-	overflow:auto;
-	display:block;
-}
