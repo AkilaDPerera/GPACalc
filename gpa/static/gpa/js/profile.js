@@ -40,6 +40,6 @@ function submit(parent){
 	//send the request
 	var request = $.post( "/gpa/auto/submit/", dataDic);
 	request.done(function(data) {
-		location.reload();
+		location.assign("/gpa/auto/");
 	});
 }
