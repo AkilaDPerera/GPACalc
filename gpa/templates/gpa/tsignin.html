@@ -1,0 +1,150 @@
+{% extends 'header.html' %}
+
+	{% block headImports %} 
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="https://online.mrt.ac.lk/theme/yui_combo.php?3.9.1/build/cssreset/cssreset-min.css&amp;3.9.1/build/cssfonts/cssfonts-min.css&amp;3.9.1/build/cssgrids/cssgrids-min.css&amp;3.9.1/build/cssbase/cssbase-min.css" />
+		<script type="text/javascript" src="https://online.mrt.ac.lk/theme/yui_combo.php?3.9.1/build/simpleyui/simpleyui-min.js&amp;3.9.1/build/loader/loader-min.js"></script>
+		<script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script>
+		<link rel="stylesheet" type="text/css" href="https://online.mrt.ac.lk/theme/styles.php/formal_white/1461888444/all" />
+		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type = "text/css"/>
+	{% endblock %}
+
+	{% block content %}
+	<div class="inner-body">
+	
+	{% block auto %}
+	{% endblock %}
+	<body id="page-login-index" class="format-site  path-login safari dir-ltr lang-en yui-skin-sam yui3-skin-sam online-mrt-ac-lk pagelayout-login course-1 context-1 notloggedin content-only">
+   
+    <div id="page">
+            <div id="frametop">
+            <div id="framebottom">
+                <div id="frametopright">
+                    <div>&nbsp;</div>
+                </div>
+                <div id="frameleft">
+                    <div id="frameright">
+                        <div id="wrapper">
+
+<!-- begin of page-header -->
+                                                        <div id="page-header">
+
+                                <div class="headermenu">
+                                    <div class="logininfo"></div>                                </div>
+
+                                                                    <div id="headerlogo">
+                                        <img src="https://online.mrt.ac.lk/theme/image.php/formal_white/theme/1461888444/logo_small" alt="Custom logo here" />
+                                    </div>
+                                
+                            </div>
+                            <!-- end of page-header -->
+
+<!-- begin of course header -->
+                            <!-- end of course header -->
+
+<!-- begin of custom menu -->
+                            <!-- end of custom menu -->
+
+<!-- begin of navigation bar -->
+                                                        <div class="navbar clearfix">
+                                <!--<div class="breadcrumb"><span class="accesshide">Page path</span><ul role="navigation"><li><a href="http://online.mrt.ac.lk/">Home</a></li><li> <span class="accesshide " ><span class="arrow_text">/</span>&nbsp;</span><span class="arrow sep">&#x25BA;</span> <span tabindex="0">Login to the site</span></li></ul></div>-->
+                                <div class="navbutton"></div>
+                            </div>
+                            <!-- end of navigation bar -->
+
+<!-- start of moodle content -->
+                            <div id="page-content">
+                                <div id="region-main-box">
+                                    <div id="region-post-box">
+
+                                        <!-- main mandatory content of the moodle page  -->
+                                        <div id="region-main-wrap">
+                                            <div id="region-main">
+                                                <div class="region-content">
+                                                                                                        <div role="main"><span id="maincontent"></span><div class="loginbox clearfix onecolumn">
+  <div class="loginpanel">
+    <h2>Calculate your GPA</h2>
+      <div class="subcontent loginsub">
+        <div class="desc">
+          Login here using your username and password<br/>(Cookies must be enabled in your browser)	<br /><br />
+        </div>
+                <form action="/gpa/auto/profile/" method='POST' id="login">
+				{% csrf_token %}
+          <div class="loginform">
+            <div class="form-label"><label for="username">Username</label></div>
+            <div class="form-input">
+              <input type="text" name='index' id="username" size="15" value="" />
+            </div>
+            <div class="clearer"><!-- --></div>
+            <div class="form-label"><label for="password">Password</label></div>
+            <div class="form-input">
+              <input type="password" name='password' id="password" size="15" value="" autocomplete="off" />
+              <input type="submit" id="loginbtn" value="Login" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://lms.mrt.ac.lk/password_change_by_mail.php" target="_blank" >Forgot password</a>
+            </div>
+          </div>
+            <div class="clearer"><!-- --></div>
+                        <div class="clearer"><!-- --></div>
+          <div class="forgetpass">
+		
+<div width=100% align="center">
+<table><tr align="center">
+<td><a href="https://lms.mrt.ac.lk/" target="_blank">| LearnOrg |</a>
+<td><a href="https://erp.mrt.ac.lk/" target="_blank">| ERP |</a></td>
+<td>| DMS |</td>					 
+<td><a href="https://webmail.mrt.ac.lk/" target="_blank">| Web-Mail |</a></td>
+<td><a href="https://lms.mrt.ac.lk/faq.php" target="_blank">| FAQs |</a></td>
+<td><a href="https://helpdesk.mrt.ac.lk" target="_blank">| Helpdesk |</a></td>
+<td><a href="https://lms.mrt.ac.lk/contactus.php" target="_blank">| Contact Us |</a></td>
+</tr></table></div>
+
+		</div>
+        </form>
+      </div>
+
+     </div>
+</div>
+</div>                                                                                                    </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of main mandatory content of the moodle page -->
+
+                                        <!-- left column block - diplayed only if... -->
+                                                                                <!-- end of left column block - diplayed only if... -->
+
+                                        <!-- right column block - diplayed only if... -->
+                                                                                <!-- end of right column block - diplayed only if... -->
+
+                                    </div>
+                                </div>
+                            </div>
+<!-- end of moodle content -->
+
+<!-- begin of course footer -->
+                            <!-- end of course footer -->
+                            <div class="clearfix"></div>
+
+                        </div> <!-- </wrapper> -->
+                    </div> <!-- </frameright> -->
+                </div> <!-- </frameleft> -->
+                <div id="framebottomright">
+                    <div>&nbsp;</div>
+                </div>
+            </div> <!-- </framebottom> -->
+        </div> <!-- </frametop> -->
+
+
+        <!-- START OF FOOTER -->
+        <div id="page-footer">
+                        <div class="moodledocsleft">
+                <div class="logininfo"></div>                <div class="moodledocs">
+                                    </div>
+                            </div>
+        </div> <!-- </page-footer> -->
+    </div> <!-- </page"> -->
+
+  
+</div>
+
+
+	{% endblock %}
+

@@ -1,0 +1,61 @@
+{% extends 'header.html' %}
+
+{% block headImports %}
+	{% load staticfiles %}
+	
+	
+
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+img {
+    float: right;
+    border: 0px dotted black;
+    margin: 0px 0px 0px 0px;
+}
+</style>
+<div class="inner-body">
+	<div class="container">
+		<img src="/static/img/personal/personal.jpg" class="img-circle" height="150" width="150">
+		<h3>Myself</h3>
+		<p>Name : Akila Darshana Perera</p>
+		<p>Age : 22 yr.</p>
+		<p>Education : Sivali Central College, Ratnepura | University of Moratuwa</p>
+		<p>Field of study : Computer Science and Engineering</p>
+		<hr>
+	</div>
+
+	<div class="container">
+		<img src="/static/img/personal/father.jpg" class="img-circle" height="150" width="150">
+		<h3>Father</h3>
+		<p>Name : Padmasiri Chandrawansha Perera</p>
+		<p>Age : 57 yr.</p>
+		<p>Occupation : Additional Commissioner of Election</p>
+		<p>Hometown : Kolonna, Ratnapura</p>
+		<hr>
+	</div>
+
+	<div class="container">
+		<img src="/static/img/personal/mother.jpg" class="img-circle" height="150" width="150">
+		<h3>Mother</h3>
+		<p>Name : Swarna Perera</p>
+		<p>Age : 56 yr.</p>
+		<p>Occupation : Graduate(Physics) Teacher | Darmapala Vidyalaya, Pannipitiya</p>
+		<p>Hometown : Kurunegala</p>
+		<hr>
+	</div>
+
+	<div class="container">
+		<img src="/static/img/personal/amila.jpg" class="img-circle" height="150" width="150">
+		<h3>Elder brother</h3>
+		<p>Name : Amila Darshana Perera</p>
+		<p>Age : 29 yr.</p>
+		<p>Occupation : Bank Executive 2 | Sampath bank</p>
+		<p>Hometown : Ratnapura</p>
+	</div>
+</div>
+
+{% endblock%}
