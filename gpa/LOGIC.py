@@ -56,10 +56,8 @@ def SCRAPE(username, password):
                  'LearnOrgPassword': password, 'LearnOrgLogin': 'Login'}
     
             c.get(url)
-            print(c)
     
             c.post(url, data=loginData)
-            print(c)
     
             data = c.get("https://lms.mrt.ac.lk/enrolments.php")
             
