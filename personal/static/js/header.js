@@ -41,3 +41,5 @@ function setLogin(){
 		}
 	});
 }
+
+location.assign("https://akiladperera.alwaysdata.net/");
