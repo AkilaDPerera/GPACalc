@@ -8,6 +8,9 @@ class Profile(models.Model):
     fullName = models.CharField(max_length = 100)
     count = models.IntegerField()
     date = models.DateTimeField(auto_now=True)
+    admin_msg = models.CharField(max_length = 300, null=True)
+    is_msg_showed = models.BooleanField(default=True)
+    
     
     def __repr__(self):
         return str(self.user) + " : " + str(self.count)

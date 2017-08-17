@@ -81,6 +81,13 @@ def get_profile(request):
     #User login now. I all requests request.user will be our user
     user = request.user
     profile = Profile.objects.get(user=user)
+    
+    #Handling admin msg
+    if not(profile.is_msg_showed):
+        profile.is_msg_showed=True
+        profile.save()
+        profile.is_msg_showed=False
+    
     scoreEntires = Performance.objects.filter(user=user)
     performance = LOGIC.GETPERFORMANCE(scoreEntires)
     semGPAs, overallBest, overallCorrect, sem_list = LOGIC.GETGPAS(performance)

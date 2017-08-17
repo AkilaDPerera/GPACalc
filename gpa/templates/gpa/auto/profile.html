@@ -14,6 +14,11 @@
 				<h4 style="display:inline-block; line-height: 20px;">Number of times logged <span class="label label-default">{{profile.count}}</span></h4>
 				<h4 style="display:inline-block; line-height: 30px;">Last logged <span class="label label-default">{{last_viewed}}</span></h4>
 			</div>
+			<div class="alert alert-success alert-dismissable fade in" style="display: block;" id="admin_msg_div">
+			  	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			  	<strong>Thank you {{profile.user.first_name}}!</strong> <p>{{profile.admin_msg}}</p>
+			</div>
+			<script>setAdminMsg("{{profile.is_msg_showed}}");</script>
 		</div>
 	</div>
 	

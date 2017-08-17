@@ -43,3 +43,12 @@ function submit(parent){
 		location.assign("/gpa/auto/");
 	});
 }
+
+//Handling admin msg
+function setAdminMsg(bool){
+	if(bool=="False"){
+		document.getElementById("admin_msg_div").style.display = "Block";
+	}else{
+		document.getElementById("admin_msg_div").style.display = "None";
+	}
+}
