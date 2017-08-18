@@ -53,12 +53,7 @@ def get_profile(request):
                 #Setup profile
                 profile = Profile(user=user, fullName=name, count=0)
                 profile.save()
-            else:
-                #Already registered user
-                profile = Profile.objects.get(user=user)
-                profile.count += 1
-                profile.save() #To update the time
-
+        
             #Now login
             login(request, user)
             
@@ -81,6 +76,10 @@ def get_profile(request):
     #User login now. I all requests request.user will be our user
     user = request.user
     profile = Profile.objects.get(user=user)
+    
+    #get visited count
+    profile.count += 1
+    profile.save() #To update the time
     
     #Handling admin msg
     if not(profile.is_msg_showed):

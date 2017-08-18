@@ -13,10 +13,10 @@ class Profile(models.Model):
     
     
     def __repr__(self):
-        return str(self.user) + " : " + str(self.count)
+        return str(self.user) + " : " + str(self.user.first_name) + " : " + str(self.count)
     
     def __str__(self):
-        return str(self.user) + " : " + str(self.count)
+        return str(self.user) + " : " + str(self.user.first_name) + " : " + str(self.count)
     
 
 class Module(models.Model):
