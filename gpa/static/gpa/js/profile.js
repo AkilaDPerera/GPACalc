@@ -28,10 +28,13 @@ function setImage(className){
 }
 
 function submit(parent){
+	parent.innerHTML = "<span class=\"fa fa-refresh fa-spin\" style=\"font-size:24px\"></span>";
+	parent.disabled = true;
+	
 	var data = parent.parentElement.parentElement.getElementsByTagName("select");
 	var token = document.getElementById("token");
 	var dataDic = {};
-	
+
 	dataDic[token.name]=token.value;
 	for(var i=0; i<data.length; i++){
 		dataDic[data[i].name]=data[i].value;
@@ -52,3 +55,103 @@ function setAdminMsg(bool){
 		document.getElementById("admin_msg_div").style.display = "None";
 	}
 }
+
+//review delete by id
+function reviewDeleteById(parent){
+	var token = document.getElementById("token");
+    var dataDic = {
+  		  "csrfmiddlewaretoken": token.value,
+  		  "id": parent.id
+    };
+    parent.innerHTML = "<span class=\"fa fa-refresh fa-spin\" style=\"font-size:24px\"></span>";
+    
+	var rq = $.post( "/gpa/auto/deleteReviews/", dataDic);
+    rq.done(function(data) {
+    	//format new reviews set
+    	var reviewSet = document.getElementById("review-set");
+		reviewSet.innerHTML = "";
+		for(var i in data){
+			review = data[i];
+		
+			//set profile details string
+			var profileDetails = review.user + " - " + review.index + " | <span>";
+			for(var s=0; s<review.rate; s++){
+				  profileDetails += "<i class=\"fa fa-star\" aria-hidden=\"true\" style=\"color: rgb(247, 183, 62);\"></i>";
+			}
+			profileDetails += "</span>";
+			  
+			//set delete btn
+			var deleteString = "";
+			if(review.isDeleteEnable){
+				  deleteString = "<span id=" + review.id + " class=\"pull-right\" style=\"cursor: pointer;\"><a onClick=\"reviewDeleteById(this.parentElement);\">delete</a></span>"
+			}
+			  
+			var msg = "</div><div>" + review.message + "</div></div>";
+			  
+			var inner = "<div class=\"panel-body\"><div>" + profileDetails + deleteString + msg;
+			  
+			reviewSet.innerHTML += inner;
+		}
+    });
+}
+
+//Accept feedback
+$(document).ready(function() {
+	$('#submitFeedback').click(function(event) {
+		var isvalidate = $("#ratingsForm")[0].checkValidity();
+	    if (isvalidate) {
+	      event.preventDefault();
+
+	      var token = document.getElementById("token");
+	      var message = document.getElementById("comment");
+	      var rate = document.querySelector('input[name="star"]:checked')
+	      
+	      
+	      var dataDic = {
+	    		  "csrfmiddlewaretoken": token.value,
+	    		  "message": message.value,
+	    		  "rate": rate.value
+	      };
+	      
+	      var subBtn = document.getElementById("submitFeedback");
+	      subBtn.innerHTML = "<span class=\"fa fa-refresh fa-spin\"></span>";
+	      subBtn.disabled = true;
+	      
+	      var rq = $.post( "/gpa/auto/postFeedback/", dataDic);
+	      rq.done(function(data) {
+	    	  
+	    	  //format new reviews set
+	    	  var reviewSet = document.getElementById("review-set");
+	    	  reviewSet.innerHTML = "";
+	    	  for(var i in data){
+	    		  review = data[i];
+
+	    		  //set profile details string
+	    		  var profileDetails = review.user + " - " + review.index + " | <span>";
+	    		  for(var s=0; s<review.rate; s++){
+	    			  profileDetails += "<i class=\"fa fa-star\" aria-hidden=\"true\" style=\"color: rgb(247, 183, 62);\"></i>";
+	    		  }
+	    		  profileDetails += "</span>";
+	    		  
+		  		  //set delete btn
+		  		  var deleteString = "";
+		  		  if(review.isDeleteEnable){
+		  			  deleteString = "<span id=" + review.id + " class=\"pull-right\" style=\"cursor: pointer;\"><a onClick=\"reviewDeleteById(this.parentElement);\">delete</a></span>"
+		  		  }
+		  			  
+		  		  var msg = "</div><div>" + review.message + "</div></div>";
+	    		  
+	    		  var inner = "<div class=\"panel-body\"><div>" + profileDetails + deleteString + msg;
+	    		  
+	    		  reviewSet.innerHTML += inner;
+	    	  }
+
+	    	  //reset data
+	    	  document.getElementById("star-5").checked = true;
+	    	  document.getElementById("comment").value = "";
+	    	  document.getElementById("submitFeedback").innerHTML = "Submit";
+	    	  subBtn.disabled = false;
+	      });
+	    }
+	});
+});

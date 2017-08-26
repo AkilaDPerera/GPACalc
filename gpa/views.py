@@ -3,16 +3,18 @@ from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
+
 from . import LOGIC
+from . import emailClient as ec
 
 from django.contrib.auth.models import User
 from gpa.models import Profile
 from gpa.models import Semester
 from gpa.models import Performance
 from gpa.models import Module
+from gpa.models import Feedback
 
 import json
-from django.template.context_processors import request
     
 def sign_in(request):
     if not(request.user.is_anonymous()):
@@ -91,10 +93,29 @@ def get_profile(request):
     performance = LOGIC.GETPERFORMANCE(scoreEntires)
     semGPAs, overallBest, overallCorrect, sem_list = LOGIC.GETGPAS(performance)
     class_no, class_name = LOGIC.GETCLASS(overallCorrect)
+    
+    #Feedback process
+    reviewList = Feedback.objects.all().order_by('-date')[:10]
+
+    reviews = []
+    for review in reviewList:
+        rl = dict()
+        rl["id"] = review.id
+        rl["user"] = review.user.first_name
+        rl["index"] = review.user.username
+        rl["message"] = review.message
+        rl["rate"] = "*"*review.rate
+        rl["date"] = str(review.date.date())
+        rl["time"] = str(review.date.time())
+        if (request.user==review.user):
+            rl["isDeleteEnable"] = True;
+        else:
+            rl["isDeleteEnable"] = False;
+        reviews.append(rl)
 
     possibleGrades = ["UNKNOWN", "Non-GPA", "A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F"]
 
-    return render(request, 'gpa/auto/profile.html', {'last_viewed':user.last_login.date(), 'profile':profile, "correctGPA":overallCorrect, "actualGPA":overallBest, "className":class_name, "class_no":class_no, "semList":sem_list, "SGPA":semGPAs, "performance":performance, "possibleGrades":possibleGrades})
+    return render(request, 'gpa/auto/profile.html', {'last_viewed':user.last_login.date(), 'profile':profile, "correctGPA":overallCorrect, "actualGPA":overallBest, "className":class_name, "class_no":class_no, "semList":sem_list, "SGPA":semGPAs, "performance":performance, "possibleGrades":possibleGrades, "reviews":reviews})
 
 def submit(request):
     data = dict(request.POST)
@@ -110,16 +131,73 @@ def submit(request):
         peformanceRecord.save()
     
     return HttpResponse(json.dumps({}), content_type="application/json")
-    #send required data to refresh the page
-#     profile = Profile.objects.get(user=user)
-#     scoreEntires = Performance.objects.filter(user=user)
-#     performance = LOGIC.GETPERFORMANCE(scoreEntires)
-#     semGPAs, overallBest, overallCorrect, sem_list = LOGIC.GETGPAS(performance)
-#     class_no, class_name = LOGIC.GETCLASS(overallCorrect)
-# 
-#     possibleGrades = ["UNKNOWN", "Non-GPA", "A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F"]
-#     return render(request, 'gpa/auto/profile.html', {'last_viewed':user.last_login.date(), 'profile':profile, "correctGPA":overallCorrect, "actualGPA":overallBest, "className":class_name, "class_no":class_no, "semList":sem_list, "SGPA":semGPAs, "performance":performance, "possibleGrades":possibleGrades})
 
+def postReview(request):
+    data = dict(request.POST)
+    del data["csrfmiddlewaretoken"]
+    user = request.user
+    
+    feedback = Feedback(user=user, rate=int(data["rate"][0]), message=data["message"][0])
+    feedback.save()
+    
+    #Inform admin
+    subject = "[ADD REVIEW]" + user.username + "-" + user.first_name + " has posted review"
+    message = "Rate: " + str(data["rate"][0]) +"\nMessage:\n\t" + data["message"][0]
+    ec.send(subject, message)
+    
+    #Retrieve data sorted by date
+    reviewList = Feedback.objects.all().order_by('-date')[:10]
 
+    list = []
+    for review in reviewList:
+        rl = dict()
+        rl["id"] = review.id
+        rl["user"] = review.user.first_name
+        rl["index"] = review.user.username
+        rl["message"] = review.message
+        rl["rate"] = review.rate
+        rl["date"] = str(review.date.date())
+        rl["time"] = str(review.date.time())
+        if (request.user==review.user):
+            rl["isDeleteEnable"] = True;
+        else:
+            rl["isDeleteEnable"] = False;
+        list.append(rl)
 
+    return HttpResponse(json.dumps(list), content_type="application/json")
+
+def deleteReviews(request):
+    data = dict(request.POST)
+    id = data["id"][0]
+    review = Feedback.objects.get(id=id)
+    
+    if (review.user==request.user):
+        review.delete()
+        
+    #Inform admin
+    subject = "[DELETE REVIEW]" + review.user.username + "-" + review.user.first_name + " has deleted review"
+    message = "Rate was: " + str(review.rate) +"\nMessage was:\n\t" + review.message
+    ec.send(subject, message)
+
+    #Retrieve data sorted by date
+    reviewList = Feedback.objects.all().order_by('-date')[:10]
+
+    list = []
+    for review in reviewList:
+        rl = dict()
+        rl["id"] = review.id
+        rl["user"] = review.user.first_name
+        rl["index"] = review.user.username
+        rl["message"] = review.message
+        rl["rate"] = review.rate
+        rl["date"] = str(review.date.date())
+        rl["time"] = str(review.date.time())
+        if (request.user==review.user):
+            rl["isDeleteEnable"] = True;
+        else:
+            rl["isDeleteEnable"] = False;
+        list.append(rl)
+
+    return HttpResponse(json.dumps(list), content_type="application/json")
+    
 

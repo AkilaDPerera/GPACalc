@@ -43,14 +43,15 @@ class Semester(models.Model):
 class Feedback(models.Model):
     user = models.ForeignKey(User)
     
-    message = models.CharField(max_length=1000)
+    rate = models.PositiveSmallIntegerField()
+    message = models.CharField(max_length=600)
     date = models.DateTimeField(auto_now=True)
     
     def __repr__(self):
-        return self.user + " : " + self.message
+        return str(self.user) + " : " + self.message + " : " + str(self.date)
     
     def __str__(self):
-        return self.user + " : " + self.message
+        return str(self.user) + " : " + self.message + " : " + str(self.date)
     
 class Performance(models.Model):
     user = models.ForeignKey(User)
@@ -65,5 +66,15 @@ class Performance(models.Model):
     
     def __str__(self):
         return  str(self.user) + " : " + str(self.module) + " : " + str(self.grade)
+
+class MarkSheet(models.Model):
+    module = models.ForeignKey(Module)
+    batch = models.SmallIntegerField()
+    url = models.CharField(max_length=200)
+    user_requested = models.ForeignKey(User)
+    is_pending = models.BooleanField(default=False)
+    is_partial = models.BooleanField(default=False)
+    is_admin_approved = models.BooleanField(default=False)
+    
     
 
