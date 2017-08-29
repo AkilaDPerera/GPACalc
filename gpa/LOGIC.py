@@ -130,7 +130,9 @@ def SCRAPE(username, password):
 
 
 def GETPETNAME(full_name):
-    names = sorted(full_name.split(), key=lambda x: len(x), reverse=False)
+    ls = full_name.split()
+    ls.sort()
+    names = sorted(ls, key=lambda x: len(x), reverse=False)
     for name in names:
         if len(name)>3:
             return name
