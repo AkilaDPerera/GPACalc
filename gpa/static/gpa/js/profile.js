@@ -265,7 +265,7 @@ function enterURL(div){
 }
 
 function cancelPending(btn){
-	td = btn.parentElement;
+	td = btn.parentElement.parentElement;
 	module = td.id.slice(4);
 	btns = td.getElementsByTagName("button");
 

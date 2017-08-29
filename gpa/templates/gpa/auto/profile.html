@@ -94,10 +94,12 @@
 							    		{% for module in performance|get_item:semester %}
 								      		<tr>
 								        		<td id="code{{module.module.moduleCode}}">{{module.module.moduleCode}} 
-									        		<button style="display: None;" data-toggle="tooltip" title="Here you will be directed to the result sheet of module {{module.module.moduleCode}} (admin approved)" type="button" class="btn btn-primary btn-xs"><a target="_blank" style="color: white;">view</a></button>
-									        		<button style="display: None;" data-toggle="modal" data-target="#MarkSheetURL{{module.module.moduleCode}}" title="Here you can add result sheet of module {{module.module.moduleCode}}" type="button" class="btn btn-success btn-xs">add</button>
-									        		<button style="display: None; cursor: default; opacity: .9;" type="button" class="btn btn-danger btn-xs" disabled>pending</button>
-									        		<button style="display: None;" data-toggle="tooltip" title="Here you can cancel your submission of result sheet" type="button" class="btn btn-link btn-xs" onClick="cancelPending(this);">cancel</button>
+								        			<div style="display:inline-block;">
+										        		<button style="display: None;" data-toggle="tooltip" title="Here you will be directed to the result sheet of module {{module.module.moduleCode}} (admin approved)" type="button" class="btn btn-primary btn-xs"><a target="_blank" style="color: white;">view</a></button>
+										        		<button style="display: None;" data-toggle="modal" data-target="#MarkSheetURL{{module.module.moduleCode}}" title="Here you can add result sheet of module {{module.module.moduleCode}}" type="button" class="btn btn-success btn-xs">add</button>
+										        		<button style="display: None; cursor: default; opacity: .9;" type="button" class="btn btn-danger btn-xs" disabled>pending</button>
+										        		<button style="display: None;" data-toggle="tooltip" title="Here you can cancel your submission of result sheet" type="button" class="btn btn-link btn-xs" onClick="cancelPending(this);">cancel</button>
+								        			</div>
 								        		</td>
 								        		<td>{{module.module.moduleName}}</td>
 								        		<td>{{module.module.credit}}</td>
