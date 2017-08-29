@@ -53,9 +53,9 @@ def get_profile(request):
                 user.save()
                 
                 #Inform admin
-                subject = "[NEW USER] " + user.username + "-" + user.first_name + " has registered to the system"
-                message = "Username: " + user.username + "\nFirst Name: " + user.first_name
-                ec.send(subject, message)
+#                 subject = "[NEW USER] " + user.username + "-" + user.first_name + " has registered to the system"
+#                 message = "Username: " + user.username + "\nFirst Name: " + user.first_name
+#                 ec.send(subject, message)
                 
                 user = authenticate(username=index, password=psswrd)
                 
@@ -255,9 +255,9 @@ def submitURL(request):
     markSheet.save()
     
     #Send email to admin
-    subject = "[ADD URL] " + module.moduleCode + " | " + str(markSheet.batch) + " | " + user.username + "-" + user.first_name + " has added URL to admin approval"
-    message = "Module code: " + module.moduleCode + "\tBatch: " + str(markSheet.batch) + "\nModule Name: " + module.moduleName + "\nModule Credits: " + str(module.credit) + "\nRequested By: " + user.username + "-" + user.first_name + "\nCurrent URL: " + markSheet.myUrl + "\nRequested URL to approval: " + markSheet.pendingUrl
-    ec.send(subject, message)
+#     subject = "[ADD URL] " + module.moduleCode + " | " + str(markSheet.batch) + " | " + user.username + "-" + user.first_name + " has added URL to admin approval"
+#     message = "Module code: " + module.moduleCode + "\tBatch: " + str(markSheet.batch) + "\nModule Name: " + module.moduleName + "\nModule Credits: " + str(module.credit) + "\nRequested By: " + user.username + "-" + user.first_name + "\nCurrent URL: " + markSheet.myUrl + "\nRequested URL to approval: " + markSheet.pendingUrl
+#     ec.send(subject, message)
          
     output = [markSheet.status, mod]
     return HttpResponse(json.dumps(output), content_type="application/json")
@@ -280,9 +280,9 @@ def cancelURL(request):
     markSheet.save()
     
     #Send email to admin
-    subject = "[DELETE URL] " + module.moduleCode + " | " + str(markSheet.batch) + " | "  + user.username + "-" + user.first_name + " has deleted URL"
-    message = "Module code: " + module.moduleCode + "\tBatch: " + str(markSheet.batch) + "\nModule Name: " + module.moduleName + "\nModule Credits: " + str(module.credit) + "\nRequested By: " + user.username + "-" + user.first_name + "\nCurrent URL: " + markSheet.myUrl + "\nRequested URL to approval: " + markSheet.pendingUrl
-    ec.send(subject, message)
+#     subject = "[DELETE URL] " + module.moduleCode + " | " + str(markSheet.batch) + " | "  + user.username + "-" + user.first_name + " has deleted URL"
+#     message = "Module code: " + module.moduleCode + "\tBatch: " + str(markSheet.batch) + "\nModule Name: " + module.moduleName + "\nModule Credits: " + str(module.credit) + "\nRequested By: " + user.username + "-" + user.first_name + "\nCurrent URL: " + markSheet.myUrl + "\nRequested URL to approval: " + markSheet.pendingUrl
+#     ec.send(subject, message)
     
     output = [markSheet.status]
     return HttpResponse(json.dumps(output), content_type="application/json")
