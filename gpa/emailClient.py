@@ -30,5 +30,3 @@ def send(subject, message): #arg 'to' removed
     mailserver.sendmail(support_email, msg['To'], msg.as_string())
 
     mailserver.quit()
-
-send("TEST", "This is for test3 of myself gpa app.")

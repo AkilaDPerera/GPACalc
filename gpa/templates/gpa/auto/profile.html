@@ -93,7 +93,12 @@
 							    	<tbody>
 							    		{% for module in performance|get_item:semester %}
 								      		<tr>
-								        		<td>{{module.module.moduleCode}}</td>
+								        		<td id="code{{module.module.moduleCode}}">{{module.module.moduleCode}} 
+									        		<button style="display: None;" data-toggle="tooltip" title="Here you will be directed to the result sheet of module {{module.module.moduleCode}} (admin approved)" type="button" class="btn btn-primary btn-xs"><a target="_blank" style="color: white;">view</a></button>
+									        		<button style="display: None;" data-toggle="modal" data-target="#MarkSheetURL{{module.module.moduleCode}}" title="Here you can add result sheet of module {{module.module.moduleCode}}" type="button" class="btn btn-success btn-xs">add</button>
+									        		<button style="display: None; cursor: default; opacity: .9;" type="button" class="btn btn-danger btn-xs" disabled>pending</button>
+									        		<button style="display: None;" data-toggle="tooltip" title="Here you can cancel your submission of result sheet" type="button" class="btn btn-link btn-xs" onClick="cancelPending(this);">cancel</button>
+								        		</td>
 								        		<td>{{module.module.moduleName}}</td>
 								        		<td>{{module.module.credit}}</td>
 								        		<td>{{module.grade}}</td>
@@ -160,8 +165,40 @@
 			    		</div>
 			    	</div>	
 				</div>
+				
+				{% for module in performance|get_item:semester %}
+					<!-- Getting result sheet URI -->
+					<div class="modal fade" id="MarkSheetURL{{module.module.moduleCode}}" role="dialog">
+			    		<div class="modal-dialog">
+			      		<!-- Modal content-->
+			      			<div class="modal-content">
+			        			<div class="modal-header">
+			          				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			          				<h4 class="modal-title">Please enter result sheet for module {{module.module.moduleCode}}</h4>
+			        			</div>
+			        			<div class="modal-body">
+			          				<p>Thanks for contributing to the system. We are expecting you to enter a URL that will be directed to the result sheet. Result sheets may be pdf or multiple photos. You just have to put them into your google drive or whatever and share a link that can be viewed by anyone. Then I will check it and approve it manually. That is going to be the whole process. Note that, it is okay to share partial set of marks. I will handle them. Thanks.</p>
+			          				<p>Example link: <a href="https://drive.google.com/drive/folders/0B2FMqRvDQZKgZGktMHdGZHN5MDA?usp=sharing" target="_blank">https://drive.google.com/drive/folders/0B2FMqRvDQZKgZGktMHdGZHN5MDA?usp=sharing</a></p>
+			          				<div class="form-group">
+										<label for="url">Enter the URL:</label>
+									  	<input type="text" class="form-control" id="url" name="{{module.module.moduleCode}}" oninput="bindData(this);">
+									</div>
+									<div class="form-group">
+										<label>Try the URL:</label>
+									  	<div><a href="" target="_blank"></a></div>
+									</div>
+			        			</div>
+			        			<div class="modal-footer">
+			          				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			          				<button type="submit" class="btn btn-default" onClick="enterURL(this);">Submit</button>
+			        			</div>
+			      			</div>
+						</div>
+			  		</div>
+			  	{% endfor %}
 			{% endfor %}
 	  	</div>
+
   		<div class="panel-body feedback" style="text-align:center;">
   			<div class="well">
 	  			<form id="ratingsForm" method="put" style="margin-bottom: 5px; text-align: left;">
@@ -218,6 +255,7 @@
 		    $("#Arrow{{semester.id}}").find('i').removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
 		});
 	{% endfor %}
+	getMarkSheetURL();
 </script>
 
 

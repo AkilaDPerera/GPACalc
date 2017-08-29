@@ -155,3 +155,155 @@ $(document).ready(function() {
 	    }
 	});
 });
+
+function getMarkSheetURL(){
+	var data = document.getElementsByTagName("select");
+	var token = document.getElementById("token");
+	
+	var dataDic = {};
+	modules = [];
+	for(var i=0; i<data.length; i++){
+		modules.push(data[i].name);
+	}
+	
+	dataDic[token.name] = token.value;
+	dataDic['modules'] = modules;
+
+    var rq = $.post( "/gpa/auto/getMarkSheetURLs/", dataDic);
+    rq.done(function(data) {
+    	for(var i=0; i<data.length; i++){
+    		entry = data[i];
+    		td = document.getElementById("code"+entry[0]);
+    		btns = td.getElementsByTagName("button");
+    		
+    		switch (entry[1]){
+    		   case "NW": 
+    			   btns[1].style.display = "inline-block";
+    			   break;
+    			   
+    		   case "PD": 
+    			   btns[2].style.display = "inline-block";
+    			   if(entry[2]===true){btns[3].style.display = "inline-block";}
+    			   break;
+    			   
+    		   case "VW": 
+    			   btns[0].style.display = "inline-block";
+    			   btns[0].getElementsByTagName("a")[0].setAttribute("href", entry[3]);
+    		       break;
+    		       
+    		   case "VWAD": 
+    			   btns[0].style.display = "inline-block";
+    			   btns[0].getElementsByTagName("a")[0].setAttribute("href", entry[3]);
+    			   btns[1].style.display = "inline-block";
+    		       break;
+    		       
+    		   case "VWADPD": 
+    			   btns[0].style.display = "inline-block";
+    			   btns[0].getElementsByTagName("a")[0].setAttribute("href", entry[3]);
+    			   btns[2].style.display = "inline-block";
+    			   if(entry[2]===true){btns[3].style.display = "inline-block";}
+    		       break;
+    		       
+    		   default: 
+    			   btns[0].style.display = "None";
+	    		   btns[1].style.display = "None";
+	    		   btns[2].style.display = "None";
+	    		   btns[3].style.display = "None";
+    		       break;
+    		}  
+    	}
+    });
+}
+
+function bindData(div){
+	a = div.parentElement.parentElement.getElementsByTagName("a")[1];
+	a.innerHTML = div.value;
+	a.href = div.value;
+}
+
+function enterURL(div){
+	token = document.getElementById("token");
+	input = div.parentElement.parentElement.getElementsByTagName("input")[0];
+	moduleCode = input.name;
+	URL = input.value;
+	
+	dataDic = {};
+	dataDic[token.name] = token.value;
+	dataDic['moduleCode'] = moduleCode;
+	dataDic['pendingURL'] = URL;
+	
+	div.innerHTML = "<span class=\"fa fa-refresh fa-spin\"></span>";
+	div.disabled = true;
+
+	// need to send the post request
+	rq = $.post( "/gpa/auto/submitURL/", dataDic);
+    rq.done(function(data) {
+    	btns = document.getElementById("code"+data[1]).getElementsByTagName("button");
+
+    	btns[0].style.display = "None";
+    	btns[1].style.display = "None";
+    	btns[2].style.display = "None";
+    	btns[3].style.display = "None";
+
+    	switch(data[0]){
+    		case "PD":
+    	    	btns[2].style.display = "inline-block";
+    	    	btns[3].style.display = "inline-block";
+    			break;
+    		case "VWADPD":
+    			btns[0].style.display = "inline-block";
+    	    	btns[2].style.display = "inline-block";
+    	    	btns[3].style.display = "inline-block";
+    			break
+    	}
+    	
+    	modalId = "#MarkSheetURL" + data[1];
+    	$(modalId).modal("hide");
+    	div.innerHTML = "Submit";
+    	div.disabled = false;
+    });
+}
+
+function cancelPending(btn){
+	td = btn.parentElement;
+	module = td.id.slice(4);
+	btns = td.getElementsByTagName("button");
+
+	choice="";
+	if(btns[0].style.display=="none"){
+		choice = "PD";
+	}else{
+		choice = "VWADPD";
+	}
+	
+	token = document.getElementById("token");
+	dataDic = {};
+	dataDic[token.name] = token.value;
+	dataDic["moduleCode"] = module;
+	dataDic["currentStatus"] = choice;
+	
+	btn.innerHTML = "<span class=\"fa fa-refresh fa-spin\"></span>";
+	btn.disabled = true;
+	
+	rq = $.post( "/gpa/auto/cancelURL/", dataDic);
+    rq.done(function(data) {
+    	btns[0].style.display = "None";
+    	btns[1].style.display = "None";
+    	btns[2].style.display = "None";
+    	btns[3].style.display = "None";
+    	
+    	switch(data[0]){
+			case "NW":
+ 			   	btns[1].style.display = "inline-block";
+ 			   	break;
+			case "VWAD":
+ 			   	btns[0].style.display = "inline-block";
+ 			   	btns[1].style.display = "inline-block";
+ 			   	break;
+    	}
+    	btn.innerHTML = "cancel";
+    	btn.disabled = false;
+    });
+}
+
+

@@ -8,4 +8,7 @@ urlpatterns = [
     url(r'^auto/submit/$', views.submit, name="submit"),
     url(r'^auto/postFeedback/$', views.postReview, name="postReview"),
     url(r'^auto/deleteReviews/$', views.deleteReviews, name="deleteReviews"),
+    url(r'^auto/getMarkSheetURLs/$', views.getMarkSheetURLs, name="getMarkSheetURLs"),
+    url(r'^auto/submitURL/$', views.submitURL, name="submitURL"),
+    url(r'^auto/cancelURL/$', views.cancelURL, name="cancelURL"),
 ]

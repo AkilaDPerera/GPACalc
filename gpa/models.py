@@ -70,11 +70,23 @@ class Performance(models.Model):
 class MarkSheet(models.Model):
     module = models.ForeignKey(Module)
     batch = models.SmallIntegerField()
-    url = models.CharField(max_length=200)
+    myUrl = models.CharField(max_length=200)
+    pendingUrl = models.CharField(max_length=200)
     user_requested = models.ForeignKey(User)
-    is_pending = models.BooleanField(default=False)
-    is_partial = models.BooleanField(default=False)
-    is_admin_approved = models.BooleanField(default=False)
+
+    #KEY VALUE - In the DB you will see NEW, PENDING, etc.
+    choices = (
+        ("NW", '*addOnly'),
+        ("PD", 'pending'),
+        ("VW", '-viewComplete'),
+        ("VWAD", '*viewIncomplete'),
+        ("VWADPD", 'viewIncompletePending'),
+    )
+    status = models.CharField(max_length=6, choices=choices, default="NW",)
     
+    def __repr__(self):
+        return str(self.batch) + " : " + str(self.module) + " : " + str(self.pendingUrl) + " : " + str(self.user_requested)
     
+    def __str__(self):
+        return str(self.batch) + " : " + str(self.module) + " : " + str(self.pendingUrl) + " : " + str(self.user_requested)
 

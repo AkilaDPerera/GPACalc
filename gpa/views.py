@@ -13,6 +13,7 @@ from gpa.models import Semester
 from gpa.models import Performance
 from gpa.models import Module
 from gpa.models import Feedback
+from gpa.models import MarkSheet
 
 import json
     
@@ -50,6 +51,12 @@ def get_profile(request):
                 user = User.objects.create_user(index, 'no@email.set', psswrd)
                 user.first_name = LOGIC.GETPETNAME(name)
                 user.save()
+                
+                #Inform admin
+                subject = "[NEW USER] " + user.username + "-" + user.first_name + " has registered to the system"
+                message = "Username: " + user.username + "\nFirst Name: " + user.first_name
+                ec.send(subject, message)
+                
                 user = authenticate(username=index, password=psswrd)
                 
                 #Setup profile
@@ -141,7 +148,7 @@ def postReview(request):
     feedback.save()
     
     #Inform admin
-    subject = "[ADD REVIEW]" + user.username + "-" + user.first_name + " has posted review"
+    subject = "[ADD REVIEW] " + user.username + "-" + user.first_name + " has posted review"
     message = "Rate: " + str(data["rate"][0]) +"\nMessage:\n\t" + data["message"][0]
     ec.send(subject, message)
     
@@ -175,7 +182,7 @@ def deleteReviews(request):
         review.delete()
         
     #Inform admin
-    subject = "[DELETE REVIEW]" + review.user.username + "-" + review.user.first_name + " has deleted review"
+    subject = "[DELETE REVIEW] " + review.user.username + "-" + review.user.first_name + " has deleted review"
     message = "Rate was: " + str(review.rate) +"\nMessage was:\n\t" + review.message
     ec.send(subject, message)
 
@@ -200,4 +207,82 @@ def deleteReviews(request):
 
     return HttpResponse(json.dumps(list), content_type="application/json")
     
+def getMarkSheetURLs(request):
+    data = dict(request.POST)
+    
+    user = request.user
+    batch = user.username[:2]
+    possibleURLs = MarkSheet.objects.filter(batch=batch)
 
+    output = []
+    for module in data['modules[]']:
+        out=[]
+        sheetInfo = ""
+        
+        mod = Module.objects.get(moduleCode=module)
+        specificModule = possibleURLs.filter(module=mod)
+        
+        if len(specificModule)==0:
+            sheetInfo = MarkSheet(module=mod, batch=batch, user_requested=user)
+            sheetInfo.save()
+        else:
+            sheetInfo = specificModule[0]
+
+        out = [module, sheetInfo.status, sheetInfo.user_requested.username==user.username, sheetInfo.myUrl]
+        output.append(out)
+        
+    return HttpResponse(json.dumps(output), content_type="application/json")
+
+def submitURL(request):
+    data = dict(request.POST)
+
+    user = request.user
+    batch = user.username[:2]
+    mod = data["moduleCode"][0]
+    pendingURL = data["pendingURL"][0]
+    
+    module = Module.objects.get(moduleCode=mod)
+    markSheet = MarkSheet.objects.get(module=module, batch=batch)
+    
+    markSheet.user_requested = user
+    markSheet.pendingUrl = pendingURL
+    
+    if (markSheet.status=="NW"):
+        markSheet.status = "PD"
+    elif (markSheet.status=="VWAD"):
+        markSheet.status="VWADPD"
+        
+    markSheet.save()
+    
+    #Send email to admin
+    subject = "[ADD URL] " + module.moduleCode + " | " + str(markSheet.batch) + " | " + user.username + "-" + user.first_name + " has added URL to admin approval"
+    message = "Module code: " + module.moduleCode + "\tBatch: " + str(markSheet.batch) + "\nModule Name: " + module.moduleName + "\nModule Credits: " + str(module.credit) + "\nRequested By: " + user.username + "-" + user.first_name + "\nCurrent URL: " + markSheet.myUrl + "\nRequested URL to approval: " + markSheet.pendingUrl
+    ec.send(subject, message)
+         
+    output = [markSheet.status, mod]
+    return HttpResponse(json.dumps(output), content_type="application/json")
+
+def cancelURL(request):
+    data = dict(request.POST)
+    user = request.user
+    batch = user.username[:2]
+    mod = data["moduleCode"][0]
+    choice = data["currentStatus"][0]
+    
+    module = Module.objects.get(moduleCode=mod)
+    markSheet = MarkSheet.objects.get(module=module, batch=batch)
+    
+    if choice=="PD":
+        markSheet.status = "NW"
+    elif choice=="VWADPD":
+        markSheet.status = "VWAD"
+    
+    markSheet.save()
+    
+    #Send email to admin
+    subject = "[DELETE URL] " + module.moduleCode + " | " + str(markSheet.batch) + " | "  + user.username + "-" + user.first_name + " has deleted URL"
+    message = "Module code: " + module.moduleCode + "\tBatch: " + str(markSheet.batch) + "\nModule Name: " + module.moduleName + "\nModule Credits: " + str(module.credit) + "\nRequested By: " + user.username + "-" + user.first_name + "\nCurrent URL: " + markSheet.myUrl + "\nRequested URL to approval: " + markSheet.pendingUrl
+    ec.send(subject, message)
+    
+    output = [markSheet.status]
+    return HttpResponse(json.dumps(output), content_type="application/json")
