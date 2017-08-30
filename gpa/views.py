@@ -255,8 +255,10 @@ def submitURL(request):
     markSheet.save()
     
     #Send email to admin
+    gotoURL = "https://akiladperera.alwaysdata.net/admin/gpa/marksheet/%d/change/"%(markSheet.id)
     subject = "[ADD URL] " + module.moduleCode + " | " + str(markSheet.batch) + " | " + user.username + "-" + user.first_name + " has added URL to admin approval"
     message = "Module code: " + module.moduleCode + "\tBatch: " + str(markSheet.batch) + "\nModule Name: " + module.moduleName + "\nModule Credits: " + str(module.credit) + "\nRequested By: " + user.username + "-" + user.first_name + "\nCurrent URL: " + markSheet.myUrl + "\nRequested URL to approval: " + markSheet.pendingUrl
+    message += "\nGoto: " + gotoURL
     ec.send(subject, message)
          
     output = [markSheet.status, mod]
