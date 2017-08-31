@@ -135,7 +135,7 @@
 											    	</thead>
 											    	<tbody>
 											    		{% for module in performance|get_item:semester %}
-												      		<tr>
+												      		<tr id="modalModule{{module.module.moduleCode}}">
 												        		<td>{{module.module.moduleCode}}</td>
 												        		<td>{{module.module.moduleName}}</td>
 												        		<td>{{module.module.credit}}</td>

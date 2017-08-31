@@ -25,6 +25,8 @@ class Module(models.Model):
     moduleName = models.CharField(max_length=100)
     credit = models.CharField(max_length=4)
     
+    isNonGPA = models.BooleanField(default=False)
+    
     def __repr__(self):
         return self.moduleName
     

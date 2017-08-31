@@ -222,13 +222,29 @@ def getMarkSheetURLs(request):
         mod = Module.objects.get(moduleCode=module)
         specificModule = possibleURLs.filter(module=mod)
         
+        # Non gpa label handling
+        isNonGPALabelAvailable = False
+        # admin's idea
+        if(mod.isNonGPA):
+            percentage = "100.0"
+            isNonGPALabelAvailable = True
+        else:
+            perfRecords = Performance.objects.filter(module=mod)
+            nonGPACount = len(perfRecords.filter(grade="Non-GPA"))
+            unknownCount = len(perfRecords.filter(grade="UNKNOWN"))
+            totCount = len(perfRecords)
+            percentage = nonGPACount*100/(totCount-unknownCount+1)
+            if((totCount-unknownCount)>9) and (percentage>79): #REMEMBER TO CHANGE THIS IN PRODUCTION
+                percentage = "%.1f"%(percentage)
+                isNonGPALabelAvailable = True
+        
         if len(specificModule)==0:
             sheetInfo = MarkSheet(module=mod, batch=batch, user_requested=user)
             sheetInfo.save()
         else:
             sheetInfo = specificModule[0]
 
-        out = [module, sheetInfo.status, sheetInfo.user_requested.username==user.username, sheetInfo.myUrl]
+        out = [module, sheetInfo.status, sheetInfo.user_requested.username==user.username, sheetInfo.myUrl, isNonGPALabelAvailable, percentage]
         output.append(out)
         
     return HttpResponse(json.dumps(output), content_type="application/json")

@@ -176,6 +176,16 @@ function getMarkSheetURL(){
     		td = document.getElementById("code"+entry[0]);
     		btns = td.getElementsByTagName("button");
     		
+    		//handling non gpa entries
+    		if (entry[4]==true){
+    			tr = td.parentElement;
+    			tr.style.backgroundColor = "rgba(255, 235, 0, 0.15)";
+    			tr.setAttribute("title", entry[5]+"% of people indicate this module as non GPA. Please double check before consider this module as GPA.");
+    			trModal = document.getElementById("modalModule"+entry[0]);
+    			trModal.style.backgroundColor = "rgba(255, 235, 0, 0.15)";
+    			trModal.setAttribute("title", entry[5]+"% of people indicate this module as non GPA. Please double check before consider this module as GPA.");
+    		}
+
     		switch (entry[1]){
     		   case "NW": 
     			   btns[1].style.display = "inline-block";
