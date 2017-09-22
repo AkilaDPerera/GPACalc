@@ -79,8 +79,11 @@ def get_profile(request):
                 sem = sem[0]
                 
                 for module in sorted(semester[1], key=lambda t:t.getModuleCode()):
-                    modu = Module.objects.get_or_create(moduleCode=module.getModuleCode(), moduleName=module.getModuleName(), credit=module.getModuleCredits())
-                    modu = modu[0]
+                    try:
+                        modu = Module.objects.get(pk=module.getModuleCode())
+                    except:
+                        modu = Module.objects.get_or_create(moduleCode=module.getModuleCode(), moduleName=module.getModuleName(), credit=module.getModuleCredits())
+                        modu = modu[0]
                     
                     #Create performance entries
                     performance = Performance.objects.get_or_create(user=user, module=modu, semester=sem)
