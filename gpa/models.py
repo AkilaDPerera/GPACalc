@@ -87,8 +87,8 @@ class MarkSheet(models.Model):
     status = models.CharField(max_length=6, choices=choices, default="NW",)
     
     def __repr__(self):
-        return str(self.batch) + " : " + str(self.module) + " : " + str(self.pendingUrl) + " : " + str(self.user_requested)
+        return str(self.batch) + " : " + str(self.module) + " : " + str(self.pendingUrl) + " : " + str(self.user_requested) + " : " + str(self.status)
     
     def __str__(self):
-        return str(self.batch) + " : " + str(self.module) + " : " + str(self.pendingUrl) + " : " + str(self.user_requested)
+        return str(self.batch) + " : " + str(self.module) + " : " + str(self.pendingUrl) + " : " + str(self.user_requested) + " : " + str(self.status)
 

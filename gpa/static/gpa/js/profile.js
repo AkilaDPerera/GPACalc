@@ -237,6 +237,8 @@ function enterURL(div){
 	moduleCode = input.name;
 	URL = input.value;
 	
+	if (URL.trim() === ""){return;}
+	
 	dataDic = {};
 	dataDic[token.name] = token.value;
 	dataDic['moduleCode'] = moduleCode;
