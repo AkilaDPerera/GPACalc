@@ -1,0 +1,114 @@
+{% extends 'header.html' %}
+
+{% block headImports %}
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'gpa/css/profile.css' %}" type = "text/css"/>
+	<script src="{% static 'gpa/js/profile.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class=inner-body style="text-align: center;">
+	<div class="panel panel-default">
+	  	<div class="panel-heading"><h4>Profile</h4></div>
+	  	<div class="panel-body">
+	  		<div class="panel panel-default">
+				<div class="panel-body" style="display:inline-block; text-align: left;">
+					<h5 style="display:inline-block;"><span class="glyphicon glyphicon-user"></span> {{profile.fullName}}</h5>
+					<br>
+					<h5 style="display:inline-block;"><span class="glyphicon glyphicon-tag"></span> {{profile.user.username}}</h5>
+				</div>
+				
+				<div class="panel-body" style="display:inline-block; padding-bottom: 0px; padding-top: 0px; height: 110px;">
+					<div class="panel panel-default">
+					  <div class="panel-heading">Overall GPA (UoM accepted way)</div>
+					  <div class="panel-body" style="font-weight: bold;">{{correctGPA}}</div>
+					</div>
+				</div>
+				
+				<div class="panel-body" style="display:inline-block; padding-bottom: 0px; padding-top: 0px; height: 110px;">
+					<div class="panel panel-default">
+					  <div class="panel-heading">Overall GPA (Actual)</div>
+					  <div class="panel-body" style="font-weight: bold;">{{actualGPA}}</div>
+					</div>
+				</div>
+				
+				<div class="panel-body" style="display:inline-block; padding-bottom: 0px; padding-top: 0px; height: 110px;">
+					<div class="panel panel-default">
+					 	<div class="panel-heading">Class</div>
+					 	<div class="panel-body" style="font-weight: bold;">{{className}}</div>
+					</div>
+			  	</div>
+			  	<div id="imgComp" class="panel-body" style="display:inline-block; padding-bottom: 0px; padding-top: 0px; height: 110px; vertical-align: top;">
+			  		<img src="/static/gpa/img/{{class_no}}.png" class="img-rounded" alt="Cinque Terre" width="100" height="100">
+			  	</div>
+			  	<script>setImage("{{className}}");</script>
+			</div>
+	  	</div>
+	</div>
+	
+	<div class="panel panel-default" style="text-align: center;">
+	  	<div class="panel-heading"><h4></h4></div>
+	  	
+	  	<div class="panel-body module-status" style="text-align:left;">
+	  		<input id="token" type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}' />
+	  		{% for semester in semList %}
+		  		<div class="panel panel-default">
+				    <div class="panel-heading" style="cursor: pointer;" data-toggle="collapse" data-parent="#accordion" href="#{{semester.id}}">
+				        <h4 class="panel-title">
+				    		<span id="Arrow{{semester.id}}" data-toggle="collapse" data-parent="#accordion" href="#{{semester.id}}">
+				                <i class="glyphicon glyphicon-chevron-down"></i>
+				            </span>
+				            
+				            <a data-toggle="collapse" data-parent="#accordion" href="#{{semester.id}}">{{semester}}</a>
+
+				            <span class="pull-right" style="font-size:20px;">{{SGPA|get_item:semester}}</span>
+				        </h4>
+				    </div>
+				    <div id="{{semester.id}}" class="panel-collapse panel-collapse collapse">
+				        <div class="panel-body">
+					        <div class="table-responsive">          
+								<table class="table table-striped">
+									<thead>
+							 			<tr>
+							        		<th>Module Code</th>
+							        		<th>Module Name</th>
+							        		<th>Module Credits</th>
+							        		<th>Grade Received</th>
+							      		</tr>
+							    	</thead>
+							    	<tbody>
+							    		{% for module in performance|get_item:semester %}
+								      		<tr>
+								        		<td id="code{{module.module.moduleCode}}">{{module.module.moduleCode}} </td>
+								        		<td>{{module.module.moduleName}}</td>
+								        		<td>{{module.module.credit}}</td>
+								        		<td>{{module.grade}}</td>
+								      		</tr>
+								      	{% endfor %}
+							    	</tbody>
+							 	</table>
+							</div>
+						</div>
+			    	</div>	
+				</div>
+			{% endfor %}
+	  	</div>
+  	</div>
+</div>
+
+<script>	
+	/* This is for maintaining arrow in collapsials */
+	{% for semester in semList %}
+		$("#{{semester.id}}").on("hide.bs.collapse", function () {
+		    $("#Arrow{{semester.id}}").find('i').removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+		});
+		
+		$("#{{semester.id}}").on("show.bs.collapse", function () {
+		    $("#Arrow{{semester.id}}").find('i').removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+		});
+	{% endfor %}
+</script>
+
+
+
+{% endblock %}

@@ -308,3 +308,68 @@ def cancelURL(request):
     
     output = [markSheet.status]
     return HttpResponse(json.dumps(output), content_type="application/json")
+
+def reports(request):
+    user = request.user
+    if user.is_staff: 
+        return render(request, "gpa/reports/reports.html")
+    else:
+        return redirect("sign_in")
+    
+def getReportData(request):
+    user = request.user
+    if user.is_staff: 
+        batch = str(request.POST["batch"])
+        users = User.objects.filter(username__startswith=batch)
+        wholeUsersData = []
+        noOfSems = 0
+        for u in users:
+            profile = Profile.objects.get(user=u)
+            scoreEntires = Performance.objects.filter(user=u)
+            performance = LOGIC.GETPERFORMANCE(scoreEntires)
+            semGPAs, overallBest, overallCorrect, sem_list = LOGIC.GETGPAS(performance)
+            
+            userData = []
+            userData.append(u.username)
+            userData.append(u.first_name)
+            for sem in sem_list:
+                userData.append(str(semGPAs[sem]))
+            userData.append(overallCorrect)
+            wholeUsersData.append(userData)
+            
+            if noOfSems < len(sem_list): noOfSems = len(sem_list)
+        
+        headings = ["Index", "Name"]
+        s=0
+        for x in range(noOfSems):
+            s+=1
+            headings.append("Semester %d"%(s))
+        headings.append("Overall GPA")
+        
+        # Refine data
+        for userData in wholeUsersData:
+            if (len(userData)!=noOfSems+3):
+                remainings = noOfSems+3-len(userData)
+                overall = userData.pop()
+                userData.extend(["NOT-INITIALIZED"]*remainings)
+                userData.append(overall)
+        return HttpResponse(json.dumps([headings, wholeUsersData]), content_type="application/json")
+    else:
+        return redirect("sign_in")
+
+def getReportProfile(request, index):
+    u = request.user
+    if u.is_staff: 
+        user = User.objects.get(username=index)
+        profile = Profile.objects.get(user=user)
+        scoreEntires = Performance.objects.filter(user=user)
+        performance = LOGIC.GETPERFORMANCE(scoreEntires)
+        semGPAs, overallBest, overallCorrect, sem_list = LOGIC.GETGPAS(performance)
+        class_no, class_name = LOGIC.GETCLASS(overallCorrect)
+        possibleGrades = ["UNKNOWN", "Non-GPA", "A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F"]
+        return render(request, 'gpa/reports/profileReport.html', {'last_viewed':user.last_login.date(), 'profile':profile, "correctGPA":overallCorrect, "actualGPA":overallBest, "className":class_name, "class_no":class_no, "semList":sem_list, "SGPA":semGPAs, "performance":performance, "possibleGrades":possibleGrades})
+    else:
+        return redirect("sign_in")
+
+        
+        

@@ -11,4 +11,7 @@ urlpatterns = [
     url(r'^auto/getMarkSheetURLs/$', views.getMarkSheetURLs, name="getMarkSheetURLs"),
     url(r'^auto/submitURL/$', views.submitURL, name="submitURL"),
     url(r'^auto/cancelURL/$', views.cancelURL, name="cancelURL"),
+    url(r'^reports/$', views.reports, name="reports"),
+    url(r'^reports/getReportData/$', views.getReportData, name="reportData"),
+    url(r'^reports/(?P<index>[0-9]{6}[a-zA-Z]{1})/$', views.getReportProfile, name="reportProfile")
 ]
