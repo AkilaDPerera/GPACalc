@@ -29,7 +29,7 @@ def sign_out(request):
 
 def get_profile(request):
     if (request.user.is_anonymous()):
-        index = request.POST['index'].lower()
+        index = request.POST['index'].lower().strip()
         psswrd = request.POST['password']
         
         name, indexNumber, semesters = LOGIC.SCRAPE(index, psswrd) #WEB Scraping
