@@ -54,7 +54,7 @@ def get_profile(request):
                 
                 #Inform admin
                 subject = "[NEW USER] " + user.username + "-" + user.first_name + " has registered to the system"
-                message = "Username: " + user.username + "\nFirst Name: " + user.first_name
+                message = "Username: " + user.username + "\nFirst Name: " + user.first_name + "\nFull Name: " + name + "\nGoto: https://akiladperera.alwaysdata.net/admin/auth/user/%d/change/"%(user.id)
                 ec.send(subject, message)
                 
                 user = authenticate(username=index, password=psswrd)

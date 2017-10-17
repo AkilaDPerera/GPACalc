@@ -2,7 +2,7 @@
 
 {% block headImports %}
 	{% load staticfiles %}
-	<link rel="stylesheet" href="{% static 'gpa/css/profile.css' %}" type = "text/css"/>
+	<link rel="stylesheet" href="{% static 'gpa/css/reports.css' %}" type = "text/css"/>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="{% static 'gpa/js/reports.js' %}"></script>
 {% endblock %}
@@ -15,5 +15,6 @@
   	<input type="submit" id="batchBtn">
 </form>
 <div id="table_div"></div>
+<div id="spinner"></div>
    
 {% endblock %}

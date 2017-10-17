@@ -8,6 +8,7 @@ $(document).ready(function() {
 		    //Ajax request
 		    var batch = document.getElementById("batch").value;
 		    var token = document.getElementById("token").value;
+		    document.getElementById("spinner").innerHTML = "<div class=\"loading\">Loading&#8230;</div>";
 		    var posting = $.post( "/gpa/reports/getReportData/", {batch: batch, csrfmiddlewaretoken: token} );
 		    
 		    posting.done(function(d){
@@ -25,6 +26,7 @@ $(document).ready(function() {
 				  	table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
 				  	google.visualization.events.addListener(table, 'select', selectHandler);
 		    	}
+		    	document.getElementById("spinner").innerHTML = "";
 		    })
 	    }
 	})
