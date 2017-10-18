@@ -102,6 +102,10 @@ def get_profile(request):
     
     scoreEntires = Performance.objects.filter(user=user)
     performance = LOGIC.GETPERFORMANCE(scoreEntires)
+    
+    profile.department = LOGIC.EVALUATEDEPARTMENT(performance)
+    profile.save()
+    
     semGPAs, overallBest, overallCorrect, sem_list = LOGIC.GETGPAS(performance)
     class_no, class_name = LOGIC.GETCLASS(overallCorrect)
     
@@ -320,11 +324,16 @@ def getReportData(request):
     user = request.user
     if user.is_staff: 
         batch = str(request.POST["batch"])
-        users = User.objects.filter(username__startswith=batch)
+        dptm = str(request.POST["dptm"])
+        if(dptm!="all"):
+            profiles = Profile.objects.filter(user__username__startswith=batch, department=dptm)
+        else:
+            profiles = Profile.objects.filter(user__username__startswith=batch)
         wholeUsersData = []
         noOfSems = 0
-        for u in users:
-            profile = Profile.objects.get(user=u)
+        for p in profiles:
+            u = p.user
+            profile = p
             scoreEntires = Performance.objects.filter(user=u)
             performance = LOGIC.GETPERFORMANCE(scoreEntires)
             semGPAs, overallBest, overallCorrect, sem_list = LOGIC.GETGPAS(performance)

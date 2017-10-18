@@ -7,9 +7,10 @@ $(document).ready(function() {
 	      event.preventDefault();
 		    //Ajax request
 		    var batch = document.getElementById("batch").value;
+		    var dptm = document.getElementById("dptm").value;
 		    var token = document.getElementById("token").value;
 		    document.getElementById("spinner").innerHTML = "<div class=\"loading\">Loading&#8230;</div>";
-		    var posting = $.post( "/gpa/reports/getReportData/", {batch: batch, csrfmiddlewaretoken: token} );
+		    var posting = $.post( "/gpa/reports/getReportData/", {batch: batch, dptm: dptm, csrfmiddlewaretoken: token} );
 		    
 		    posting.done(function(d){
 		    	google.charts.load('current', {'packages':['table']});

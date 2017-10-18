@@ -185,6 +185,18 @@ def GETGPAS(performance):
     else:
         return semGPA, "%.4f"%(0.0), "%.4f"%(0.0), sorted(sem_list, key=lambda x: x.semesterName, reverse=False)
 
+def EVALUATEDEPARTMENT(performance):
+    departments = {"CS":0, "MT":0, "ME":0, "EN":0, "EE":0, "CH":0, "CE":0}
+    for sem in performance.keys():
+        for module in performance[sem]:
+            try:
+                departments[module.module.moduleCode[:2]] += 1
+            except:
+                pass
+    departments = sorted(departments.items(), key=lambda x: x[1], reverse=True)
+    dp = departments[0][0]
+    return dp
+
 def GETCLASS(correctGPA):
     correctGPA = float(correctGPA)
     if correctGPA>=4.0:

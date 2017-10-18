@@ -6,6 +6,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User)
     
     fullName = models.CharField(max_length = 100)
+    department = models.CharField(max_length=10, null=True)
     count = models.IntegerField()
     date = models.DateTimeField(auto_now=True)
     admin_msg = models.CharField(max_length = 600, null=True)
@@ -13,10 +14,10 @@ class Profile(models.Model):
     
     
     def __repr__(self):
-        return str(self.user) + " : " + str(self.user.first_name) + " : " + str(self.count)
+        return str(self.user) + " : " + str(self.user.first_name) + " : " + str(self.department) + " : " + str(self.count)
     
     def __str__(self):
-        return str(self.user) + " : " + str(self.user.first_name) + " : " + str(self.count)
+        return str(self.user) + " : " + str(self.user.first_name) + " : " + str(self.department) + " : " + str(self.count)
     
 
 class Module(models.Model):
