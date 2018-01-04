@@ -21,6 +21,9 @@ div{
     .non-mobile{
         display: None;
     }
+    .inner-body{
+        background-image: url("../img/backMobile.jpg");
+    }
 }
 @media screen and (min-width: 768px) and (max-width: 1439px){
     .project{
@@ -45,8 +48,6 @@ div{
     }
     .inner-body{
         background-image: url("../img/back4K.jpg");
-        background-repeat: no-repeat;
-        background-position: center top;
     }
 }
 /* mobile screen setting */
