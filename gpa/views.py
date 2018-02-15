@@ -130,7 +130,13 @@ def get_profile(request):
 
     possibleGrades = ["UNKNOWN", "Non-GPA", "A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F"]
 
-    return render(request, 'gpa/auto/profile.html', {'last_viewed':user.last_login.date(), 'profile':profile, "correctGPA":overallCorrect, "actualGPA":overallBest, "className":class_name, "class_no":class_no, "semList":sem_list, "SGPA":semGPAs, "performance":performance, "possibleGrades":possibleGrades, "reviews":reviews})
+    dataToFrontEnd = {'last_viewed':user.last_login.date(), 'profile':profile, "correctGPA":overallCorrect, "actualGPA":overallBest, "className":class_name, "class_no":class_no, "semList":sem_list, "SGPA":semGPAs, "performance":performance, "possibleGrades":possibleGrades, "reviews":reviews}
+
+    if user.username[:2]!='14':
+        messageForJuniors = "If you feel that this system is useful, just convey the message regarding this web application to your colleagues as well as junior batches of UoM Engineering."
+        dataToFrontEnd['messageForJuniors']=messageForJuniors
+
+    return render(request, 'gpa/auto/profile.html', dataToFrontEnd)
 
 def submit(request):
     data = dict(request.POST)

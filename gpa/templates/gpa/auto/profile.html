@@ -7,6 +7,12 @@
 {% endblock %}
 
 {% block content %}
+{% if messageForJuniors %}
+<div class="alert alert-info alert-dismissable fade in">
+	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	<strong>Thank you {{profile.user.first_name}}!</strong> <p>{{messageForJuniors}}</p>
+</div>
+{% endif %}
 <div class=inner-body style="text-align: center;">
 	<div class="panel panel-default" style="text-align: left;">
 		<div class="panel-body">
