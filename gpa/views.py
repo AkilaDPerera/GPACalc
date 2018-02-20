@@ -19,13 +19,66 @@ import json
     
 def sign_in(request):
     if not(request.user.is_anonymous()):
-        return get_profile(request)
+        return redirect("load_home_profile_page")
     else:
         return render(request, "gpa/auto/auto.html")
 
 def sign_out(request):
     logout(request) 
     return redirect("sign_in")
+
+def load_home_profile_page(request):
+    if request.user.is_anonymous():
+        return redirect("sign_in")
+
+    user = request.user
+    profile = Profile.objects.get(user=user)
+    
+    scoreEntires = Performance.objects.filter(user=user)
+    performance = LOGIC.GETPERFORMANCE(scoreEntires)
+    
+    profile.department = LOGIC.EVALUATEDEPARTMENT(performance)
+    profile.save()
+    
+    #Handling admin msg
+    if not(profile.is_msg_showed):
+        profile.is_msg_showed=True
+        profile.save()
+        profile.is_msg_showed=False
+    
+    semGPAs, overallBest, overallCorrect, sem_list = LOGIC.GETGPAS(performance)
+    class_no, class_name = LOGIC.GETCLASS(overallCorrect)
+    
+    #Feedback process
+    reviewList = Feedback.objects.all().order_by('-date')[:10]
+
+    reviews = []
+    for review in reviewList:
+        rl = dict()
+        rl["id"] = review.id
+        rl["user"] = review.user.first_name
+        rl["index"] = review.user.username
+        rl["message"] = review.message
+        rl["rate"] = "*"*review.rate
+        rl["date"] = str(review.date.date())
+        rl["time"] = str(review.date.time())
+        if (request.user==review.user):
+            rl["isDeleteEnable"] = True;
+        else:
+            rl["isDeleteEnable"] = False;
+        reviews.append(rl)
+
+    possibleGrades = ["UNKNOWN", "Non-GPA", "A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F"]
+
+    dataToFrontEnd = {'last_viewed':user.last_login.date(), 'profile':profile, "correctGPA":overallCorrect, "actualGPA":overallBest, "className":class_name, "class_no":class_no, "semList":sem_list, "SGPA":semGPAs, "performance":performance, "possibleGrades":possibleGrades, "reviews":reviews}
+
+    if user.username[:2]!='14':
+        messageForJuniors = "If you feel that this system is useful, just convey the message regarding this web application to your colleagues as well as junior batches of UoM Engineering."
+        dataToFrontEnd['messageForJuniors']=messageForJuniors
+
+    return render(request, 'gpa/auto/profile.html', dataToFrontEnd)
+
+
 
 def get_profile(request):
     if (request.user.is_anonymous()):
@@ -87,56 +140,8 @@ def get_profile(request):
                     
                     #Create performance entries
                     performance = Performance.objects.get_or_create(user=user, module=modu, semester=sem)
-            
-
     
-    #User login now. I all requests request.user will be our user
-    user = request.user
-    profile = Profile.objects.get(user=user)
-    
-    scoreEntires = Performance.objects.filter(user=user)
-    performance = LOGIC.GETPERFORMANCE(scoreEntires)
-    
-    profile.department = LOGIC.EVALUATEDEPARTMENT(performance)
-    profile.save()
-    
-    #Handling admin msg
-    if not(profile.is_msg_showed):
-        profile.is_msg_showed=True
-        profile.save()
-        profile.is_msg_showed=False
-    
-    semGPAs, overallBest, overallCorrect, sem_list = LOGIC.GETGPAS(performance)
-    class_no, class_name = LOGIC.GETCLASS(overallCorrect)
-    
-    #Feedback process
-    reviewList = Feedback.objects.all().order_by('-date')[:10]
-
-    reviews = []
-    for review in reviewList:
-        rl = dict()
-        rl["id"] = review.id
-        rl["user"] = review.user.first_name
-        rl["index"] = review.user.username
-        rl["message"] = review.message
-        rl["rate"] = "*"*review.rate
-        rl["date"] = str(review.date.date())
-        rl["time"] = str(review.date.time())
-        if (request.user==review.user):
-            rl["isDeleteEnable"] = True;
-        else:
-            rl["isDeleteEnable"] = False;
-        reviews.append(rl)
-
-    possibleGrades = ["UNKNOWN", "Non-GPA", "A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F"]
-
-    dataToFrontEnd = {'last_viewed':user.last_login.date(), 'profile':profile, "correctGPA":overallCorrect, "actualGPA":overallBest, "className":class_name, "class_no":class_no, "semList":sem_list, "SGPA":semGPAs, "performance":performance, "possibleGrades":possibleGrades, "reviews":reviews}
-
-    if user.username[:2]!='14':
-        messageForJuniors = "If you feel that this system is useful, just convey the message regarding this web application to your colleagues as well as junior batches of UoM Engineering."
-        dataToFrontEnd['messageForJuniors']=messageForJuniors
-
-    return render(request, 'gpa/auto/profile.html', dataToFrontEnd)
+    return redirect("load_home_profile_page")
 
 def submit(request):
     data = dict(request.POST)

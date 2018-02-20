@@ -7,26 +7,21 @@
 {% endblock %}
 
 {% block content %}
-{% if messageForJuniors %}
-<div class="alert alert-info alert-dismissable fade in">
-	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-	<strong>Thank you {{profile.user.first_name}}!</strong> <p>{{messageForJuniors}}</p>
-</div>
-{% endif %}
+
 <div class=inner-body style="text-align: center;">
-	<div class="panel panel-default" style="text-align: left;">
-		<div class="panel-body">
-			<div style="display:inline-block;">
-				<h4 style="display:inline-block; line-height: 30px;">Number of times logged in <span class="label label-default">{{profile.count}}</span></h4>
-				<h4 style="display:inline-block; line-height: 30px;">Last logged <span class="label label-default">{{last_viewed}}</span></h4>
-			</div>
-			<div class="alert alert-success alert-dismissable fade in" id="admin_msg_div">
-			  	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			  	<strong>Thank you {{profile.user.first_name}}!</strong> <p>{{profile.admin_msg}}</p>
-			</div>
-			<script>setAdminMsg("{{profile.is_msg_showed}}");</script>
-		</div>
+	{% if messageForJuniors %}
+	<div class="alert alert-info alert-dismissable fade in" id="alertToJuniors">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>Thank you {{profile.user.first_name}}!</strong> <p>{{messageForJuniors}}</p>
 	</div>
+	{% endif %}
+	{% if not profile.is_msg_showed %}
+	<div class="alert alert-success alert-dismissable fade in" style="text-align: left; padding-left: 100px;">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>Thank you {{profile.user.first_name}}!</strong> <p>{{profile.admin_msg}}</p>
+	</div>
+	{% endif %}
+	<script>alertAutoHide();</script>
 	
 	<div class="panel panel-default">
 	  	<div class="panel-heading"><h4>Profile</h4></div>

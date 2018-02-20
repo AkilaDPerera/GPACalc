@@ -47,13 +47,11 @@ function submit(parent){
 	});
 }
 
-//Handling admin msg
-function setAdminMsg(bool){
-	if(bool=="False"){
-		document.getElementById("admin_msg_div").style.display = "Block";
-	}else{
-		document.getElementById("admin_msg_div").style.display = "None";
-	}
+function alertAutoHide(){
+	divAlert = document.getElementById("alertToJuniors");
+	setTimeout(function(){
+		divAlert.style.display = "None";
+	}, 10000);
 }
 
 //review delete by id
