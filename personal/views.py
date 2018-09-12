@@ -8,7 +8,7 @@ def personal(request):
 	return render(request, 'personal/personal.html')
 	
 def professional(request):
-	return render(request, 'personal/professional.html')
+	return render(request, 'personal/prof/index.html')
 	
 def projects(request):
 	return render(request, 'personal/projects.html')
@@ -23,3 +23,7 @@ def getUser(request):
 		data = {"user": request.user.username}
 	
 	return HttpResponse(json.dumps(data), content_type="application/json")
+
+def error_404_view(request):
+    return render(request, '404.html')
+	

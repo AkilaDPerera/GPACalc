@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+   <!--- Basic Page Needs
+   ================================================== -->
+   <meta charset="utf-8">
+	<title>Resume - Akila D. Perera</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+   <!-- Mobile Specific Metas
+   ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    {% load staticfiles %}
+    <!-- other imports -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type = "text/css"/>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+	<!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{% static 'css/preloading.css' %}" type = "text/css"/>
+   <link rel="stylesheet" href="{% static 'prof/css/default.css' %}" type = "text/css"/>
+   <link rel="stylesheet" href="{% static 'prof/css/layout.css' %}" type = "text/css"/>
+   <link rel="stylesheet" href="{% static 'prof/css/media-queries.css' %}" type = "text/css"/>
+   <link rel="stylesheet" href="{% static 'prof/css/magnific-popup.css' %}" type = "text/css"/>
+
+   <!-- Script
+   ================================================== -->
+    <script src="{% static 'prof/js/modernizr.js' %}"></script>
+
+   <!-- Favicons
+	================================================== -->
+    <!-- <link rel="shortcut icon" href="{% static 'favicon.png' %}"> -->
+    <link rel="shortcut icon" href="{% static 'img/icon.png' %}">
+
+    <script>
+        $(window).load(function() {
+            // Animate loader off screen
+            $(".se-pre-con").fadeOut("slow");;
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <div class="se-pre-con"></div>
+
+   <!-- Header
+   ================================================== -->
+   <header id="home">
+
+      <nav id="nav-wrap">
+
+         <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
+	      <a class="mobile-btn" href="#" title="Hide navigation">Hide navigation</a>
+
+         <ul id="nav" class="nav">
+            <li class="current"><a class="smoothscroll" href="#home">Home</a></li>
+            <li><a class="smoothscroll" href="#about">About</a></li>
+	         <li><a class="smoothscroll" href="#resume">Resume</a></li>
+            <li><a class="smoothscroll" href="#portfolio">Works</a></li>
+            <li><a class="smoothscroll" href="#feedback">Feedback</a></li>
+            <li><a class="smoothscroll" href="#contact">Contact</a></li>
+            <li><a href="/gpa/auto/">GPA Calculator</a></li>
+         </ul> <!-- end #nav -->
+
+      </nav> <!-- end #nav-wrap -->
+
+      <div class="row banner">
+         <div class="banner-text">
+            <h1 class="responsive-headline">I'm Akila D. Perera</h1>
+            <h3>I'm an <span>engineer</span>, <span>programmer</span>, <span>web-developer</span> and <span>UI/UX designer</span> creating awesome products for my clients all around the globe.
+                 Let's <a class="smoothscroll" href="#about">start scrolling</a>
+            and learn more <a class="smoothscroll" href="#about">about me</a>.</h3>
+            <hr />
+            <ul class="social">
+               <li><a href="https://www.facebook.com/akila.d.perera.1" target="_blank"><i class="fa fa-facebook"></i></a></li>
+               <!-- <li><a href="#"><i class="fa fa-twitter"></i></a></li> -->
+               <li><a href="https://plus.google.com/u/0/+AkilaDPerera" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+               <li><a href="https://www.linkedin.com/in/akiladperera/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+               <!-- <li><a href="#"><i class="fa fa-instagram"></i></a></li> -->
+               <!-- <li><a href="#"><i class="fa fa-dribbble"></i></a></li> -->
+               <!-- <li><a href="#"><i class="fa fa-skype"></i></a></li> -->
+               <script src="https://swc.cdn.skype.com/sdk/v1/sdk.min.js"></script>
+               <li class="skype-button" data-bot-id="live:akilamatrix"><a href="#"><i class="fa fa-skype"></i></a></li>
+            </ul>
+         </div>
+      </div>
+
+      <p class="scrolldown">
+         <a class="smoothscroll" href="#about"><i class="icon-down-circle"></i></a>
+      </p>
+
+   </header> <!-- Header End -->
+
+
+   <!-- About Section
+   ================================================== -->
+   <section id="about">
+        
+      <div class="row">
+
+         <div class="three columns">
+
+            <img class="profile-pic"  src="{% static 'prof/images/profilepic.png' %}" alt="" />
+
+         </div>
+
+         <div class="nine columns main-col">
+
+            <h2>About Me</h2>
+
+            <p>You are looking at a passionate professional in IT industry who is also a highly motivated and responsible 
+                team-player with the right blend of logical, analytical and computational skills. I always see myself as 
+                someone who can work proactively to meet critical deadlines as an individual as well as an excellent 
+                team-player. Being an innovative thinker, listener and quick learner, I’m confident that I can get on well 
+                with any new environment quickly. With that background, I am willing to work at a position where I can 
+                utilize my above soft skills as well as technical skills in order to give maximum to the company while 
+                building my professional career.
+            </p>
+
+            <div class="row">
+
+               <div class="columns contact-details">
+
+                  <h2>Contact Details</h2>
+                  <p class="address">
+						   <span>Akila D. Perera</span><br>
+						   <span>First lane, Siddamulla, Piliyandala, Srilanka
+                     </span><br>
+						   <span>+94 71 63 60 198</span><br>
+                     <span>akilamatrix@gmail.com</span>
+                     <span>akila.14@cse.mrt.ac.lk</span>
+					   </p>
+
+               </div>
+
+               <!-- <div class="columns download">
+                  <p>
+                     <a href="#" class="button"><i class="fa fa-download"></i>Download Resume</a>
+                  </p>
+               </div> -->
+
+            </div> <!-- end row -->
+
+         </div> <!-- end .main-col -->
+
+      </div>
+
+   </section> <!-- About Section End-->
+
+
+   <!-- Resume Section
+   ================================================== -->
+   <section id="resume">
+
+      <!-- Education
+      ----------------------------------------------- -->
+      <div class="row education">
+
+         <div class="three columns header-col">
+            <h1><span>Education</span></h1>
+         </div>
+
+         <div class="nine columns main-col">
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h3>University of Moratuwa, Sri Lanka</h3>
+                  <p class="info">Computer Science and Engineering <span>&bull;</span> <em class="date">2014 - 2018</em></p>
+
+                  <p>
+                      University of Moratuwa(UoM) is a one of a leading technological university of the globe which delivers around hundred of potentially capable computer engineers per batch.
+                      After facing a massive competion for selecting to UoM, I was fortunate enough to enter and experience the learning process in this highly reputated university of the country. 
+                      Being around three and half years of academic path as well as six month of industral traning program allows me to curve my weaknesses and sharpen my skill set for the target industry.  
+                      Now I am proud to say that I am a product of UoM due to the capacity and potential that I am having and showing throughout the time. 
+                  </p>
+
+               </div>
+
+            </div> <!-- item end -->
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h3>Sivali Central College, Ratnapura</h3>
+                  <p class="info">Advanced Level | Ordinary Level <span>&bull;</span> <em class="date">2000 - 2013</em></p>
+
+                  <p>
+                      I took my primary education to advanced level from Sivali Central College, which is a one of reputed schools in the province. 
+                      In the time of schooling, I could be able to participate various types of events in each and every each with my lovely set of friends.
+                      Apart from the fun side, we could be able to balance our works so that most of my friends could be able to select different state universities cross the country and
+                      could be able to end the school life with a success. 
+                  </p>
+
+               </div>
+
+            </div> <!-- item end -->
+
+            <div class="row item">
+
+                <div class="twelve columns">
+
+                    <h3>Other</h3>
+                    <p class="info">Python Data Structures <small>Offered by University of Michigan through Coursera</small><span>&bull;</span> <em class="date">2016</em></p>
+                    <p class="info">Using Python To Access Web Data <small>Offered by University of Michigan through Coursera</small><span>&bull;</span> <em class="date">2016</em></p>
+                    <p class="info">Using Databases With Python <small>Offered by University of Michigan through Coursera</small><span>&bull;</span> <em class="date">2016</em></p>
+                    <p class="info">Interactivity With JavaScript <small>Offered by University of Michigan through Coursera</small><span>&bull;</span> <em class="date">2016</em></p>
+                    <p class="info">Introduction To CSS3 <small>Offered by University of Michigan through Coursera</small><span>&bull;</span> <em class="date">2016</em></p>
+                </div>
+
+            </div> <!-- item end -->
+
+         </div> <!-- main-col end -->
+
+      </div> <!-- End Education -->
+
+
+      <!-- Work
+      ----------------------------------------------- -->
+      <div class="row work">
+
+         <div class="three columns header-col">
+            <h1><span>Work</span></h1>
+         </div>
+
+         <div class="nine columns main-col">
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h3>Fiverr</h3>
+                  <p class="info">Programmer | Developer | Designer<span>&bull;</span> <em class="date">April 2014 - Present</em></p>
+
+                  <p>
+                        Fiverr is a global online marketplace which works as a medium of connecting well skilled 
+                        freelancers who are willing to offer their services to customers in worldwide.
+                        I am offering java programming support as well as python support for my valued 
+                        customers in this platform. As a reason of commitment and dedication to the services 
+                        that I am offering, I could be able to maintain my profile as a level two seller in fiverr 
+                        with 90+ five stars positive feedback.
+                    </p>
+
+               </div>
+
+            </div> <!-- item end -->
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h3>GE Transportation</h3>
+                  <p class="info">Software Engineer Internship <span>&bull;</span> <em class="date">June 2017 - November 2017</em></p>
+
+                  <p>
+                        GE also known as General Electric, is multinational conglomerate company founded in 1892. 
+                        GE performs in wide range of industries such as aviation, capital, digital, healthcare, 
+                        lighting, power, etc. GE Transportation is also one of them. Under GE Transportation, people 
+                        are working mainly on managing locomotives and services. 
+                        In my internship period, I could be able to work for TMS(Transport Management System) 
+                        project under SINHARAJA Team Colombo. As there were multiple agile teams working on the 
+                        same project, we strictly practiced scaled agile framework(SAFe) for our development and 
+                        delivery process. 
+                        AngularJS, Typescript, Serenity, Cucumber, REST Assured, Spring, PostgreSQL, Intellij Idea, 
+                        Docker, Git are some of technologies and tools that are practically used for my development 
+                        and testing.
+                  </p>
+
+               </div>
+
+            </div> <!-- item end -->
+
+         </div> <!-- main-col end -->
+
+      </div> <!-- End Work -->
+
+
+      <!-- Skills
+      ----------------------------------------------- -->
+      <div class="row skill">
+
+         <div class="three columns header-col">
+            <h1><span>Skills</span></h1>
+         </div>
+
+         <div class="nine columns main-col">
+
+            <p>
+                Being a good communicator and friendly person are the key features which are appreciated by 
+                many of my customers around the world. In order to serve people you need to understand the 
+                requirement of the service receivers first. Otherwise both parties can conclude to a false 
+                perceptions although both are trying to acheive the target. Hence I have practiced to listen to
+                my clients' requirements and understand their real work. This approach shows me a very good 
+                progress in terms of freelancing works. Hope this is a one of unique qualities that you can 
+                identify from myself.   
+            </p>
+
+				<div class="bars">
+
+				   <ul class="skills">
+                        <li><span class="bar-expand photoshop"></span><em>Python</em></li>
+                        <li><span class="bar-expand illustrator"></span><em>Java</em></li>
+						<li><span class="bar-expand wordpress"></span><em>C++</em></li>
+                        <li><span class="bar-expand css"></span><em>HTML/CSS/JS</em></li>
+                        <li><span class="bar-expand html5"></span><em>Angular/Node-Express</em></li>
+						<li><span class="bar-expand jquery"></span><em>Django</em></li>
+					</ul>
+
+				</div><!-- end skill-bars -->
+
+			</div> <!-- main-col end -->
+
+      </div> <!-- End skills -->
+
+   </section> <!-- Resume Section End-->
+
+
+   <!-- Portfolio Section
+   ================================================== -->
+   <section id="portfolio">
+
+      <div class="row">
+
+         <div class="twelve columns collapsed">
+
+            <h1>Check Out Some of My Works.</h1>
+
+            <!-- portfolio-wrapper -->
+            <div id="portfolio-wrapper" class="bgrid-quarters s-bgrid-thirds cf">
+
+          	   <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-01" title="">
+                        <img alt="" src="{% static 'img\projects\EZReports\EZReports.gif' %}" height="200" width="200">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+          					      <h5>EZReports</h5>
+                              <p>Destop|Web Application</p>
+          					   </div>
+                        </div>
+                        <div class="link-icon"><i class="icon-plus"></i></div>
+                     </a>
+
+                  </div>
+          		</div> <!-- item end -->
+
+               <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-02" title="">
+                        <img alt="" src="{% static 'img/projects/PImage/PImage.png' %}" height="200" width="200">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+          					      <h5>PImage Processor</h5>
+                              <p>Destop Application</p>
+          					   </div>
+                        </div>
+                        <div class="link-icon"><i class="icon-plus"></i></div>
+                     </a>
+
+                  </div>
+          		</div> <!-- item end -->
+
+               <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-03" title="">
+                        <img alt="" src="{% static 'img/projects/gpa/icon.png' %}" height="200" width="200">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+          					      <h5>GPA Calculator</h5>
+                              <p>Web development</p>
+          					   </div>
+                        </div>
+                        <div class="link-icon"><i class="icon-plus"></i></div>
+                     </a>
+
+                  </div>
+          		</div> <!-- item end -->
+
+               <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-04" title="">
+                        <img alt="" src="{% static 'img/projects/Tank/unity.png' %}" height="200" width="200">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+          					      <h5>Tank Game</h5>
+                              <p>Game Development</p>
+          					   </div>
+                        </div>
+                        <div class="link-icon"><i class="icon-plus"></i></div>
+                     </a>
+
+                  </div>
+          		</div> <!-- item end -->
+
+               <!-- <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-05" title="">
+                        <img alt="" src="{% static 'prof/images/portfolio/farmerboy.jpg' %}">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+          					      <h5>Farmer Boy</h5>
+                              <p>Branding</p>
+          					   </div>
+                        </div>
+                        <div class="link-icon"><i class="icon-plus"></i></div>
+                     </a>
+
+                  </div>
+                </div>  -->
+                  <!-- item end -->
+
+               <!-- <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-06" title="">
+                        <img alt="" src="{% static 'prof/images/portfolio/girl.jpg' %}">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+          					      <h5>Girl</h5>
+                              <p>Photography</p>
+          					   </div>
+                        </div>
+                        <div class="link-icon"><i class="icon-plus"></i></div>
+                     </a>
+
+                  </div>
+                </div>  -->
+                  <!-- item end -->
+
+               <!-- <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-07" title="">
+                        <img alt="" src="{% static 'prof/images/portfolio/origami.jpg' %}">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+          					      <h5>Origami</h5>
+                              <p>Illustrration</p>
+          					   </div>
+                        </div>
+                        <div class="link-icon"><i class="icon-plus"></i></div>
+                     </a>
+
+                  </div>
+                </div>  -->
+                  <!-- item end -->
+
+               <!-- <div class="columns portfolio-item">
+                  <div class="item-wrap">
+
+                     <a href="#modal-08" title="">
+                        <img alt="" src="{% static 'prof/images/portfolio/retrocam.jpg' %}">
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+          					      <h5>Retrocam</h5>
+                              <p>Web Development</p>
+          					   </div>
+                        </div>
+                        <div class="link-icon"><i class="icon-plus"></i></div>
+                     </a>
+
+                  </div>
+                </div>   -->
+                <!-- item end -->
+
+            </div> <!-- portfolio-wrapper end -->
+
+         </div> <!-- twelve columns end -->
+
+
+         <!-- Modal Popup
+          --------------------------------------------------------------- -->
+         <div id="modal-01" class="popup-modal mfp-hide">
+            <div id="ezreportsC" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#ezreportsC" data-slide-to="0" class="active"></li>
+                    <li data-target="#ezreportsC" data-slide-to="1"></li>
+                    <li data-target="#ezreportsC" data-slide-to="2"></li>
+                    <li data-target="#ezreportsC" data-slide-to="3"></li>
+                </ol>
+            
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="{% static 'img/projects/EZReports/main.jpg' %}" alt="Main GUI">
+                    </div>
+            
+                    <div class="item">
+                        <img src="{% static 'img/projects/EZReports/processing.jpg' %}" alt="Processing">
+                    </div>
+            
+                    <div class="item">
+                        <img src="{% static 'img/projects/EZReports/classReport.jpg' %}" alt="Report">
+                    </div>
+
+                    <div class="item">
+                        <img src="{% static 'img/projects/EZReports/subject.jpg' %}" alt="Subject report">
+                    </div>
+                </div>
+            
+                <a class="left carousel-control" href="#ezreportsC" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#ezreportsC" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <div class="description-box">
+                <h4>EZReports</h4>
+                <p>This is the 5th semester project done by based on a real requirement of the Gov. 
+                    schools, Sri Lanka. Main requirement was calculating z-scores of advance level students on their 
+                    term tests and ranking them. Project consists of both windows desktop application and web application. 
+                    Desktop application is for data entry purpose as well as report generating purpose. Web application is used 
+                    for displaying result in electronic manner.</p>
+                <span class="categories"><i class="fa fa-tag"></i>University Project</span>
+            </div>
+            <div class="link-box">
+                <!-- <a href="https://ezreports.herokuapp.com/" target="_blank">Details</a> -->
+                <a class="popup-modal-dismiss">Close</a>
+            </div> 
+	      </div><!-- modal-01 End -->
+
+         <div id="modal-02" class="popup-modal mfp-hide">
+            <div id="pimageC" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#pimageC" data-slide-to="0" class="active"></li>
+                    <li data-target="#pimageC" data-slide-to="1"></li>
+                    <li data-target="#pimageC" data-slide-to="2"></li>
+                    <li data-target="#pimageC" data-slide-to="3"></li>
+                </ol>
+            
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img class="img-responsive" src="{% static 'img/projects/PImage/1.jpg' %}" alt="Re-sampling">
+                    </div>
+            
+                    <div class="item">
+                        <img class="img-responsive" src="{% static 'img/projects/PImage/2.jpg' %}" alt="Main panel">
+                    </div>
+            
+                    <div class="item">
+                        <img class="img-responsive" src="{% static 'img/projects/PImage/3.jpg' %}" alt="Grayscaling">
+                    </div>
+
+                    <div class="item">
+                        <img class="img-responsive" src="{% static 'img/projects/PImage/4.jpg' %}" alt="Filtering">
+                    </div>
+                </div>
+            
+                <a class="left carousel-control" href="#pimageC" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#pimageC" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <div class="description-box">
+                <h4>PImage Processor</h4>
+                <p>This is the project done for the Semester 5, image processing module. Objective of this project 
+                    was to elaborate the concepts and methodologies learnt in the module in practical situation. 
+                    In order to successfully complete the project, all the required image processing algorithms needed 
+                    to be implemented by ourselves using preferred programming language. I used Java 8 for this purpose. </p>
+                <span class="categories"><i class="fa fa-tag"></i>University Project</span>
+            </div>
+            <div class="link-box">
+                <!-- <a href="https://ezreports.herokuapp.com/" target="_blank">Details</a> -->
+                <a class="popup-modal-dismiss">Close</a>
+            </div> 
+	      </div><!-- modal-02 End -->
+
+         <div id="modal-03" class="popup-modal mfp-hide">
+            <div id="gpaCalcC" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#gpaCalcC" data-slide-to="0" class="active"></li>
+                    <li data-target="#gpaCalcC" data-slide-to="1"></li>
+                </ol>
+            
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="{% static 'img/projects/gpa/gpa1.jpg' %}" alt="Profile">
+                    </div>
+            
+                    <div class="item">
+                        <img src="{% static 'img/projects/gpa/gpa2.jpg' %}" alt="Grade entry">
+                    </div>
+                </div>
+            
+                <a class="left carousel-control" href="#gpaCalcC" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#gpaCalcC" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+
+            <div class="description-box">
+                <h4>GPA Calculator</h4>
+                <p>This is a web application that helps students of University of Moratuwa, to calculate their semester GPA, current GPA and to keep the history of their grades. 
+                        How is that possible? <br>
+                        When the student enters his/her credentials for lms, this app will log on to his/her account and get the list of modules registered in each semester. 
+                        After that app will show him/her a nice user-friendly UI to enter his/her grades received for each module. Then the app will do the calculation based 
+                        on UoM performance criteria and display the results.</p>
+                <span class="categories"><i class="fa fa-tag"></i>Private Project</span>
+            </div>
+
+            <div class="link-box">
+                <a href="https://akiladperera.alwaysdata.net/gpa/auto/" target="_blank">Details</a>
+                <a class="popup-modal-dismiss">Close</a>
+            </div>
+	      </div><!-- modal-03 End -->
+
+         <div id="modal-04" class="popup-modal mfp-hide">
+
+		      <!-- <img class="scale-with-grid" src="{% static 'prof/images/portfolio/modals/m-intothelight.jpg' %}" alt="" /> -->
+
+		      <div class="description-box">
+			      <h4>Tank Game</h4>
+			      <p>This is a multiplayer game where the players have to connect to a single game server and play. 
+                      Game server communicates with each player by a set of pre-specified message set. According to the message received, 
+                      players’ GUI will be updated. In this project, we were assigned to implement the player end with AI. Unity game engine 
+                      and C# programming language were used to complete this project.</p>
+               <span class="categories"><i class="fa fa-tag"></i>University Project</span>
+		      </div>
+
+            <div class="link-box">
+               <!-- <a href="http://www.behance.net">Details</a> -->
+		         <a class="popup-modal-dismiss">Close</a>
+            </div>
+
+	      </div><!-- modal-04 End -->
+
+         <!-- <div id="modal-05" class="popup-modal mfp-hide">
+
+		      <img class="scale-with-grid" src="{% static 'prof/images/portfolio/modals/m-farmerboy.jpg' %}" alt="" />
+
+		      <div class="description-box">
+			      <h4>Farmer Boy</h4>
+			      <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+               <span class="categories"><i class="fa fa-tag"></i>Branding, Webdesign</span>
+		      </div>
+
+            <div class="link-box">
+               <a href="http://www.behance.net">Details</a>
+		         <a class="popup-modal-dismiss">Close</a>
+            </div>
+
+          </div> -->
+          <!-- modal-05 End -->
+
+         <!-- <div id="modal-06" class="popup-modal mfp-hide">
+
+		      <img class="scale-with-grid" src="{% static 'prof/images/portfolio/modals/m-girl.jpg' %}" alt="" />
+
+		      <div class="description-box">
+			      <h4>Girl</h4>
+			      <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+               <span class="categories"><i class="fa fa-tag"></i>Photography</span>
+		      </div>
+
+            <div class="link-box">
+               <a href="http://www.behance.net">Details</a>
+		         <a class="popup-modal-dismiss">Close</a>
+            </div>
+
+          </div> -->
+          <!-- modal-06 End -->
+
+         <!-- <div id="modal-07" class="popup-modal mfp-hide">
+
+		      <img class="scale-with-grid" src="{% static 'prof/images/portfolio/modals/m-origami.jpg' %}" alt="" />
+
+		      <div class="description-box">
+			      <h4>Origami</h4>
+			      <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+               <span class="categories"><i class="fa fa-tag"></i>Branding, Illustration</span>
+		      </div>
+
+            <div class="link-box">
+               <a href="http://www.behance.net">Details</a>
+		         <a class="popup-modal-dismiss">Close</a>
+            </div>
+
+          </div> -->
+          <!-- modal-07 End -->
+
+         <!-- <div id="modal-08" class="popup-modal mfp-hide">
+
+		      <img class="scale-with-grid" src="{% static 'prof/images/portfolio/modals/m-retrocam.jpg' %}" alt="" />
+
+		      <div class="description-box">
+			      <h4>Retrocam</h4>
+			      <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+               <span class="categories"><i class="fa fa-tag"></i>Webdesign, Photography</span>
+		      </div>
+
+            <div class="link-box">
+               <a href="http://www.behance.net">Details</a>
+		         <a class="popup-modal-dismiss">Close</a>
+            </div>
+
+          </div> -->
+          <!-- modal-01 End -->
+
+
+      </div> <!-- row End -->
+
+   </section> <!-- Portfolio Section End-->
+
+   <!-- Testimonials Section
+   ================================================== -->
+   <section id="feedback">
+   <section id="testimonials">
+
+      <div class="text-container">
+
+         <div class="row">
+
+            <div class="two columns header-col">
+
+               <h1><span>Client Feedback</span></h1>
+               <div style="font-size: 36px;"><a href="https://www.fiverr.com/akiladarshana" target="_blank"><i class="fa fa-rss-square fa-10x"></i></a></div>
+        
+            </div>
+
+            <div class="ten columns flex-container">
+
+               <div class="flexslider">
+
+                  <ul class="slides">
+
+                     <li>
+                        <blockquote>
+                           <p>Excellent to work with. Very fast delivery and great communication through the whole process. 
+                               The work was of the highest quality. I would recommend him to anyone! A++!
+                           </p>
+                           <cite>Harvey Singh - Canada</cite>
+                        </blockquote>
+                     </li> <!-- slide ends -->
+
+                     <li>
+                        <blockquote>
+                           <p>This seller is just too amazing to describe for me,communication was great,delivery was spot on,
+                               willingness to get things done was legendary.This is one seller I am seriously thinking of hiring 
+                               full time.Thanks for making this worthwhile,it is just the beginning of a partnership.
+                           </p>
+                           <cite>epitomeng - Nigeria</cite>
+                        </blockquote>
+                     </li> <!-- slide ends -->
+
+                     <li>
+                        <blockquote>
+                            <p>Seller is very professional, knowledgeable, and articulate worth gig price and more.... highly recommended. Thanks!
+                            </p>
+                            <cite>PAZdesign company - United States</cite>
+                        </blockquote>
+                    </li> <!-- slide ends -->
+
+                    <li>
+                        <blockquote>
+                            <p>Absolutely Amazing. This guy is top notch. Professional, efficient and very proficient at what he does. 
+                                If you want a top notch experience with a real professional. Then I would highly recommend Akiladarshana.
+                            </p>
+                            <cite>Halmas - United States</cite>
+                        </blockquote>
+                    </li> <!-- slide ends -->
+
+                    <li>
+                        <blockquote>
+                            <p>This man's python skills are invincible, he comprehends requests very quickly, super fast to get work done and reliable service. 
+                                Will be back with more gigs for him for sure.
+                            </p>
+                            <cite>Yuong - Singapore</cite>
+                        </blockquote>
+                    </li> <!-- slide ends -->
+
+                    
+                    <li>
+                        <blockquote>
+                            <p>True to his word!! Very fast and reliable. Thanks!
+                            </p>
+                            <cite>Dejarius Bradley - United States</cite>
+                        </blockquote>
+                    </li> <!-- slide ends -->
+
+                    <li>
+                        <blockquote>
+                            <p>Was so enthusiastic about the work! NOT SURE YOU WILL WORK WITH ANYONE BETTER!!!
+                                 Wonderful guy! Will not look anywhere else if I want something done here!
+                            </p>
+                            <cite>Fiverr client - United Kingdom</cite>
+                        </blockquote>
+                    </li> <!-- slide ends -->
+
+                  </ul>
+
+               </div> <!-- div.flexslider ends -->
+
+            </div> <!-- div.flex-container ends -->
+
+         </div> <!-- row ends -->
+
+       </div>  <!-- text-container ends -->
+
+   </section> <!-- Testimonials Section End-->
+   </section>
+
+
+   <!-- Contact Section
+   ================================================== -->
+   <section id="contact">
+
+         <div class="row section-head">
+
+            <div class="two columns header-col">
+
+               <h1><span>Get In Touch.</span></h1>
+
+            </div>
+
+            <div class="ten columns">
+
+                  <p class="lead"> You can reach me through any of follows.
+                  </p>
+
+            </div>
+
+         </div>
+
+         <div class="row">
+
+            <div class="four columns">
+                <div class="widget widget_contact">
+                    <h4>Address and Phone</h4>
+                    <p class="address">
+                        Akila D. Perera<br>
+                        First lane,<br> Siddamulla,<br> Piliyandala,<br> Srilanka.<br>
+                        +94 71 63 60 198
+                    </p>
+                </div>
+            </div>
+
+            <div class="four columns">
+                <div class="widget widget_contact">
+                    <h4>Email</h4>
+                    <ul>
+                        <li>akilamatrix@gmail.com</li>
+                        <li>akila.14@cse.mrt.ac.lk</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="four columns">
+                <div class="widget widget_contact">
+                    <h4>Other</h4>
+                    <ul>
+                        <li><a href="https://www.facebook.com/akila.d.perera.1" target="_blank"><i class="fa fa-facebook"></i> Facebook</a></li>
+                        <!-- <li><a href="#"><i class="fa fa-twitter"></i></a></li> -->
+                        <li><a href="https://plus.google.com/u/0/+AkilaDPerera" target="_blank"><i class="fa fa-google-plus"></i> Google+</a></li>
+                        <li><a href="https://www.linkedin.com/in/akiladperera/" target="_blank"><i class="fa fa-linkedin"></i> LinkedIn</a></li>
+                        <!-- <li><a href="#"><i class="fa fa-instagram"></i></a></li> -->
+                        <!-- <li><a href="#"><i class="fa fa-dribbble"></i></a></li> -->
+                        <!-- <li><a href="#"><i class="fa fa-skype"></i></a></li> -->
+                        <script src="https://swc.cdn.skype.com/sdk/v1/sdk.min.js"></script>
+                        <li class="skype-button" data-bot-id="live:akilamatrix"><a href="#"><i class="fa fa-skype"></i> Skype here</a></li>
+                    </ul>
+                </div>
+            </div>
+      </div>
+
+   </section> <!-- Contact Section End-->
+
+
+   <!-- footer
+   ================================================== -->
+   <footer>
+
+      <div class="row">
+
+         <div class="twelve columns">
+
+            <ul class="copyright">
+               <li>&copy; 2018 - All RIGHTS RESERVED</li>
+               <li>Template designed by <a title="Styleshout" href="http://www.styleshout.com/">Styleshout</a></li>   
+            </ul>
+
+         </div>
+
+         <div id="go-top"><a class="smoothscroll" title="Back to Top" href="#home"><i class="icon-up-open"></i></a></div>
+
+      </div>
+
+   </footer> <!-- Footer End-->
+
+   <!-- Java Script
+   ================================================== -->
+   <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+   <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+   <!-- <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script> -->
+   <script type="text/javascript" src="{% static 'prof/js/jquery-migrate-1.2.1.min.js' %}"></script>
+
+   <script src="{% static 'prof/js/jquery.flexslider.js' %}"></script>
+   <script src="{% static 'prof/js/waypoints.js' %}"></script>
+   <script src="{% static 'prof/js/jquery.fittext.js' %}"></script>
+   <script src="{% static 'prof/js/magnific-popup.js' %}"></script>
+   <script src="{% static 'prof/js/init.js' %}"></script>
+
+</body>
+
+</html>

@@ -4,19 +4,29 @@
 	{% load staticfiles %}
 	
 	
+	<link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+	<script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
+
+	<link rel="stylesheet" href="{% static 'css/project.css' %}">
+	<script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+
+	
+	<script>
+		$(function () {
+			$("#accordion").accordion({
+				collapsible: true,
+				active: false,
+				heightStyle: "content",
+				icons: false
+			});
+		});
+	</script>
+
 
 {% endblock %}
 
 
 {% block content %}
-
-<style>
-img {
-    float: right;
-    border: 0px dotted black;
-    margin: 0px 0px 0px 0px;
-}
-</style>
 
 <div class="inner-body">
 	<div class="container">
@@ -26,87 +36,558 @@ img {
 		<br>
 	</div>
 
-		
-	<div class="container">
-		<img src="{% static 'img/projects/java.png' %}" class="img-responsive" height="200" width="200">
-		<h3>Simulation of swimming competition(OOP, JAVA, UML)</h3>
-		<h3><small>UOM - Individual Project | August 2015 to November 2015</small></h3>
-		<p>
-		As a semester project we were requested to develop simulation of swimming competition. 
-		I had to make use of object oriented principles, MVC pattern, observer-observable concept and some other methods in order to develop this project successfully. I received high marks and a good comment for this project as a result of effective use of above mentioned principles.
-		</p>
-		<hr>
-	</div>
+	<div class="project">
+		<table class="non-mobile">
+			<tbody>
+				<tr>
+					<td>
+						<div class="title">EZReports <span class="datetime">UoM - Individual (Feb 2017 – May 2017)</span></div>
+						<div class="body">
+							This is the 5th semester project done by based on a real requirement of the Gov. schools, Sri Lanka. 
+							Main requirement was calculating z-scores of advance level students on their term tests and 
+							ranking them. Project consists of both windows desktop application and web application. 
+							Desktop application is for data entry purpose as well as report generating purpose. 
+							Web application is used for displaying result in electronic manner. 
+							<br>
+							Try now the demo web application - use 140597 as index number
+						</div>
+						<div class="techNtools">
+							<div class="tech">
+								<div class="heading">Desktop application technologies</div>
+								<ul>
+									<li>Java 8</li>
+									<li>JTattoo look and feel</li>
+									<li>JFreeChart</li>
+									<li>SQLite DB</li>
+									<li>Unirest request generating library</li>
+									<li>Trident animation library for Java</li>
+									<li>JavaMail</li>
+								</ul>
+								<div class="heading">Common</div>
+								<ul>
+									<li>Git - Version controlling</li>
+								</ul>
 
-	<div class="container">
-		<img src="{% static 'img/projects/robo.png' %}" class="img-responsive" height="200" width="200">
-		<h3>Robot for Tug of War</h3>
-		<h3><small>UOM - Group of five people | October 2015 to January 2016</small></h3>
-		<p>
-		This was a robot making project for tug of war competition as a module project. Group of five people consisted in a single team and team had to prepare an optimum robot solution within the given budget. Team spirit, leadership, coordination, responsibilities are some of soft skills which were developed while improving technical knowledge such as concept of torque,  power management, handling friction etc.
-		</p>
-		<hr>
-	</div>
+							</div>
+							<div class="tools">
+								<div class="heading">Web application technologies</div>
+								<ul>
+									<li>Django (python web framework)</li>
+									<li>Django REST framework</li>
+									<li>Jinja (django templating language)</li>
+									<li>HTML5, CSS, JS</li>
+									<li>JQuery</li>
+									<li>Bootstrap</li>
+									<li>PostgreSQL DB</li>
+								</ul>
+								<div class="heading">Tools</div>
+								<ul>
+									<li>Eclipse</li>
+									<li>SQLite browser</li>
+									<li>pgAdmin III</li>
+								</ul>
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="modalTrigger" type="button" data-toggle="modal" data-target="#ezreports">
+							<img class="img-responsive" src="{% static 'img/projects/EZReports/EZReports.gif' %}" height="200" width="200">
+						</div>
 
-	<div class="container">
-		<img src="{% static 'img/projects/ISE.png' %}" class="img-responsive" height="200" width="200">
-		<h3>Nano-Processor</h3>
-		<h3><small>UOM - Group of three people | August 2015 to November 2015</small></h3>
-		<p>
-		In this project we simulated a 4-bit processor capable of executing 4 instructions. Those instructions are data moving operation, addition operation, taking two's complement and Jumping within the instructions. We implemented this processor on Xilinx Spartan-3E Field Programmable Gate Array and we used ISE design suite software to program it.  
-		</p>
-		<hr>
-	</div>
+						<a href="https://ezreports.herokuapp.com/" target="_blank">Try now...</a>
 
-	<div class="container">
-		<img src="{% static 'img/projects/pyexcel.png' %}" class="img-responsive" height="200" width="200">
-		<h3>Matching tutors and students</h3>
-		<h3><small>Fiverr buyer from USA | 10th April 2016 requested</small></h3>
-		<p>
-		I did this project to a community learning center. Buyer needed to automate one of major processes in learning center which is assigning tutors to students according to students' preferences. So buyer asked me to provide a python code which extracts data from .csv file and output the processed result into a new .csv file. Here the most challenging part was, identifying his real requirement because we cannot ideally match all the students and tutors according to each student's preferences at all the time. Skills that were used in here are communication skills, python exception handling, file handling, string formatting, regular expressions. 
-		</p>
-		<hr>
-	</div>
+						<div id="ezreports" class="modal fade" role="dialog">
+							<div class="modal-dialog" style="top: 25%;">
+								<div id="ezreportsC" class="carousel slide" data-ride="carousel">
+									<ol class="carousel-indicators">
+										<li data-target="#ezreportsC" data-slide-to="0" class="active"></li>
+										<li data-target="#ezreportsC" data-slide-to="1"></li>
+										<li data-target="#ezreportsC" data-slide-to="2"></li>
+										<li data-target="#ezreportsC" data-slide-to="3"></li>
+									</ol>
+								
+									<div class="carousel-inner">
+										<div class="item active">
+											<img src="{% static 'img/projects/EZReports/main.jpg' %}" alt="Main GUI">
+										</div>
+								
+										<div class="item">
+											<img src="{% static 'img/projects/EZReports/processing.jpg' %}" alt="Processing">
+										</div>
+								
+										<div class="item">
+											<img src="{% static 'img/projects/EZReports/classReport.jpg' %}" alt="Report">
+										</div>
 
-	<div class="container">
-		<img src="{% static 'img/projects/python.png' %}" class="img-responsive" height="200" width="200">
-		<h3>Alaska card game</h3>
-		<h3><small>Fiverr buyer from USA | 20th April 2016 requested</small></h3>
-		<p>
-		Here, I had to implement a card game name, Alaska. This project also based on python language but this was requested to program using object oriented programming concepts. First I had to study the game and to understand the process. After that I could be able to design the program.
-		</p>
-		<hr>
-	</div>
+										<div class="item">
+											<img src="{% static 'img/projects/EZReports/subject.jpg' %}" alt="Subject report">
+										</div>
+									</div>
+								
+									<a class="left carousel-control" href="#ezreportsC" data-slide="prev">
+										<span class="glyphicon glyphicon-chevron-left"></span>
+										<span class="sr-only">Previous</span>
+									</a>
+									<a class="right carousel-control" href="#ezreportsC" data-slide="next">
+										<span class="glyphicon glyphicon-chevron-right"></span>
+										<span class="sr-only">Next</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
 
-	<div class="container">
-		<img src="{% static 'img/projects/pandas.png' %}" class="img-responsive" height="200" width="200">
-		<h3>Program optimization</h3>
-		<h3><small>Fiverr buyer from Singapore | 12th July 2016 requested</small></h3>
-		<p>
-		This was not a project. Here, buyer requested me to optimize a part of his python2 program which takes 11.6 seconds to execute. I could be able to optimize his code to run in 0.026 seconds. Knowledge of temporal and spatial locality, knowledge of pandas library and its data-frames were the key things for the success.
-		</p>
-		<hr>
-	</div>
+				<tr>
+					<td>
+						<div class="title">PImage Processor <span class="datetime">UoM - Individual (Jul 2017)</span></div>
+						<div class="body">
+							This is the project done for the Semester 5, 
+							image processing module. Objective of this project was 
+							to elaborate the concepts and methodologies learnt in the 
+							module in practical situation. In order to successfully 
+							complete the project, all the required image processing algorithms 
+							needed to be implemented by ourselves using preferred programming language. 
+							I used Java 8 for this purpose. 
+							<br>
+							Following algorithms were implemented
+						</div>
+						<div class="techNtools">
+							<div class="tech">
+								<div class="heading">Re-sampling methods</div>
+								<ul>
+									<li>Nearest neighbor method</li>
+									<li>Bi-linear interpolation method</li>
+								</ul>
+								<div class="heading">Image transforming</div>
+								<ul>
+									<li>Rotate</li>
+									<li>Filp</li>
+								</ul>
+							</div>
+							<div class="tools">
+								<div class="heading">Image filters</div>
+								<ul>
+									<li>Mean filter</li>
+									<li>Median filter</li>
+									<li>Max-min filter</li>
+									<li>Alpha-trimmed filter</li>
+									<li>Converting image into gray-scale</li>
+								</ul>
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="modalTrigger" type="button" data-toggle="modal" data-target="#pimage">
+							<img class="img-responsive" src="{% static 'img/projects/PImage/PImage.png' %}" height="200" width="200">
+						</div>
 
-	<div class="container">
-		<img src="{% static 'img/projects/dataframe.png' %}" class="img-responsive" height="200" width="200">
-		<h3>Power consumption analyzing project</h3>
-		<h3><small>Fiverr buyer from United Kingdom | 8th July 2016 requested</small></h3>
-		<p>
-		This was a very complex data analyzing project. Here, buyer came up with a data set of power consumption of each hour on each day of each year. So I had to properly handle those data and find out following things. 
-		They are <strong>correlation of each day of the week</strong>, <strong>correlation between each hours</strong> and <strong>correlation of each day of the week in month-wise</strong>.
-		After finding out the above information, he expected me to put those information into error graphs. Used technologies were, anaconda2 python distribution, spyder2 IDE, python pandas, matplotlib, etc.
-		</p>
-		<hr>
-	</div>
+						<div id="pimage" class="modal fade" role="dialog">
+							<div class="modal-dialog" style="top: 25%;">
+								<div id="pimageC" class="carousel slide" data-ride="carousel">
+									<ol class="carousel-indicators">
+										<li data-target="#pimageC" data-slide-to="0" class="active"></li>
+										<li data-target="#pimageC" data-slide-to="1"></li>
+										<li data-target="#pimageC" data-slide-to="2"></li>
+										<li data-target="#pimageC" data-slide-to="3"></li>
+									</ol>
+								
+									<div class="carousel-inner">
+										<div class="item active">
+											<img class="img-responsive" src="{% static 'img/projects/PImage/1.jpg' %}" alt="Re-sampling">
+										</div>
+								
+										<div class="item">
+											<img class="img-responsive" src="{% static 'img/projects/PImage/2.jpg' %}" alt="Main panel">
+										</div>
+								
+										<div class="item">
+											<img class="img-responsive" src="{% static 'img/projects/PImage/3.jpg' %}" alt="Grayscaling">
+										</div>
 
-	<div class="container">
-		<img src="{% static 'img/projects/django.png' %}" class="img-responsive" height="200" width="200">
-		<h3>This Blog - JUST FOR FUN</h3>
-		<h3><small>August 2016</small></h3>
-		<p>
-		Here I am using Django web framework. Django is free and open source high-level python web framework that encourages rapid development and clean, progmetic design.
-		</p>
+										<div class="item">
+											<img class="img-responsive" src="{% static 'img/projects/PImage/4.jpg' %}" alt="Filtering">
+										</div>
+									</div>
+								
+									<a class="left carousel-control" href="#pimageC" data-slide="prev">
+										<span class="glyphicon glyphicon-chevron-left"></span>
+										<span class="sr-only">Previous</span>
+									</a>
+									<a class="right carousel-control" href="#pimageC" data-slide="next">
+										<span class="glyphicon glyphicon-chevron-right"></span>
+										<span class="sr-only">Next</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			
+				<tr>
+					<td>
+						<div class="title">GPA Calculator <span class="datetime">Personal - Individual (2016)</span></div>
+						<div class="body">
+							This is a web application that helps students of University of Moratuwa, to calculate their semester GPA, current GPA and to keep the history of their grades.  
+							<br>
+							How is that possible?
+							<br>
+							When the student enters his/her credentials for lms, this app will log on to 
+							his/her account and get the list of modules registered in each semester. After 
+							that app will show him/her a nice user-friendly UI to enter his/her grades received 
+							for each module. Then the app will do the calculation based on UoM performance criteria 
+							and display the results. 
+						</div>
+						<div class="techNtools">
+							<div class="tech">
+								<div class="heading">Features</div>
+								<ul>
+									<li>User-friendly interface</li>
+									<li>Fault tolerant design</li>
+									<li>Reliable service</li>
+									<li>Daily DB backup</li>
+								</ul>
+							</div>
+							<div class="tools">
+								<div class="heading">Technologies</div>
+								<ul>
+									<li>Django python web framework</li>
+									<li>Jinja django templating language</li>
+									<li>Django ORM + SQLite DB</li>
+									<li>SMTP protocol client for mailling</li>
+									<li>Requests + BeautifulSoup in python for web-scrape</li>
+									<li>HTML5, CSS, JS</li>
+									<li>JQuery</li>
+									<li>Bootstrap</li>
+								</ul>
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="modalTrigger" type="button" data-toggle="modal" data-target="#gpaCalc">
+							<img class="img-responsive" src="{% static 'img/projects/gpa/icon.png' %}" height="200" width="200">
+						</div>
+
+						<a href="https://akiladperera.alwaysdata.net/gpa/auto/" target="_blank">Try now...</a>
+
+						<div id="gpaCalc" class="modal fade" role="dialog">
+							<div class="modal-dialog" style="top: 25%;">
+								<div id="gpaCalcC" class="carousel slide" data-ride="carousel">
+									<ol class="carousel-indicators">
+										<li data-target="#gpaCalcC" data-slide-to="0" class="active"></li>
+										<li data-target="#gpaCalcC" data-slide-to="1"></li>
+									</ol>
+								
+									<div class="carousel-inner">
+										<div class="item active">
+											<img src="{% static 'img/projects/gpa/gpa1.jpg' %}" alt="Profile">
+										</div>
+								
+										<div class="item">
+											<img src="{% static 'img/projects/gpa/gpa2.jpg' %}" alt="Grade entry">
+										</div>
+									</div>
+								
+									<a class="left carousel-control" href="#gpaCalcC" data-slide="prev">
+										<span class="glyphicon glyphicon-chevron-left"></span>
+										<span class="sr-only">Previous</span>
+									</a>
+									<a class="right carousel-control" href="#gpaCalcC" data-slide="next">
+										<span class="glyphicon glyphicon-chevron-right"></span>
+										<span class="sr-only">Next</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<div class="title">Tank Game <span class="datetime">UoM - Group of two (Nov 2016 – Dec 2016)</span></div>
+						<div class="body">
+							This is a multiplayer game where the players have to connect to a 
+							single game server and play. Game server communicates with each player 
+							by a set of pre-specified message set. According to the message received, 
+							players’ GUI will be updated. In this project, we were assigned to implement 
+							the player end with AI. Unity game engine and C# programming language were used 
+							to complete this project.
+						</div>
+						<div class="techNtools">
+							<div class="tech">
+								<div class="heading">Technologies and tools</div>
+								<ul>
+									<li>C# Programming Language</li>
+									<li>Unity3D Game Engine</li>
+									<li>Git version controlling</li>
+								</ul>
+							</div>
+							<div class="tools">
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="modalTriggerNO">
+							<img class="img-responsive" src="{% static 'img/projects/Tank/unity.png' %}" height="200" width="200">
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<div class="title">Simulation of swimming competition <span class="datetime">UoM - Individual Project (Aug 2015 - Nov 2015)</span></div>
+						<div class="body">
+							As a semester project we were requested to develop simulation of swimming competition. 
+							I had to make use of object oriented principles, MVC pattern, observer-observable 
+							concept and some other methods in order to develop this project successfully. 
+							I received high marks and a good comment for this project as a result of effective use 
+							of above mentioned principles.					
+						</div>
+						<div class="techNtools">
+							<div class="tech">
+								<div class="heading">Technologies and tools</div>
+								<ul>
+									<li>Java</li>
+									<li>Eclipse IDE</li>
+									<li>Concurrent programming concepts</li>
+								</ul>
+							</div>
+							<div class="tools">
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="modalTriggerNO">
+							<img class="img-responsive" src="{% static 'img/projects/java.png' %}" height="200" width="200">
+						</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<div class="title">Program optimization <span class="datetime">Fiverr buyer request (July 2016)</span></div>
+						<div class="body">
+							This was not a project. Here, buyer requested me to optimize a part of his python2 program which takes 11.6 seconds to execute. 
+							I could be able to optimize his code to run in 0.026 seconds. 
+							Knowledge of temporal and spatial locality, knowledge of pandas library and its data-frames were the key things for the success.				
+						</div>
+						<div class="techNtools">
+							<div class="tech">
+								<div class="heading">Technologies and tools</div>
+								<ul>
+									<li>Python version 2</li>
+									<li>Anaconda distribution</li>
+									<li>Pandas, numpy libraries</li>
+									<li>Spyder IDE</li>
+								</ul>
+							</div>
+							<div class="tools">
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="modalTriggerNO">
+							<img class="img-responsive" src="{% static 'img/projects/pandas.png' %}" height="200" width="200">
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="mobile">
+			<div id="accordion">
+				<div class="projectName">EZReports <span class="datetime">UoM - Individual (Feb 2017 – May 2017)</span></div>
+				<div class="inner-acc">
+					<div class="logo">
+						<div>
+							<img src="{% static 'img/projects/EZReports/EZReports.gif' %}" height="150" width="150">
+						</div>
+					</div>
+					<div class="description">
+						This is the 5th semester project done by based on a real requirement of the Gov. schools, Sri Lanka. 
+						Main requirement was calculating z-scores of advance level students on their term tests and 
+						ranking them. Project consists of both windows desktop application and web application. 
+						Desktop application is for data entry purpose as well as report generating purpose. 
+						Web application is used for displaying result in electronic manner. 
+						<br>
+						Try now the demo web application - use 140597 as index number
+					</div>
+					<a href="https://ezreports.herokuapp.com/" target="_blank">Try now...</a>
+					<div class="heading">Desktop application technologies</div>
+					<ul>
+						<li>Java 8</li>
+						<li>JTattoo look and feel</li>
+						<li>JFreeChart</li>
+						<li>SQLite DB</li>
+						<li>Unirest request generating library</li>
+						<li>Trident animation library for Java</li>
+						<li>JavaMail</li>
+					</ul>
+					<div class="heading">Web application technologies</div>
+					<ul>
+						<li>Django (python web framework)</li>
+						<li>Django REST framework</li>
+						<li>Jinja (django templating language)</li>
+						<li>HTML5, CSS, JS</li>
+						<li>JQuery</li>
+						<li>Bootstrap</li>
+						<li>PostgreSQL DB</li>
+					</ul>
+					<div class="heading">Tools</div>
+					<ul>
+						<li>Eclipse</li>
+						<li>SQLite browser</li>
+						<li>pgAdmin III</li>
+					</ul>
+					<div class="heading">Common</div>
+					<ul>
+						<li>Git - Version controlling</li>
+					</ul>
+				</div>
+
+				<div class="projectName">PImage Processor <span class="datetime">UoM - Individual (Jul 2017)</span></div>
+				<div class="inner-acc">
+					<div class="logo">
+						<div>
+							<img src="{% static 'img/projects/PImage/PImage.png' %}" height="150" width="150">
+						</div>
+					</div>
+					<div class="description">
+						This is the project done for the Semester 5, 
+						image processing module. Objective of this project was 
+						to elaborate the concepts and methodologies learnt in the 
+						module in practical situation. In order to successfully 
+						complete the project, all the required image processing algorithms 
+						needed to be implemented by ourselves using preferred programming language. 
+						I used Java 8 for this purpose. 
+						<br>
+						Following algorithms were implemented
+					</div>
+					<div class="heading">Re-sampling methods</div>
+					<ul>
+						<li>Nearest neighbor method</li>
+						<li>Bi-linear interpolation method</li>
+					</ul>
+					<div class="heading">Image transforming</div>
+					<ul>
+						<li>Rotate</li>
+						<li>Filp</li>
+					</ul>
+					<div class="heading">Image filters</div>
+					<ul>
+						<li>Mean filter</li>
+						<li>Median filter</li>
+						<li>Max-min filter</li>
+						<li>Alpha-trimmed filter</li>
+						<li>Converting image into gray-scale</li>
+					</ul>
+				</div>
+
+				<div class="projectName">GPA Calculator <span class="datetime">Personal - Individual (2016)</span></div>
+				<div class="inner-acc">
+					<div class="logo">
+						<div>
+							<img src="{% static 'img/projects/gpa/icon.png' %}" height="150" width="150">
+						</div>
+					</div>
+					<div class="description">
+						This is a web application that helps students of University of Moratuwa, to calculate their semester GPA, current GPA and to keep the history of their grades.  
+						<br>
+						How is that possible?
+						<br>
+						When the student enters his/her credentials for lms, this app will log on to 
+						his/her account and get the list of modules registered in each semester. After 
+						that app will show him/her a nice user-friendly UI to enter his/her grades received 
+						for each module. Then the app will do the calculation based on UoM performance criteria 
+						and display the results. 
+					</div>
+					<div class="heading">Features</div>
+					<ul>
+						<li>User-friendly interface</li>
+						<li>Fault tolerant design</li>
+						<li>Reliable service</li>
+						<li>Daily DB backup</li>
+					</ul>
+					<div class="heading">Technologies</div>
+					<ul>
+						<li>Django python web framework</li>
+						<li>Jinja django templating language</li>
+						<li>Django ORM + SQLite DB</li>
+						<li>SMTP protocol client for mailling</li>
+						<li>Requests + BeautifulSoup in python for web-scrape</li>
+						<li>HTML5, CSS, JS</li>
+						<li>JQuery</li>
+						<li>Bootstrap</li>
+					</ul>
+				</div>
+
+				<div class="projectName">Tank Game <span class="datetime">UoM - Group of two (Nov 2016 – Dec 2016)</span></div>
+				<div class="inner-acc">
+					<div class="logo">
+						<div>
+							<img src="{% static 'img/projects/Tank/unity.png' %}" height="150" width="150">
+						</div>
+					</div>
+					<div class="description">
+						This is a multiplayer game where the players have to connect to a 
+						single game server and play. Game server communicates with each player 
+						by a set of pre-specified message set. According to the message received, 
+						players’ GUI will be updated. In this project, we were assigned to implement 
+						the player end with AI. Unity game engine and C# programming language were used 
+						to complete this project.
+					</div>
+					<div class="heading">Technologies and tools</div>
+					<ul>
+						<li>C# Programming Language</li>
+						<li>Unity3D Game Engine</li>
+						<li>Git version controlling</li>
+					</ul>
+				</div>
+
+				<div class="projectName">Simulation of swimming competition <span class="datetime">UoM - Individual Project (Aug 2015 - Nov 2015)</span></div>
+				<div class="inner-acc">
+					<div class="logo">
+						<div>
+							<img src="{% static 'img/projects/java.png' %}" height="150" width="150">
+						</div>
+					</div>
+					<div class="description">
+						As a semester project we were requested to develop simulation of swimming competition. 
+						I had to make use of object oriented principles, MVC pattern, observer-observable 
+						concept and some other methods in order to develop this project successfully. 
+						I received high marks and a good comment for this project as a result of effective use 
+						of above mentioned principles.
+					</div>
+					<div class="heading">Technologies and tools</div>
+					<ul>
+						<li>Java</li>
+						<li>Eclipse IDE</li>
+						<li>Concurrent programming concepts</li>
+					</ul>
+				</div>
+
+				<div class="projectName">Program optimization <span class="datetime">Fiverr buyer request (July 2016)</span></div>
+				<div class="inner-acc">
+					<div class="logo">
+						<div>
+							<img src="{% static 'img/projects/pandas.png' %}" height="150" width="150">
+						</div>
+					</div>
+					<div class="description">
+						This was not a project. Here, buyer requested me to optimize a part of his python2 program which takes 11.6 seconds to execute. 
+						I could be able to optimize his code to run in 0.026 seconds. 
+						Knowledge of temporal and spatial locality, knowledge of pandas library and its data-frames were the key things for the success.	
+					</div>
+					<div class="heading">Technologies and tools</div>
+					<ul>
+						<li>Python version 2</li>
+						<li>Anaconda distribution</li>
+						<li>Pandas, numpy libraries</li>
+						<li>Spyder IDE</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 {% endblock%}

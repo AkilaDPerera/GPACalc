@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from personal import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('personal.urls')),
     url(r'^gpa/', include('gpa.urls')),
-    url(r'^calc/', include('gpa.urls'))
+    url(r'^calc/', include('gpa.urls')),
+    url(r".+", views.error_404_view),
     ]

@@ -130,7 +130,9 @@ def SCRAPE(username, password):
 
 
 def GETPETNAME(full_name):
-    names = sorted(full_name.split(), key=lambda x: len(x), reverse=False)
+    ls = full_name.split()
+    ls.sort()
+    names = sorted(ls, key=lambda x: len(x), reverse=False)
     for name in names:
         if len(name)>3:
             return name
@@ -183,6 +185,18 @@ def GETGPAS(performance):
     else:
         return semGPA, "%.4f"%(0.0), "%.4f"%(0.0), sorted(sem_list, key=lambda x: x.semesterName, reverse=False)
 
+def EVALUATEDEPARTMENT(performance):
+    departments = {"CS":0, "MT":0, "ME":0, "EN":0, "EE":0, "CH":0, "CE":0}
+    for sem in performance.keys():
+        for module in performance[sem]:
+            try:
+                departments[module.module.moduleCode[:2]] += 1
+            except:
+                pass
+    departments = sorted(departments.items(), key=lambda x: x[1], reverse=True)
+    dp = departments[0][0]
+    return dp
+
 def GETCLASS(correctGPA):
     correctGPA = float(correctGPA)
     if correctGPA>=4.0:
@@ -197,75 +211,3 @@ def GETCLASS(correctGPA):
         return 5, "General"
     else:
         return 6, "----"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-        
-##
-##class SEMESTER():
-##    semester, semValue = '', ''
-##    def __init__(self, semester):
-##        self.semester = semester
-##        self.semValue = semester[-1]
-##
-###--------------------------------------------------------------------------
-##
-###-------------------------------------------------------------------------------------------------------------------------------------
-##
-##
-##def GETSEMESTERLIST(semesters):
-##    lst = list(semesters.keys())
-##    lst.sort()
-##    return [SEMESTER(element) for element in lst]
-##    
-##    
-##def ADDINGGRADE(moduleList, requestPOST ):
-##    #Input1 = List of MODULE Objects for each module
-##    #Input2 = think as a python dict ; {'moduleCode':'A+', 'moduleCode':'A '} likewise
-##    for module in moduleList:
-##        data = requestPOST[module.code]
-##        if data!='Unknown':
-##            module.setGradeEarned(data)
-##        elif data=='Unknown':
-##            module.setGradeEarned('None')
-##
-##
-##def PickleName():
-##    for name in ['pickle/data'+str(x)+'.pickle' for x in range(60)]:
-##        try:
-##            if (time.time() - os.stat(name).st_mtime)>300: #1 minute only
-##                return name
-##        except:
-##            return name
-##        else:
-##            pass
-##    return -4
-##    
-
-    
-    
-    

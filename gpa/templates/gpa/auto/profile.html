@@ -7,27 +7,33 @@
 {% endblock %}
 
 {% block content %}
-<div class=inner-body style="border: solid;">
-	<div class="panel panel-default" style="display:border;">
-		<div class="panel-body">
-			<div style="display:inline-block;">
-				<h4 style="display:inline-block; line-height: 20px;">Number of times logged <span class="label label-default">{{profile.count}}</span></h4>
-				<h4 style="display:inline-block; line-height: 30px;">Last logged <span class="label label-default">{{last_viewed}}</span></h4>
-			</div>
-		</div>
+
+<div class=inner-body style="text-align: center;">
+	{% if messageForJuniors %}
+	<div class="alert alert-info alert-dismissable fade in" id="alertToJuniors">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>Thank you {{profile.user.first_name}}!</strong> <p>{{messageForJuniors}}</p>
 	</div>
+	{% endif %}
+	{% if not profile.is_msg_showed %}
+	<div class="alert alert-success alert-dismissable fade in" style="text-align: left; padding-left: 100px;">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>Thank you {{profile.user.first_name}}!</strong> <p>{{profile.admin_msg}}</p>
+	</div>
+	{% endif %}
+	<script>alertAutoHide();</script>
 	
 	<div class="panel panel-default">
 	  	<div class="panel-heading"><h4>Profile</h4></div>
 	  	<div class="panel-body">
 	  		<div class="panel panel-default">
-				<div class="panel-body" style="display:inline-block;">
+				<div class="panel-body" style="display:inline-block; text-align: left;">
 					<h5 style="display:inline-block;"><span class="glyphicon glyphicon-user"></span> {{profile.fullName}}</h5>
 					<br>
 					<h5 style="display:inline-block;"><span class="glyphicon glyphicon-tag"></span> {{profile.user.username}}</h5>
 				</div>
 				
-				<div class="panel-body" style="display:inline-block; padding-bottom: 0px; padding-top: 0px; height: 110px;">
+				<div class="panel-body" style="display:none; padding-bottom: 0px; padding-top: 0px; height: 110px;">
 					<div class="panel panel-default">
 					  <div class="panel-heading">Overall GPA (UoM accepted way)</div>
 					  <div class="panel-body" style="font-weight: bold;">{{correctGPA}}</div>
@@ -36,7 +42,7 @@
 				
 				<div class="panel-body" style="display:inline-block; padding-bottom: 0px; padding-top: 0px; height: 110px;">
 					<div class="panel panel-default">
-					  <div class="panel-heading">Overall GPA (Actual)</div>
+					  <div class="panel-heading">Overall GPA</div>
 					  <div class="panel-body" style="font-weight: bold;">{{actualGPA}}</div>
 					</div>
 				</div>
@@ -55,11 +61,11 @@
 	  	</div>
 	</div>
 	
-	<div class="panel panel-default">
-	  	<div class="panel-heading"><h4>Status</h4></div>
+	<div class="panel panel-default" style="text-align: center;">
+	  	<div class="panel-heading"><h4></h4></div>
 	  	
-	  	<div class="panel-body col-lg-10 col-lg-offset-1 col-sm-10 col-sm-offset-1">
-	  	<input id="token" type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}' />
+	  	<div class="panel-body module-status" style="text-align:left;">
+	  		<input id="token" type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}' />
 	  		{% for semester in semList %}
 		  		<div class="panel panel-default">
 				    <div class="panel-heading" style="cursor: pointer;" data-toggle="collapse" data-parent="#accordion" href="#{{semester.id}}">
@@ -88,7 +94,14 @@
 							    	<tbody>
 							    		{% for module in performance|get_item:semester %}
 								      		<tr>
-								        		<td>{{module.module.moduleCode}}</td>
+								        		<td id="code{{module.module.moduleCode}}">{{module.module.moduleCode}} 
+								        			<div style="display:inline-block;">
+										        		<button style="display: None;" data-toggle="tooltip" title="Here you will be directed to the result sheet of module {{module.module.moduleCode}} (admin approved)" type="button" class="btn btn-primary btn-xs"><a target="_blank" style="color: white;">view</a></button>
+										        		<button style="display: None;" data-toggle="modal" data-target="#MarkSheetURL{{module.module.moduleCode}}" title="Here you can add result sheet of module {{module.module.moduleCode}}" type="button" class="btn btn-success btn-xs">add</button>
+										        		<button style="display: None; cursor: default; opacity: .9;" type="button" class="btn btn-danger btn-xs" disabled>pending</button>
+										        		<button style="display: None;" data-toggle="tooltip" title="Here you can cancel your submission of result sheet" type="button" class="btn btn-link btn-xs" onClick="cancelPending(this);">cancel</button>
+								        			</div>
+								        		</td>
 								        		<td>{{module.module.moduleName}}</td>
 								        		<td>{{module.module.credit}}</td>
 								        		<td>{{module.grade}}</td>
@@ -123,7 +136,7 @@
 											    	</thead>
 											    	<tbody>
 											    		{% for module in performance|get_item:semester %}
-												      		<tr>
+												      		<tr id="modalModule{{module.module.moduleCode}}">
 												        		<td>{{module.module.moduleCode}}</td>
 												        		<td>{{module.module.moduleName}}</td>
 												        		<td>{{module.module.credit}}</td>
@@ -155,8 +168,82 @@
 			    		</div>
 			    	</div>	
 				</div>
+				
+				{% for module in performance|get_item:semester %}
+					<!-- Getting result sheet URI -->
+					<div class="modal fade" id="MarkSheetURL{{module.module.moduleCode}}" role="dialog">
+			    		<div class="modal-dialog">
+			      		<!-- Modal content-->
+			      			<div class="modal-content">
+			        			<div class="modal-header">
+			          				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			          				<h4 class="modal-title">Please enter result sheet for module {{module.module.moduleCode}}</h4>
+			        			</div>
+			        			<div class="modal-body">
+			          				<p>Thanks for contributing to the system. We are expecting you to enter a URL that will be directed to the result sheet. Result sheets may be pdf or multiple photos. You just have to put them into your google drive or whatever and share a link that can be viewed by anyone. Then I will check it and approve it manually. That is going to be the whole process. Note that, it is okay to share partial set of marks. I will handle them. Thanks.</p>
+			          				<p>Example link: <a href="https://drive.google.com/drive/folders/0B2FMqRvDQZKgZGktMHdGZHN5MDA?usp=sharing" target="_blank">https://drive.google.com/drive/folders/0B2FMqRvDQZKgZGktMHdGZHN5MDA?usp=sharing</a></p>
+			          				<div class="form-group">
+										<label for="url">Enter the URL:</label>
+									  	<input type="text" class="form-control" id="url" name="{{module.module.moduleCode}}" oninput="bindData(this);">
+									</div>
+									<div class="form-group">
+										<label>Try the URL:</label>
+									  	<div><a href="" target="_blank"></a></div>
+									</div>
+			        			</div>
+			        			<div class="modal-footer">
+			          				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			          				<button type="submit" class="btn btn-default" onClick="enterURL(this);">Submit</button>
+			        			</div>
+			      			</div>
+						</div>
+			  		</div>
+			  	{% endfor %}
 			{% endfor %}
 	  	</div>
+
+  		<div class="panel-body feedback" style="text-align:center;">
+  			<div class="well">
+	  			<form id="ratingsForm" method="put" style="margin-bottom: 5px; text-align: left;">
+			  		<div class="form-group" style="margin-bottom:5px;">
+						<label for="comment">Feedback:</label>
+					  	<textarea class="form-control" maxlength="600" style="resize: None;" rows="2" cols="80" id="comment" required="required"></textarea>
+					</div>
+					
+					<div class="stars" style="display: inline-block;">
+						<input type="radio" name="star" class="star-1" id="star-1" value="1"/>
+						<label class="star-1" for="star-1">1</label>
+						<input type="radio" name="star" class="star-2" id="star-2" value="2"/>
+						<label class="star-2" for="star-2">2</label>
+						<input type="radio" name="star" class="star-3" id="star-3" value="3"/>
+						<label class="star-3" for="star-3">3</label>
+						<input type="radio" name="star" class="star-4" id="star-4" value="4"/>
+						<label class="star-4" for="star-4">4</label>
+						<input type="radio" name="star" class="star-5" id="star-5" value="5" checked/>
+						<label class="star-5" for="star-5">5</label>
+						<span></span>
+					</div>
+					
+					<button id="submitFeedback" type="submit" class="btn btn-default pull-right">Submit</button>
+				</form>
+			</div>
+			<div id="review-set" class="panel panel-default" style="margin-bottom:5px; text-align: left;">
+				{% for review in reviews %}
+					<div class="panel-body">
+					 	<div>{{review.user}} - {{review.index}} | <span>
+					 	{% for i in review.rate %}
+					 		<i class="fa fa-star" aria-hidden="true" style="color: rgb(247, 183, 62);"></i>
+					 	{% endfor %}
+					 	</span>
+					 	{% if review.isDeleteEnable %}
+					 		<span id="{{review.id}}" class="pull-right" style="cursor: pointer;"><a onClick="reviewDeleteById(this.parentElement);">delete</a></span>
+					 	{% endif %}
+					 	</div>
+					 	<div>{{review.message}}</div>
+					</div>
+				{% endfor %}
+  			</div>
+  		</div>
   	</div>
 </div>
 
@@ -171,71 +258,9 @@
 		    $("#Arrow{{semester.id}}").find('i').removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
 		});
 	{% endfor %}
+	getMarkSheetURL();
 </script>
 
 
 
 {% endblock %}
-
-<!-- <div class=heading>
-	<div class=left>
-		<div style="text-align: center; margin-top: 5vh">
-			<h1>PROFILE OF {{petName}} | {{index}}</h1>
-			<span>Last viewed: {{last_viewed}}<span>
-		</div>
-	</div>
-	<div class="right">
-		<table>
-			<tr>
-				<td>Overall GPA: {{overallGPA}}</td>
-				<td>&Sigma;(GPA_point x credits) / &Sigma;credits</td>
-			</tr>
-			<tr>
-				<td>Overall GPA: {{SOGPA}}</td>
-				<td>&Sigma;SGPA / no_of_semesters</td>
-			</tr>
-		</table>
-	</div>
-</div> -->
-<!-- <div style="width:80vw; margin: auto;">
-		<px-accordion icons='{"more":"px-utl:chevron-right","less":"px-utl:chevron","action":"px-utl:edit"}' header-value="{{semester}}" status="{{sem_gpa|get_item:semester}}">
-		
-			<div style="display: block;">
-				<px-modal btn-modal-positive="Submit" btn-modal-negative="Cancel" modal-heading="{{semester}}">
-					<button class='btn btn--primary modal-trigger'>Edit</button>
-					<px-data-table table-data='{{sem_grades_modules|get_item:semester}}' language="en" sortable striped hide-pagination-control>
-						<px-data-table-column name="Module Code" id="moduleCode">
-						</px-data-table-column>
-						<px-data-table-column name="Module Name">
-						</px-data-table-column>
-						<px-data-table-column name="Module Credits">
-						</px-data-table-column>
-					 	<px-data-table-column name="Grade" type="dropdown" dropdown-items='[{"val":"UNKNOWN","key":"UNKNOWN"}, {"val":"Non-GPA","key":"Non-GPA"}, {"val":"A+","key":"A+"}, {"val":"A","key":"A"}, {"val":"A-","key":"A-"}, {"val":"B+","key":"B+"}, {"val":"B","key":"B"}, {"val":"B-","key":"B-"}, {"val":"C+","key":"C+"}, {"val":"C","key":"C"}, {"val":"C-","key":"C-"}, {"val":"D","key":"D"}, {"val":"F","key":"F"}]'>
-					 	</px-data-table-column>
-				 	</px-data-table>
-				</px-modal>
-			</div>
-			
-			<div style="display: None;">
-				<form action="/action_page.php" method="post">
-				  	<input type="text" name="fname"><br>
-				  	<input type="submit" value="Submit">
-				</form>
-			</div>
-			
-			<div style="display: block; width: 70vw; margin:auto;">
-				<px-data-table table-data='{{sem_grades_modules|get_item:semester}}' language="en" sortable striped hide-pagination-control>
-					<px-data-table-column name="Module Code">
-					</px-data-table-column>
-					<px-data-table-column name="Module Name">
-					</px-data-table-column>
-					<px-data-table-column name="Module Credits">
-					</px-data-table-column>
-					 <px-data-table-column name="Grade">
-					 </px-data-table-column>
-				 </px-data-table>
-			 </div>
-		</px-accordion>
-
-		</div> -->
-

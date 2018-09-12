@@ -1,0 +1,31 @@
+{% extends 'header.html' %}
+
+{% block headImports %}
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'gpa/css/reports.css' %}" type = "text/css"/>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="{% static 'gpa/js/reports.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<input id="token" type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}' />
+<form id="reportForm">
+	<label for="batch">Batch: </label>
+	<input id="batch" type="text" pattern="[0-9]{2}" name="batch" maxlength="2" required>
+	<label for="dptm">Department: </label>
+	<select id="dptm" name="dptm">
+		<option value="CS">Computer Science</option>
+	  	<option value="MT">Material</option>
+	  	<option value="ME">Mechanical</option>
+	  	<option value="EN">Electronic</option>
+	  	<option value="EE">Electrical</option>
+	  	<option value="CH">Chemical</option>
+	  	<option value="CE">Civil</option>
+	  	<option selected value="all">All</option>
+	</select>
+  	<input type="submit" id="batchBtn">
+</form>
+<div id="table_div"></div>
+<div id="spinner"></div>
+   
+{% endblock %}

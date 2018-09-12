@@ -4,7 +4,7 @@
 	{% load staticfiles %}
 
 	<meta charset="UTF-8">
-	<meta property="og:url" content="https://akiladperera.herokuapp.com/gpa/auto/" />
+	<meta property="og:url" content="https://akiladperera.alwaysdata.net/calc/auto/" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="Overall GPA Calculator" />
 	<meta property="og:description" content="Overall GPA calculator for UoM students. Developped by Akila D. Perera, CSE 14th batch" />
@@ -14,21 +14,33 @@
 	<meta name="keywords" content="Akila, Professional, Python, Django, University, UoM">
 	<meta name="author" content="Akila D. Perera">
 	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
 	<link rel="icon" href="{% static 'img/icon.png' %}">
 	
 	<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
 	<script src="{% static 'js/header.js' %}"></script>
+	<script src="{% static 'prof/js/modernizr.js' %}"></script>
 	
+	<link rel="stylesheet" href="{% static 'css/preloading.css' %}" type = "text/css"/>
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type = "text/css"/>
 	<link rel="stylesheet" href="{% static 'css/header.css' %}" type = "text/css"/>
 	<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}" type = "text/css"/>
+	
+	<script>
+		$(window).load(function() {
+			// Animate loader off screen
+			$(".se-pre-con").fadeOut("slow");;
+		});
+	</script>
 
 	{% block headImports %}
 	{% endblock %}
 </head>
 
 <body>
+	<div class="se-pre-con"></div>
 	<header class="header">
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid" style="background-color: rgb(0, 0, 0);">
@@ -43,18 +55,7 @@
 		    	<div class="collapse navbar-collapse" id="myNavbar">
 		      		<ul class="nav navbar-nav">
 		        		<li id="home" class="normal"><a href="/">Home</a></li>
-		        		<li id="professional" class="normal"><a href="/professional/">Professional</a></li>
-		        		<li id="projects" class="normal"><a href="/projects/">Projects</a></li>
 		        		<li id="gpa_auto" class="normal"><a href="/gpa/auto/">GPA Calculator</a></li>
-		        		<li id="contact" class="normal"><a href="/contact/">Contact</a></li>
-		        		<!-- <li class="dropdown">
-		          			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-		          			<ul class="dropdown-menu">
-			            		<li><a href="#">Page 1-1</a></li>
-			            		<li><a href="#">Page 1-2</a></li>
-			            		<li><a href="#">Page 1-3</a></li>
-		          			</ul>
-		        		</li>-->
 		      		</ul>
 		      		<ul class="nav navbar-nav navbar-right">
 		        		<li><a id="user" href="/gpa/auto/"></a></li>
@@ -101,12 +102,12 @@
 		      		<div class="col-md-6 col-sm-6 col-xs-12 paddingtop-bottom">
 		        		<div>
 		          			<div>
-		            			<blockquote cite="https://www.facebook.com"><a href="https://www.facebook.com"><i class="fa fa-facebook-official" style="font-size:24px;"></i> Facebook</a></blockquote>
+		            			<blockquote cite="https://www.facebook.com/akila.d.perera.1"><a href="https://www.facebook.com/akila.d.perera.1"><i class="fa fa-facebook-official" style="font-size:24px;"></i> Facebook</a></blockquote>
 		          			</div>
 		        		</div>
 		        		<div>
 		          			<div>
-		            			<blockquote cite="https://www.linkedin.com"><a href="https://www.linkedin.com"><i class="fa fa-linkedin-square" style="font-size:24px"></i> LinkedIn</a></blockquote>
+		            			<blockquote cite="https://www.linkedin.com/in/akiladperera/"><a href="https://www.linkedin.com/in/akiladperera/"><i class="fa fa-linkedin-square" style="font-size:24px"></i> LinkedIn</a></blockquote>
 		          			</div>
 		        		</div>
 		      		</div>
@@ -123,11 +124,8 @@
 	    	
 	    	<div class="col-md-6">
 	      		<ul class="bottom_ul">
-	        		<li><a href="/">Home</a></li>
-	        		<li><a href="/professional/">Professional</a></li>
-	        		<li><a href="/projects/">Projects</a></li>
-	        		<li><a href="/gpa/auto/">GPA Calculator</a></li>
-	        		<li><a href="/contact/">Contact us</a></li>
+					<li id="home" class="normal"><a href="/">Home</a></li>
+					<li id="gpa_auto" class="normal"><a href="/gpa/auto/">GPA Calculator</a></li>
 	      		</ul>
 	    	</div>
 	  	</div>
